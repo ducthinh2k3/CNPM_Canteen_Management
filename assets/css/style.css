@@ -1,0 +1,155 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.color-red{
+    color: rgb(228, 116, 46);
+}
+
+.color-green{
+    color: rgb(26, 240, 168);
+}
+
+/* Navbar */
+/* Navbar choose option */
+.navbar{
+    background-color: rgb(88, 164, 218);
+}
+
+.navbar-brand-logo{
+    width: 100px;
+}
+
+.navbar-nav{
+    align-items: center;
+}
+
+.nav-item{
+    padding: 0px 6px;
+}
+
+.navbar-nav .nav-item .nav-link,
+.navbar-brand,
+.navbar-toggler-icon{
+    color: white;
+}
+
+.navbar-toggler-icon{
+    color: white;
+}
+
+.nav-link-icon{
+    padding: 0 2px;
+}
+
+.dropdown-menu{
+    background-color: rgb(88, 164, 218);;
+}
+
+.dropdown-item{
+    color: white;
+}
+
+/* Navbar account */
+.navbar-collapse{
+    justify-content: space-between;
+}
+
+.nav-account{
+    padding: 0;
+}
+
+.nav-account-avatar{
+    height: 30px;
+}
+
+.nav-account-icon{
+    padding: auto;
+}
+
+.nav-link-name{
+    font-size: 14px;
+}
+
+/* Report */
+.report-header{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.report-filter{
+    margin: 14px 0;
+}
+
+.report-filter-choose{
+    display: flex;
+    align-items: center;
+}
+
+.filter-month,
+.filter-year{
+    margin: 10px;
+}
+
+.report-option{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* Box-infomation */
+.box-infomation{
+    margin: 14px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.box-detail{
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.box-detail-text{
+    padding-bottom: 8px;
+}
+
+.box-detail-price{
+    font-size: 24px;
+}
+
+.box-collect .box-detail-price{
+    color: rgb(26, 240, 168);
+}
+
+.box-spending .box-detail-price{
+    color: rgb(228, 116, 46);
+}
+
+.box-storage .box-detail-price{
+    color: rgb(32, 182, 232);
+}
+
+.box-detail-price{
+    font-weight: bold;
+}
+
+/* Table */
+.table>:not(caption)>*>*{
+    padding: 1rem 1rem;
+}
+
+.footer{
+    background-color: rgb(88, 164, 218);
+    text-align: center;
+}
+
+.footer-text{
+    font-size: 20px;
+    padding: 10px;
+    color: white;
+}
