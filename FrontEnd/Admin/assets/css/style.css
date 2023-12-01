@@ -1,0 +1,271 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.color-red{
+    color: rgb(228, 116, 46);
+}
+
+.color-green{
+    color: rgb(26, 240, 168);
+}
+
+.color-blue{
+    color: rgb(26, 144, 227);
+}
+
+/* Navbar */
+/* Navbar choose option */
+.navbar{
+    background-color: rgb(88, 164, 218);
+}
+
+.navbar-brand-logo{
+    width: 100px;
+}
+
+.navbar-nav{
+    align-items: center;
+}
+
+.nav-item{
+    padding: 0px 6px;
+}
+
+.navbar-nav .nav-item .nav-link,
+.navbar-brand,
+.navbar-toggler-icon{
+    color: white;
+}
+
+.navbar-toggler-icon{
+    color: white;
+}
+
+.nav-link-icon{
+    padding: 0 2px;
+}
+
+.dropdown-menu{
+    background-color: rgb(88, 164, 218);;
+}
+
+.dropdown-item{
+    color: white;
+}
+
+/* Navbar account */
+.navbar-collapse{
+    justify-content: space-between;
+}
+
+.nav-account{
+    padding: 0;
+}
+
+.nav-account-avatar{
+    height: 30px;
+}
+
+.nav-account-icon{
+    padding: auto;
+}
+
+.nav-link-name{
+    font-size: 14px;
+}
+
+/* Report */
+.container{
+    min-height: 88vh;
+}
+
+.action-header{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.action-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    margin: 14px 0;
+}
+
+.all-item{
+    color: black;
+    text-decoration: none;
+    text-align: center;
+}
+
+.all-item.item-active{
+    border-bottom: solid 1px #2a88cb;
+    color: #2a88cb;
+}
+
+/* Search */
+.search-item button{
+    color: #2a88cb;
+    border-color: #2a88cb;
+}
+
+.search-item button:hover
+,.search-item button:active{
+    background-color: #2a88cb; /* Thay đổi màu nền khi hover vào */
+    color: #fff; /* Thay đổi màu chữ khi hover vào */
+}
+
+.search-item button:focus{
+    box-shadow: 0 0 0 0.25rem rgba(42, 136, 203, 0.5)
+}
+
+.search-item button:active:focus{
+    box-shadow: 0 0 0 0.25rem rgba(42, 136, 203, 0.5)
+}
+
+/* Table */
+.table>:not(caption)>*>*{
+    padding: 1rem 1rem;
+}
+
+.table-item-img{
+    width: 70px;
+}
+
+.table-item-set,
+.table-item-remove,
+.table-item-visible,
+.table-item-hide{
+    font-size: 20px;
+    padding: 8px;
+}
+
+td, th{
+    text-align: center;
+}
+
+.footer{
+    background-color: rgb(88, 164, 218);
+    text-align: center;
+}
+
+.footer-text{
+    font-size: 20px;
+    padding: 6px;
+    color: white;
+}
+.hidden-content {
+    max-width: 100%;
+}
+#addItemModal .close {
+    background-color: rgb(172, 43, 43);
+    width: 2rem;
+    color: white;
+}
+#addItemModal .close:hover {
+    background-color: rgb(117, 22, 22);
+}
+#editItemModal .close {
+    background-color: rgb(172, 43, 43);
+    width: 2rem;
+    color: white;
+}
+#editItemModal .close:hover {
+    background-color: rgb(117, 22, 22);
+}
+.fa-trash {
+    cursor: pointer; 
+    transition: color 0.3s ease-in-out;
+}
+.fa-trash.color-red {
+    color: #FF0000; 
+}
+.fa-trash.color-red:hover {
+    color: #990000; 
+}
+.fa-eye-slash{
+    cursor: pointer; 
+}
+.fa-eye{
+    cursor: pointer; 
+}
+.fa-pen-to-square{
+    cursor: pointer;
+}
+.fa-pen-to-square.color-green:hover {
+    color: #177426; 
+}
+#addEmployeeModal .close {
+    background-color: rgb(172, 43, 43);
+    width: 2rem;
+    color: white;
+}
+#addEmployeeModal .close:hover {
+    background-color: rgb(117, 22, 22);
+}
+
+#editEmployeeModal .close {
+    background-color: rgb(172, 43, 43);
+    width: 2rem;
+    color: white;
+}
+#editEmployeeModal .close:hover {
+    background-color: rgb(117, 22, 22);
+}
+
+#editReceiptModal .close {
+    background-color: rgb(172, 43, 43);
+    width: 2rem;
+    color: white;
+}
+#editReceiptModal .close:hover {
+    background-color: rgb(117, 22, 22);
+}
+
+#addReceiptModal .close {
+    background-color: rgb(172, 43, 43);
+    width: 2rem;
+    color: white;
+}
+#addReceiptModal .close:hover {
+    background-color: rgb(117, 22, 22);
+}
+
+#editInventoryModal .close {
+    background-color: rgb(172, 43, 43);
+    width: 2rem;
+    color: white;
+}
+#editInventoryModal .close:hover {
+    background-color: rgb(117, 22, 22);
+}
+
+#editInventoryModal .close {
+    background-color: rgb(172, 43, 43);
+    width: 2rem;
+    color: white;
+}
+#editInventoryModal .close:hover {
+    background-color: rgb(117, 22, 22);
+}
+
+#addPromotionModal .close {
+    background-color: rgb(172, 43, 43);
+    width: 2rem;
+    color: white;
+}
+#addPromotionModal .close:hover {
+    background-color: rgb(117, 22, 22);
+}
+
+#editPromotionModal .close {
+    background-color: rgb(172, 43, 43);
+    width: 2rem;
+    color: white;
+}
+#editPromotionModal .close:hover {
+    background-color: rgb(117, 22, 22);
+}
