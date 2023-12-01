@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canteen | Tồn kho</title>
+  <link rel="stylesheet" href="./assets/font/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="./assets/images/icon-shop.png" alt="" class="navbar-brand-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="overview.html">
+                  <i class="fa-solid fa-house nav-link-icon"></i>
+                  Tổng quan
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="report.html">
+                  <i class="fa-solid fa-chart-line nav-link-icon"></i>
+                  Báo cáo
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="items.html">
+                  <i class="fa-solid fa-bag-shopping nav-link-icon"></i>
+                  Mặt hàng
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="staff.html">
+                  <i class="fa-solid fa-users nav-link-icon"></i>
+                  Nhân viên
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="warehouse-receipt.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa-solid fa-warehouse nav-link-icon"></i>
+                  Kho hàng
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="warehouse-receipt.html">Nhập kho</a></li>
+                <li><a class="dropdown-item" href="inventory.html">Tồn kho</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="discount-manager.html">
+                  <i class="fa-solid fa-percent nav-link-icon"></i>
+                  Khuyến mãi
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown nav-account">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-bell nav-account-icon p-2"></i>
+                <img src="./assets/images/icon-avatar.png" alt="avatar" class="nav-account-avatar rounded-circle">
+                <span class="nav-link-name p-1">Admin</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class="fa-solid fa-power-off p-2"></i>
+                    <span>Đăng xuất</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="action-item">
+          <div class="action-header">Danh sách nguyên liệu</div>
+        </div>
+      </div>
+      <div class="row m-3">
+        <div class="search container-fluid col-md-6 offset-md-0">
+          <form class="d-flex search-item" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Tên nguyên liệu</th>
+              <th scope="col">Đơn vị</th>
+              <th scope="col">SL tồn cuối</th>
+              <th scope="col">Đơn giá</th>
+              <th scope="col">Giá trị tồn cuối</th>
+              <th scope="col">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="color-blue">TỔNG CỘNG</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="color-blue">950.000</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td>Thịt bò</td>
+              <td>kg</td>
+              <td>10</td>
+              <td>50000</td>
+              <td>500.000</td>
+              <td>
+                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
+                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Thịt bò</td>
+              <td>kg</td>
+              <td>10</td>
+              <td>50000</td>
+              <td>500.000</td>
+              <td>
+                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
+                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Thịt bò</td>
+              <td>kg</td>
+              <td>10</td>
+              <td>50000</td>
+              <td>500.000</td>
+              <td>
+                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
+                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Thịt bò</td>
+              <td>kg</td>
+              <td>10</td>
+              <td>50000</td>
+              <td>500.000</td>
+              <td>
+                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
+                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <nav aria-label="...">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <span class="page-link">Previous</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active" aria-current="page">
+              <span class="page-link">2</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer-text">
+        Footer
+      </div>
+    </div>
+</div>
+<!-- Modal for Edit Inventory -->
+<div class="modal fade" id="editInventoryModal" tabindex="-1" role="dialog" aria-labelledby="editInventoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editInventoryModalLabel">Chỉnh sửa Tồn Kho</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEditedInventory()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="editMaterialName">Tên Nguyên Liệu:</label>
+        <input type="text" id="editMaterialName" name="editMaterialName" class="form-control" readonly>
+
+        <label for="editUnit">Đơn Vị:</label>
+        <input type="text" id="editUnit" name="editUnit" class="form-control" readonly>
+
+        <label for="editFinalQuantity">Số Lượng Tồn Cuối:</label>
+        <input type="number" id="editFinalQuantity" name="editFinalQuantity" class="form-control" min="0">
+
+        <label for="editUnitPrice">Đơn Giá:</label>
+        <input type="text" id="editUnitPrice" name="editUnitPrice" class="form-control">
+
+        <label for="editFinalValue">Giá Trị Tồn Cuối:</label>
+        <input type="text" id="editFinalValue" name="editFinalValue" class="form-control" readonly>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEditedInventory()">Đóng</button>
+        <button type="button" class="btn btn-primary" onclick="saveEditedInventory()">Lưu thay đổi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+<script>
+  function editInventory() {
+    $('#editInventoryModal').modal('show');
+  }
+
+  function saveEditedInventory() {
+    $('#editInventoryModal').modal('hide');
+  }
+  function cancelEditedInventory() {
+    $('#editInventoryModal').modal('hide');
+  }
+  function deleteRow(icon) {
+    var row = $(icon).closest('tr');
+    var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
+    
+    if (confirmDelete) {
+
+      row.remove();
+    }
+  }
+
+</script>
+
+</html>
