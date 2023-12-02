@@ -185,7 +185,7 @@
 <!-- Modal for Edit Employee -->
 <div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="editEmployeeModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <form class="modal-content" method="post" action="http://localhost:3000/api/admin/user/update">
       <div class="modal-header">
         <h5 class="modal-title" id="editEmployeeModalLabel">Chỉnh sửa Nhân Viên</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEditedEmployee()">
@@ -194,16 +194,16 @@
       </div>
       <div class="modal-body">
         <label for="editEmployeeCode">Mã Nhân Viên:</label>
-        <input type="text" id="editEmployeeCode" name="editEmployeeCode" class="form-control">
+        <input type="text" id="editEmployeeCode" name="editEmployeeCode" class="form-control" readonly>
 
         <label for="editEmployeeName">Tên Nhân Viên:</label>
         <input type="text" id="editEmployeeName" name="editEmployeeName" class="form-control">
 
         <label for="editEmployeeRole">Vai Trò:</label>
         <select id="editEmployeeRole" name="editEmployeeRole" class="form-control">
-          <option value="employee">Nhân Viên</option>
-          <option value="manager">Quản Lý</option>
-          <option value="chef">Bếp</option>
+          <option value="1">Nhân Viên</option>
+          <option value="2">Quản Lý</option>
+          <option value="3">Bếp</option>
         </select>
 
         <label for="editEmployeeUser">User:</label>
@@ -214,9 +214,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEditedEmployee()">Đóng</button>
-        <button type="button" class="btn btn-primary" onclick="saveEditedEmployee()">Lưu thay đổi</button>
+        <button type="submit" class="btn btn-primary" onclick="saveEditedEmployee()">Lưu thay đổi</button>
       </div>
-    </div>
+    </form>
   </div>
 </div>
 </body>

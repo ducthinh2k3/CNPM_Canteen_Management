@@ -15,10 +15,10 @@ app.use(cors())
 //template engine and view engine
 
 // router
-const productRouter = require('./routers/user.router');
+const userRouter = require('./routers/user.router');
 
 // use router
-app.use('/api/admin', productRouter);
+app.use('/api/admin', userRouter);
 
 app.use((err, req, res, next ) => {
     console.log(err.stack);
