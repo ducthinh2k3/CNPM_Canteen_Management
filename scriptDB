@@ -1,96 +1,97 @@
-CREATE TABLE "User" (
-  "UserID" SERIAL PRIMARY KEY,
-  "HoTen" VARCHAR(50),
-  "Username" VARCHAR(30),
-  "Password" VARCHAR(255),
-  "VaiTro" BOOLEAN
+CREATE TABLE `User` (
+  `UserID` INT AUTO_INCREMENT PRIMARY KEY,
+  `HoTen` VARCHAR(50),
+  `Username` VARCHAR(30),
+  `Password` VARCHAR(255),
+  `VaiTro` BOOLEAN
 );
 
-CREATE TABLE "SanPham" (
-  "MaSP" SERIAL PRIMARY KEY,
-  "TenSP" VARCHAR(100),
-  "DanhMuc" BOOLEAN,
-  "HinhAnh" TEXT,
-  "SLTon" INT,
-  "GiaBan" INT,
-  "DanhGia" FLOAT
+CREATE TABLE `SanPham` (
+  `MaSP` INT AUTO_INCREMENT PRIMARY KEY,
+  `TenSP` VARCHAR(100),
+  `DanhMuc` BOOLEAN,
+  `HinhAnh` TEXT,
+  `SLTon` INT,
+  `GiaBan` INT,
+  `DanhGia` FLOAT,
+  `TrangThai` BOOLEAN
 );
 
-CREATE TABLE "ChiTietDonHang" (
-  "STT" INT,
-  "NgayMua" TIMESTAMP,
-  "MaSP" INT,
-  "SoLuong" INT,
-  PRIMARY KEY ("STT", "NgayMua", "MaSP")
+CREATE TABLE `ChiTietDonHang` (
+  `STT` INT,
+  `NgayMua` TIMESTAMP,
+  `MaSP` INT,
+  `SoLuong` INT,
+  PRIMARY KEY (`STT`, `NgayMua`, `MaSP`)
 );
 
-CREATE TABLE "DonHang" (
-  "STT" INT,
-  "NgayMua" TIMESTAMP,
-  "MaKM" INT,
-  "HinhThuc" VARCHAR(100),
-  "ThanhTien" INT,
-  PRIMARY KEY ("STT", "NgayMua")
+CREATE TABLE `DonHang` (
+  `STT` INT,
+  `NgayMua` TIMESTAMP,
+  `MaKM` INT,
+  `HinhThuc` VARCHAR(100),
+  `ThanhTien` INT,
+  PRIMARY KEY (`STT`, `NgayMua`)
 );
 
-CREATE TABLE "KhuyenMai" (
-  "MaKM" SERIAL PRIMARY KEY,
-  "MoTa" VARCHAR(100),
-  "DieuKien" VARCHAR(255),
-  "TGBatDau" TIMESTAMP ,
-  "TGKetThuc" TIMESTAMP,
-  "ChietKhau" FLOAT
+CREATE TABLE `KhuyenMai` (
+  `MaKM` INT AUTO_INCREMENT PRIMARY KEY,
+  `MoTa` VARCHAR(100),
+  `DieuKien` VARCHAR(255),
+  `TGBatDau` TIMESTAMP ,
+  `TGKetThuc` TIMESTAMP,
+  `ChietKhau` FLOAT
 );
 
-CREATE TABLE "PhieuNhapKho" (
-  "MaPhieu" SERIAL PRIMARY KEY,
-  "NgayLap" TIMESTAMP,
-  "TongTien" NUMERIC(15, 2)
+CREATE TABLE `PhieuNhapKho` (
+  `MaPhieu` INT AUTO_INCREMENT PRIMARY KEY,
+  `NgayLap` TIMESTAMP,
+  `TongTien` DECIMAL(15, 2)
 );
 
-CREATE TABLE "ChiTietPhieuNhap" (
-  "MaPhieu" INT,
-  "MaNguyenLieu" INT,
-  "DonGia" INT,
-  "SoLuong" INT,
-  PRIMARY KEY ("MaPhieu", "MaNguyenLieu")
+CREATE TABLE `ChiTietPhieuNhap` (
+  `MaPhieu` INT,
+  `MaNguyenLieu` INT,
+  `DonGia` INT,
+  `SoLuong` INT,
+  PRIMARY KEY (`MaPhieu`, `MaNguyenLieu`)
 );
 
-CREATE TABLE "NguyenLieu" (
-  "MaNguyenLieu" SERIAL PRIMARY KEY,
-  "TenNguyenLieu" VARCHAR(50),
-  "SLTon" INT,
-  "DonVi" VARCHAR(20),
-  "DonGia" INT
+CREATE TABLE `NguyenLieu` (
+  `MaNguyenLieu` INT AUTO_INCREMENT PRIMARY KEY,
+  `TenNguyenLieu` VARCHAR(50),
+  `SLTon` INT,
+  `DonVi` VARCHAR(20),
+  `DonGia` INT
 );
 
-CREATE TABLE "PhieuChi" (
-  "MaPhieu" INT PRIMARY KEY,
-  "MoTa" TEXT,
-  "KhoanChiKhac" NUMERIC(15, 2),
-  "TongChi" INT
+CREATE TABLE `PhieuChi` (
+  `MaPhieu` INT PRIMARY KEY,
+  `MoTa` TEXT,
+  `KhoanChiKhac` NUMERIC(15, 2),
+  `TongChi` INT
 );
 
--- ALTER TABLE "ChiTietDonHang" ADD FOREIGN KEY ("MaSP") REFERENCES "SanPham" ("MaSP");
-ALTER TABLE "ChiTietDonHang" ADD CONSTRAINT fk_ChiTietDonHang_MaSP
-  FOREIGN KEY ("MaSP") REFERENCES "SanPham" ("MaSP");
+-- ALTER TABLE `ChiTietDonHang` ADD FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
+ALTER TABLE `ChiTietDonHang` ADD CONSTRAINT fk_ChiTietDonHang_MaSP
+  FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
 
--- ALTER TABLE "ChiTietDonHang" ADD FOREIGN KEY ("STT", "NgayMua") REFERENCES "DonHang" ("STT", "NgayMua");
-ALTER TABLE "ChiTietDonHang" ADD CONSTRAINT fk_ChiTietDonHang_DonHang
-  FOREIGN KEY ("STT", "NgayMua") REFERENCES "DonHang" ("STT", "NgayMua");
+-- ALTER TABLE `ChiTietDonHang` ADD FOREIGN KEY (`STT`, `NgayMua`) REFERENCES `DonHang` (`STT`, `NgayMua`);
+ALTER TABLE `ChiTietDonHang` ADD CONSTRAINT fk_ChiTietDonHang_DonHang
+  FOREIGN KEY (`STT`, `NgayMua`) REFERENCES `DonHang` (`STT`, `NgayMua`);
 
--- ALTER TABLE "DonHang" ADD FOREIGN KEY ("MaKM") REFERENCES "KhuyenMai" ("MaKM");
-ALTER TABLE "DonHang" ADD CONSTRAINT fk_DonHang_KhuyenMai
-  FOREIGN KEY ("MaKM") REFERENCES "KhuyenMai" ("MaKM");
+-- ALTER TABLE `DonHang` ADD FOREIGN KEY (`MaKM`) REFERENCES `KhuyenMai` (`MaKM`);
+ALTER TABLE `DonHang` ADD CONSTRAINT fk_DonHang_KhuyenMai
+  FOREIGN KEY (`MaKM`) REFERENCES `KhuyenMai` (`MaKM`);
 
--- ALTER TABLE "ChiTietPhieuNhap" ADD FOREIGN KEY ("MaPhieu") REFERENCES "PhieuNhapKho" ("MaPhieu");
-ALTER TABLE "ChiTietPhieuNhap" ADD CONSTRAINT fk_ChiTietPhieuNhap_PhieuNhapKho
-  FOREIGN KEY ("MaPhieu") REFERENCES "PhieuNhapKho" ("MaPhieu");
+-- ALTER TABLE `ChiTietPhieuNhap` ADD FOREIGN KEY (`MaPhieu`) REFERENCES `PhieuNhapKho` (`MaPhieu`);
+ALTER TABLE `ChiTietPhieuNhap` ADD CONSTRAINT fk_ChiTietPhieuNhap_PhieuNhapKho
+  FOREIGN KEY (`MaPhieu`) REFERENCES `PhieuNhapKho` (`MaPhieu`);
 
--- ALTER TABLE "ChiTietPhieuNhap" ADD FOREIGN KEY ("MaNguyenLieu") REFERENCES "NguyenLieu" ("MaNguyenLieu");
-ALTER TABLE "ChiTietPhieuNhap" ADD CONSTRAINT fk_ChiTietPhieuNhap_NguyenLieu
-  FOREIGN KEY ("MaNguyenLieu") REFERENCES "NguyenLieu" ("MaNguyenLieu");
+-- ALTER TABLE `ChiTietPhieuNhap` ADD FOREIGN KEY (`MaNguyenLieu`) REFERENCES `NguyenLieu` (`MaNguyenLieu`);
+ALTER TABLE `ChiTietPhieuNhap` ADD CONSTRAINT fk_ChiTietPhieuNhap_NguyenLieu
+  FOREIGN KEY (`MaNguyenLieu`) REFERENCES `NguyenLieu` (`MaNguyenLieu`);
 
--- ALTER TABLE "PhieuChi" ADD FOREIGN KEY ("MaPhieu") REFERENCES "PhieuNhapKho" ("MaPhieu");
-ALTER TABLE "PhieuChi" ADD CONSTRAINT fk_PheuChi_PhieuNhapKho
-  FOREIGN KEY ("MaPhieu") REFERENCES "PhieuNhapKho" ("MaPhieu");
+-- ALTER TABLE `PhieuChi` ADD FOREIGN KEY (`MaPhieu`) REFERENCES `PhieuNhapKho` (`MaPhieu`);
+ALTER TABLE `PhieuChi` ADD CONSTRAINT fk_PheuChi_PhieuNhapKho
+  FOREIGN KEY (`MaPhieu`) REFERENCES `PhieuNhapKho` (`MaPhieu`);
