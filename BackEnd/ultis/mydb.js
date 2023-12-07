@@ -48,6 +48,18 @@ module.exports = {
         });
     },
 
+    delete: function(table, condition){
+        return new Promise((resolve, reject) => {
+            const sql = `delete from ${table} where ?`
+            pool.query(sql, condition, function (err, results, fields) {
+                if (err) {
+                    reject(err);
+                }
+                resolve(results);
+            });
+        });
+    },
+
     loadSingle: function(table, field, value){
         return new Promise((resolve, reject) => {
             const sql = `select * from ${table} where ${field} = ?`

@@ -21,4 +21,11 @@ module.exports = class User {
         delete entity.UserID;
         return mydb.update(tableName, entity, condition);
     }
+
+    static deleteRowByID(userID){
+        const condition = {
+            UserID: userID
+        }
+        return mydb.delete(tableName, condition);
+    }
 }

@@ -74,6 +74,10 @@
 }
 
 /* Report */
+.container{
+    min-height: 88vh;
+}
+
 .report-header{
     font-size: 22px;
     font-weight: bold;

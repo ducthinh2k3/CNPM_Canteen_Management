@@ -59,14 +59,15 @@ function toggleContent(icon) {
 function saveEditedEmployee() {
     $('#editEmployeeModal').modal('hide');
 }
-function deleteRow(icon) {
-var row = $(icon).closest('tr');
-var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
+async function deleteRow(userID) {
+  // var row = $(icon).closest('tr');
+  var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
 
-if (confirmDelete) {
-
-    row.remove();
-}
+  if (confirmDelete) {
+    await fetch(`http://localhost:3000/api/admin/user/delete/?id=${userID}`)
+    window.location.href = 'http://127.0.0.1:5500/FrontEnd/Admin/staff.html';
+      // row.remove();
+  }
 }
 
 // load all staff from database
@@ -98,7 +99,7 @@ $(document).ready(async function() {
                             </td>
                             <td>
                                 <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editEmployee(${element.UserID})"></i>
-                                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+                                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(${element.UserID})"></i>
                             </td>
                         </tr>`
         })

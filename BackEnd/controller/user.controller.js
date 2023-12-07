@@ -33,13 +33,22 @@ const updateUser = async (req, res, next) => {
             Password: req.body.editEmployeePassword,
             VaiTro: req.body.editEmployeeRole
         }
-        console.log(entity);
         const rs = await User.updateRow(entity);
         res.redirect('http://127.0.0.1:5500/FrontEnd/Admin/staff.html')
     } catch (error) {
         next(error);
     }
 }
+
+const deleteUser = async (req, res, next) => {
+    try{
+        const userID = req.query.id;
+        const result = await User.deleteRowByID(userID);
+        res.redirect('http://127.0.0.1:5500/FrontEnd/Admin/staff.html')
+    } catch (error) {
+        next(error);
+    }
+} 
 
 const getByID = async (req, res, next) => {
     try{
@@ -59,5 +68,6 @@ module.exports = {
     getUserPage,
     addUser,
     updateUser,
-    getByID
+    getByID,
+    deleteUser
 }
