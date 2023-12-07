@@ -33,8 +33,22 @@ function toggleContent(icon) {
 
   }
 
-  function editEmployee() {
-
+  async function editEmployee(userID) {
+    const res = await fetch(`http://localhost:3000/api/admin/user/edit/?id=${userID}`)
+    const user = await res.json();
+    let role = "";
+    if(user.VaiTro == 1){
+        role = "employee"
+    } else if (user.VaiTro == 2){
+        role = "manager"
+    } else if (user.VaiTro == 3){
+        role = "chef"
+    }
+    $("#editEmployeeModal #editEmployeeCode").val(user.UserID);
+    $("#editEmployeeModal #editEmployeeName").val(user.HoTen);
+    $("#editEmployeeModal #editEmployeeRole").val(user.VaiTro);
+    $("#editEmployeeModal #editEmployeeUser").val(user.Username);
+    $("#editEmployeeModal #editEmployeePassword").val(user.Password);
     $('#editEmployeeModal').modal('show');
   }
   function cancelEditedEmployee() {
@@ -45,14 +59,15 @@ function toggleContent(icon) {
 function saveEditedEmployee() {
     $('#editEmployeeModal').modal('hide');
 }
-function deleteRow(icon) {
-var row = $(icon).closest('tr');
-var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
+async function deleteRow(userID) {
+  // var row = $(icon).closest('tr');
+  var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
 
-if (confirmDelete) {
-
-    row.remove();
-}
+  if (confirmDelete) {
+    await fetch(`http://localhost:3000/api/admin/user/delete/?id=${userID}`)
+    window.location.href = 'http://127.0.0.1:5500/FrontEnd/Admin/staff.html';
+      // row.remove();
+  }
 }
 
 // load all staff from database
@@ -83,8 +98,8 @@ $(document).ready(async function() {
                                 </div>
                             </td>
                             <td>
-                                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editEmployee()"></i>
-                                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+                                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editEmployee(${element.UserID})"></i>
+                                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(${element.UserID})"></i>
                             </td>
                         </tr>`
         })

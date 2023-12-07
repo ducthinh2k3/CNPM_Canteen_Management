@@ -6,7 +6,26 @@ module.exports = class User {
         return mydb.load(`select * from ${tableName}`);
     }
 
+    static getByID(id){
+        return mydb.load(`select * from ${tableName} where UserID = ${id}`)
+    }
+
     static addRow(entity){
         return mydb.add(tableName, entity);
+    }
+
+    static updateRow(entity){
+        const condition = {
+            UserID: entity.UserID
+        }
+        delete entity.UserID;
+        return mydb.update(tableName, entity, condition);
+    }
+
+    static deleteRowByID(userID){
+        const condition = {
+            UserID: userID
+        }
+        return mydb.delete(tableName, condition);
     }
 }
