@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Canteen | Tồn kho</title>
+  <title>Canteen | Nhập kho</title>
   <link rel="stylesheet" href="./assets/font/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="./assets/css/style.css">
@@ -87,86 +87,45 @@
     <div class="container">
       <div class="row">
         <div class="action-item">
-          <div class="action-header">Danh sách nguyên liệu</div>
+          <div class="action-header">Thông tin chi tiết nhập kho</div>
         </div>
       </div>
       <div class="row m-3">
         <div class="search container-fluid col-md-6 offset-md-0">
           <form class="d-flex search-item" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>
         <div class="btn-item-collect col-md-3 d-flex ">
-          <button type="button" class="btn btn-primary ms-auto" onclick = "addReceipt()">
+          <a type="button" class="btn btn-primary ms-auto" href="material.html">
             <i class="fa-solid fa-circle-plus"></i>
             Thêm nguyên liệu
-          </button>
+          </a>
         </div>
       </div>
       <div class="row">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Tên nguyên liệu</th>
-              <th scope="col">Đơn vị</th>
-              <th scope="col">SL tồn cuối</th>
-              <th scope="col">Đơn giá</th>
-              <th scope="col">Giá trị tồn cuối</th>
+              <th scope="col">Thời gian tạo</th>
+              <th scope="col">Mã phiếu</th>
+              <th scope="col">Giá trị đơn nhập</th>
+              <th scope="col">Xem chi tiết</th>
               <th scope="col">Thao tác</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="color-blue">TỔNG CỘNG</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="color-blue">950.000</td>
               <td>
+                  <span class="date-create">28/11/2023</span>
+                  <span class="time-create">15:07</span>
               </td>
-            </tr>
-            <tr>
-              <td>Thịt bò</td>
-              <td>kg</td>
-              <td>10</td>
-              <td>50000</td>
-              <td>500.000</td>
+              <td>MP002</td>
+              <td>20000</td>
+              <td><i class="fa-solid fa-circle-info color-blue table-item-detail"></i></td>
               <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>Thịt bò</td>
-              <td>kg</td>
-              <td>10</td>
-              <td>50000</td>
-              <td>500.000</td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>Thịt bò</td>
-              <td>kg</td>
-              <td>10</td>
-              <td>50000</td>
-              <td>500.000</td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>Thịt bò</td>
-              <td>kg</td>
-              <td>10</td>
-              <td>50000</td>
-              <td>500.000</td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
+                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick = "editReceipt()"></i>
                 <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
               </td>
             </tr>
@@ -195,98 +154,52 @@
       </div>
     </div>
 </div>
-<!-- Modal for Add Receipt -->
-<div class="modal fade" id="addReceiptModal" tabindex="-1" role="dialog" aria-labelledby="addReceiptModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form class="modal-content" method="post" action="http://localhost:3000/api/admin/material/add">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addReceiptModalLabel">Thêm Nguyên Liệu</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelAddReceipt()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- <label for="materialCode">Mã Nguyên Liệu:</label>
-        <input type="text" id="materialCode" name="materialCode" class="form-control" readonly> -->
 
-        <label for="materialName">Tên Nguyên Liệu:</label>
-        <input type="text" id="materialName" name="materialName" class="form-control"></input>
-
-        <!-- <label for="materialQuantity">Số Lượng Tồn:</label>
-        <input type="number" id="materialQuantity" name="materialQuantity" class="form-control" min="1"> -->
-
-        <label for="materialUnitValue">Đơn Giá:</label>
-        <input type="number" id="materialUnitValue" name="materialUnitValue" class="form-control" min="1">
-
-        <label for="materialUnit">Đơn Vị:</label>
-        <input type="text" id="materialUnit" name="materialUnit" class="form-control">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelAddReceipt()">Đóng</button>
-        <button type="submit" class="btn btn-primary" onclick="saveAddReceipt()">Thêm Phiếu Nhập</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Modal for Edit Inventory -->
-<div class="modal fade" id="editInventoryModal" tabindex="-1" role="dialog" aria-labelledby="editInventoryModalLabel" aria-hidden="true">
+<!-- Modal for Edit Receipt -->
+<div class="modal fade" id="editReceiptModal" tabindex="-1" role="dialog" aria-labelledby="editReceiptModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editInventoryModalLabel">Chỉnh sửa Tồn Kho</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEditedInventory()">
+        <h5 class="modal-title" id="editReceiptModalLabel">Chỉnh sửa Phiếu Nhập</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEditedReceipt()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <label for="editMaterialName">Tên Nguyên Liệu:</label>
-        <input type="text" id="editMaterialName" name="editMaterialName" class="form-control" readonly>
+        <label for="editReceiptCode">Mã Phiếu:</label>
+        <input type="text" id="editReceiptCode" name="editReceiptCode" class="form-control" readonly>
 
-        <label for="editUnit">Đơn Vị:</label>
-        <input type="text" id="editUnit" name="editUnit" class="form-control" readonly>
+        <label for="editReceiptDetail">Chi Tiết:</label>
+        <textarea id="editReceiptDetail" name="editReceiptDetail" class="form-control"></textarea>
 
-        <label for="editFinalQuantity">Số Lượng Tồn Cuối:</label>
-        <input type="number" id="editFinalQuantity" name="editFinalQuantity" class="form-control" min="0">
+        <label for="editReceiptQuantity">Số Lượng:</label>
+        <input type="number" id="editReceiptQuantity" name="editReceiptQuantity" class="form-control" min="1">
 
-        <label for="editUnitPrice">Đơn Giá:</label>
-        <input type="text" id="editUnitPrice" name="editUnitPrice" class="form-control">
-
-        <label for="editFinalValue">Giá Trị Tồn Cuối:</label>
-        <input type="text" id="editFinalValue" name="editFinalValue" class="form-control" readonly>
+        <label for="editReceiptUnitValue">Giá Trị Đơn Nhập:</label>
+        <input type="text" id="editReceiptUnitValue" name="editReceiptUnitValue" class="form-control">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEditedInventory()">Đóng</button>
-        <button type="button" class="btn btn-primary" onclick="saveEditedInventory()">Lưu thay đổi</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEditedReceipt()">Đóng</button>
+        <button type="button" class="btn btn-primary" onclick="saveEditedReceipt()">Lưu thay đổi</button>
       </div>
     </div>
   </div>
 </div>
 
 </body>
-
 <script>
-  function addReceipt() {
-    $('#addReceiptModal').modal('show');
+
+  function editReceipt() {
+    $('#editReceiptModal').modal('show');
 
   }
-  function saveAddReceipt() {
-    $('#addReceiptModal').modal('hide');
+  function saveEditedReceipt() {
+    $('#editReceiptModal').modal('hide');
 
   }
-  function cancelAddReceipt() {
-    $('#addReceiptModal').modal('hide');
+  function cancelEditedReceipt() {
+    $('#editReceiptModal').modal('hide');
 
-  }
-  function editInventory() {
-    $('#editInventoryModal').modal('show');
-  }
-
-  function saveEditedInventory() {
-    $('#editInventoryModal').modal('hide');
-  }
-  function cancelEditedInventory() {
-    $('#editInventoryModal').modal('hide');
   }
   function deleteRow(icon) {
     var row = $(icon).closest('tr');
@@ -298,5 +211,4 @@
     }
   }
 </script>
-
 </html>

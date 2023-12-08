@@ -108,68 +108,15 @@
         <table class="table table-hover">
           <thead>
             <tr>
+              <th scope="col">Mã nguyên liệu</th>
               <th scope="col">Tên nguyên liệu</th>
-              <th scope="col">Đơn vị</th>
-              <th scope="col">SL tồn cuối</th>
               <th scope="col">Đơn giá</th>
-              <th scope="col">Giá trị tồn cuối</th>
+              <th scope="col">Đơn vị</th>
               <th scope="col">Thao tác</th>
+              <th scope="col">Lựa chọn</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="color-blue">TỔNG CỘNG</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="color-blue">950.000</td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>Thịt bò</td>
-              <td>kg</td>
-              <td>10</td>
-              <td>50000</td>
-              <td>500.000</td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>Thịt bò</td>
-              <td>kg</td>
-              <td>10</td>
-              <td>50000</td>
-              <td>500.000</td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>Thịt bò</td>
-              <td>kg</td>
-              <td>10</td>
-              <td>50000</td>
-              <td>500.000</td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>Thịt bò</td>
-              <td>kg</td>
-              <td>10</td>
-              <td>50000</td>
-              <td>500.000</td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
           </tbody>
         </table>
         <nav aria-label="...">
@@ -297,6 +244,34 @@
       row.remove();
     }
   }
+
+  // load all material from database
+  $(document).ready(async function() {
+    try {
+        const res = await fetch('http://localhost:3000/api/admin/material')
+        const data = await res.json();
+        
+        let rsHtml = '';
+        data.forEach(function(element){
+            rsHtml += `<tr>
+                        <td>${element.MaNguyenLieu}</td>
+                        <td>${element.TenNguyenLieu}</td>
+                        <td>${element.DonGia}</td>
+                        <td>${element.DonVi}</td>
+                        <td>
+                          <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
+                          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+                        </td>
+                        <td>
+                          <i class="fa-solid fa-circle-check table-item-choose color-blue"></i>
+                        </td> 
+                      </tr>`
+        })
+        $('tbody').html(rsHtml);
+    } catch (error) {
+        console.log(error);
+    }
+});
 </script>
 
 </html>

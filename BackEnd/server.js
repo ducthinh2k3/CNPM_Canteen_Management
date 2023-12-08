@@ -17,10 +17,12 @@ app.use(cors())
 // router
 const userRouter = require('./routers/user.router');
 const productRouter = require('./routers/product.router');
+const materialRouter = require('./routers/material.router');
 
 // use router
 app.use('/api/admin', userRouter);
 app.use('/api/admin', productRouter);
+app.use('/api/admin', materialRouter);
 
 app.use((err, req, res, next ) => {
     console.log(err.stack);
