@@ -37,7 +37,7 @@
     margin-left: 15px;
 }
 .Footer{
-    background-color: rgb(144, 138, 132);
+    background-color: rgb(200, 197, 195);
 }
 .contentRight {
     margin-top: 60px;
@@ -45,6 +45,7 @@
 .hr {
     width: 90%;
 }
+
 .btn_delete_left,.btn_delete_right{
     background-color: transparent;
     margin-bottom: 5px;
@@ -53,6 +54,27 @@
 .btn_delete_click{
     background: red;
 }
+.row .notify{
+    cursor: pointer;
+}
+.row .notify a{
+    color: #fff;
+}
+.row .notify:hover{
+    color: aqua;
+}
+.row .notify i:hover{
+    color: aquamarine;
+}
+.row .logOut {
+    cursor: pointer;
+    color: #fff;
+}
+
+.row .logOut:hover{
+    color: aquamarine;
+}
+
 
 
 
