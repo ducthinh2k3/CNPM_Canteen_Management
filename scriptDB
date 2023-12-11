@@ -72,6 +72,15 @@ CREATE TABLE `PhieuChi` (
   `TongChi` INT
 );
 
+CREATE TABLE `DanhGia` (
+  `MaDanhGia` INT AUTO_INCREMENT PRIMARY KEY,
+  `MaSP` INT,
+  `NgayThucHien` TIMESTAMP,
+  `NguoiThucHien` NVARCHAR(50),
+  `NoiDung` TEXT,
+  `Rating` INT check (`Rating` between 1 and 5)
+);
+
 -- ALTER TABLE `ChiTietDonHang` ADD FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
 ALTER TABLE `ChiTietDonHang` ADD CONSTRAINT fk_ChiTietDonHang_MaSP
   FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
@@ -95,3 +104,7 @@ ALTER TABLE `ChiTietPhieuNhap` ADD CONSTRAINT fk_ChiTietPhieuNhap_NguyenLieu
 -- ALTER TABLE `PhieuChi` ADD FOREIGN KEY (`MaPhieu`) REFERENCES `PhieuNhapKho` (`MaPhieu`);
 ALTER TABLE `PhieuChi` ADD CONSTRAINT fk_PheuChi_PhieuNhapKho
   FOREIGN KEY (`MaPhieu`) REFERENCES `PhieuNhapKho` (`MaPhieu`);
+
+-- ALTER TABLE `DanhGia` ADD FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
+ALTER TABLE `DanhGia` ADD CONSTRAINT fk_DanhGia_SanPham
+  FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
