@@ -52,7 +52,6 @@ CREATE TABLE `PhieuNhapKho` (
 CREATE TABLE `ChiTietPhieuNhap` (
   `MaPhieu` INT,
   `MaNguyenLieu` INT,
-  `DonGia` INT,
   `SoLuong` INT,
   PRIMARY KEY (`MaPhieu`, `MaNguyenLieu`)
 );
@@ -108,3 +107,36 @@ ALTER TABLE `PhieuChi` ADD CONSTRAINT fk_PheuChi_PhieuNhapKho
 -- ALTER TABLE `DanhGia` ADD FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
 ALTER TABLE `DanhGia` ADD CONSTRAINT fk_DanhGia_SanPham
   FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
+
+-- TRIGGER
+-- DROP TRIGGER after_update_chitietphieunhap;
+DELIMITER //
+CREATE TRIGGER after_update_chitietphieunhap
+AFTER UPDATE ON chitietphieunhap
+FOR EACH ROW
+BEGIN
+  UPDATE NguyenLieu
+  SET SLTon = SLTon + NEW.SoLuong - OLD.SoLuong
+  WHERE MaNguyenLieu = NEW.MaNguyenLieu;
+  
+  UPDATE phieunhapkho
+  SET TongTien = TongTien + (select DonGia from nguyenlieu where MaNguyenLieu = NEW.MaNguyenLieu) * (NEW.SoLuong - OLD.SoLuong)
+  WHERE MaPhieu = NEW.MaPhieu;
+END; //
+DELIMITER ;
+
+-- DROP TRIGGER after_delete_chitietphieunhap;
+DELIMITER //
+CREATE TRIGGER after_delete_chitietphieunhap
+AFTER DELETE ON chitietphieunhap
+FOR EACH ROW
+BEGIN
+  UPDATE NguyenLieu
+  SET SLTon = SLTon - OLD.SoLuong
+  WHERE MaNguyenLieu = OLD.MaNguyenLieu;
+  
+  UPDATE phieunhapkho
+  SET TongTien = TongTien - (select DonGia from nguyenlieu where MaNguyenLieu = OLD.MaNguyenLieu) * (OLD.SoLuong)
+  WHERE MaPhieu = OLD.MaPhieu;
+END; //
+DELIMITER ;
