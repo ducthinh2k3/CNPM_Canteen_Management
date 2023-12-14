@@ -98,32 +98,32 @@
           </form>
         </div>
         <div class="btn-item-collect col-md-3 d-flex ">
-          <a type="button" class="btn btn-primary ms-auto" href="material.html">
+          <button type="button" class="btn btn-primary ms-auto btnChooseMaterial">
             <i class="fa-solid fa-circle-plus"></i>
             Thêm nguyên liệu
-          </a>
+          </button>
         </div>
       </div>
       <div class="row">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Thời gian tạo</th>
               <th scope="col">Mã phiếu</th>
-              <th scope="col">Giá trị đơn nhập</th>
-              <th scope="col">Xem chi tiết</th>
+              <th scope="col">Mã nguyên liệu</th>
+              <th scope="col">Tên nguyên liệu</th>
+              <th scope="col">Đơn giá</th>
+              <th scope="col">Đơn vị</th>
+              <th scope="col">Số lượng</th>
               <th scope="col">Thao tác</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>
-                  <span class="date-create">28/11/2023</span>
-                  <span class="time-create">15:07</span>
-              </td>
+              <td>1</td>
               <td>MP002</td>
               <td>20000</td>
-              <td><i class="fa-solid fa-circle-info color-blue table-item-detail"></i></td>
+              <td>20000</td>
+              <td>2</td>
               <td>
                 <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick = "editReceipt()"></i>
                 <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
@@ -147,6 +147,11 @@
           </ul>
         </nav>
       </div>
+      <div class="row justify-content-end">
+        <a class="btn btn-danger col-md-2 btnCancelWarehouseReceiptDetail" role="button">Huỷ phiếu</a>
+        <a class="btn btn-warning col-md-2 btnBackWarehouseReceipt ms-2" role="button">Thoát</a>
+        <!-- <a class="btn btn-primary col-md-2 btnSubmitWarehouseReceiptDetail ms-2" href="#" role="button">Lưu phiếu</a> -->
+      </div>
     </div>
     <div class="footer">
       <div class="footer-text">
@@ -158,7 +163,7 @@
 <!-- Modal for Edit Receipt -->
 <div class="modal fade" id="editReceiptModal" tabindex="-1" role="dialog" aria-labelledby="editReceiptModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <form class="modal-content" method="post" action="http://localhost:3000/api/admin/warehouse-receipt-detail/update">
       <div class="modal-header">
         <h5 class="modal-title" id="editReceiptModalLabel">Chỉnh sửa Phiếu Nhập</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEditedReceipt()">
@@ -169,46 +174,230 @@
         <label for="editReceiptCode">Mã Phiếu:</label>
         <input type="text" id="editReceiptCode" name="editReceiptCode" class="form-control" readonly>
 
-        <label for="editReceiptDetail">Chi Tiết:</label>
-        <textarea id="editReceiptDetail" name="editReceiptDetail" class="form-control"></textarea>
+        <label for="editMaterialCode">Mã Nguyên Liệu:</label>
+        <input type="text" id="editMaterialCode" name="editMaterialCode" class="form-control" readonly>
+
+        <label for="editMaterialName">Tên Nguyên Liệu:</label>
+        <input id="editMaterialName" name="editMaterialName" class="form-control" readonly></input>
+
+        <label for="editUnitPrice">Đơn giá:</label>
+        <input type="number" id="editUnitPrice" name="editUnitPrice" class="form-control" readonly>
+
+        <label for="editUnit">Đơn vị:</label>
+        <input type="text" id="editUnit" name="editUnit" class="form-control" readonly>
 
         <label for="editReceiptQuantity">Số Lượng:</label>
-        <input type="number" id="editReceiptQuantity" name="editReceiptQuantity" class="form-control" min="1">
-
-        <label for="editReceiptUnitValue">Giá Trị Đơn Nhập:</label>
-        <input type="text" id="editReceiptUnitValue" name="editReceiptUnitValue" class="form-control">
+        <input type="number" id="editReceiptQuantity" name="editReceiptQuantity" class="form-control" min="0">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEditedReceipt()">Đóng</button>
-        <button type="button" class="btn btn-primary" onclick="saveEditedReceipt()">Lưu thay đổi</button>
+        <button type="submit" class="btn btn-primary" onclick="saveEditedReceipt()">Lưu thay đổi</button>
       </div>
-    </div>
+    </form>
   </div>
 </div>
 
 </body>
 <script>
 
-  function editReceipt() {
+  function editReceipt(icon) {
+    var row = $(icon).closest('tr');
+    var editReceiptCode = row.find('td:nth-child(1)').text();
+    var editMaterialCode = row.find('td:nth-child(2)').text();
+    var editMaterialName = row.find('td:nth-child(3)').text();
+    var editUnitPrice = parseInt(row.find('td:nth-child(4)').text());
+    var editUnit = (row.find('td:nth-child(5)').text());
+    var editReceiptQuantity = parseInt(row.find('td:nth-child(6)').text());
+
+
+    $('#editReceiptCode').val(editReceiptCode);
+    $('#editMaterialCode').val(editMaterialCode);
+    $('#editMaterialName').val(editMaterialName);
+    $('#editUnitPrice').val(editUnitPrice);
+    $('#editUnit').val(editUnit);
+    $('#editReceiptQuantity').val(editReceiptQuantity);
     $('#editReceiptModal').modal('show');
 
   }
+
   function saveEditedReceipt() {
     $('#editReceiptModal').modal('hide');
 
   }
+
   function cancelEditedReceipt() {
     $('#editReceiptModal').modal('hide');
 
   }
-  function deleteRow(icon) {
+
+  async function deleteRow(icon, receiptID, materialID) {
     var row = $(icon).closest('tr');
     var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
     
     if (confirmDelete) {
+      try {
+        const data = {
+          MaPhieu: receiptID,
+          MaNguyenLieu: materialID
+        }
+        const result = await fetch('http://localhost:3000/api/admin/warehouse-receipt-detail/delete', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify(data)
+        })
 
-      row.remove();
+        const rs = await result.json()
+
+        console.log(rs);
+        if(rs.success){
+          row.remove();
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
+
+  $(document).ready(async function() {
+    // xu ly hien thi tat ca cac phieu nhap kho
+    const searchParams = new URLSearchParams(window.location.search);
+    const MaPhieu = searchParams.get('id');
+    try {
+        const res = await fetch(`http://localhost:3000/api/admin/warehouse-receipt-detail/${MaPhieu}`)
+        const dataRes = await res.json();
+        
+        if(dataRes.success){
+          let data = dataRes.result
+          let rsHtml = '';
+          data.forEach(function(element){
+            rsHtml += `<tr>
+                        <td>${element.MaPhieu}</td>
+                        <td>${element.MaNguyenLieu}</td>
+                        <td>${element.TenNguyenLieu}</td>
+                        <td>${element.DonGia}</td>
+                        <td>${element.DonVi}</td>
+                        <td>${element.SoLuong}</td>
+                        <td>
+                          <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick = "editReceipt(this)"></i>
+                          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaPhieu}, ${element.MaNguyenLieu})"></i>
+                        </td>
+                      </tr>`
+          })
+        $('tbody').html(rsHtml);
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+    // xu ly su kien click button them nguyen lieu
+    chooseMaterial(MaPhieu)
+
+    submitWarehouseReceipt(MaPhieu)
+    backWarehouseReceipt(MaPhieu)
+    cancelWarehouseReceipt(MaPhieu)
+
+  });
+
+  function chooseMaterial(MaPhieu){
+    $('.btnChooseMaterial').on( "click", async function() {
+      window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/material.html?id=${MaPhieu}`
+    });
+  }
+
+  function submitWarehouseReceipt(MaPhieu){
+  // xu ly su kien click button
+  $('.btnSubmitWarehouseReceiptDetail').on( "click", async function() {
+    const row = document.querySelectorAll('tbody tr')
+    let sum = 0;
+    row.forEach(element => {
+      sum += parseInt(element.querySelectorAll('td')[3].innerText) * parseInt(element.querySelectorAll('td')[5].innerText)
+    })
+
+    const data = {
+      MaPhieu: MaPhieu,
+      TongTien: sum
+    }
+
+    const result = await fetch('http://localhost:3000/api/admin/warehouse-receipt/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(data)
+    })
+
+    const rs = await result.json()
+
+    // update so luong cho nguyen lieu
+    const listMaterialUpdate = Array.from(row).map(element => {
+      return {
+        MaNguyenLieu: parseInt(element.querySelectorAll('td')[1].innerText),
+        SoLuong: parseInt(element.querySelectorAll('td')[5].innerText)
+      }
+    })
+
+    const result2 = await fetch('http://localhost:3000/api/admin/material/update-quantity', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(listMaterialUpdate)
+    })
+
+    const rs2 = await result2.json()
+
+    if(rs.success){
+      window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/warehouse-receipt.html`
+    }
+    
+  });
+
+}
+
+function cancelWarehouseReceipt(MaPhieu){
+  // xu ly su kien click button them nguyen lieu
+  $('.btnCancelWarehouseReceiptDetail').on( "click", async function() {
+    var confirmDelete = confirm('Bạn có chắc chắn huỷ bỏ không?');
+    
+    if (confirmDelete) {
+      try {
+        // delete all row in detail with receiptid
+        const result = await fetch(`http://localhost:3000/api/admin/warehouse-receipt-detail/delete-all?id=${MaPhieu}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json' 
+          },
+        })
+        const rs = await result.json()
+
+        // delete row with receipt id in warehouse-receipt
+        const result2 = await fetch(`http://localhost:3000/api/admin/warehouse-receipt/delete?receiptID=${MaPhieu}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json' 
+          },
+        })
+        const rs2 = await result2.json()
+
+        if(rs.success || rs2.success){
+          window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/warehouse-receipt.html`
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  });
+
+}
+
+function backWarehouseReceipt(MaPhieu){
+  $('.btnBackWarehouseReceipt').on( "click", async function() {
+    window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/warehouse-receipt.html`
+  });
+
+}
 </script>
 </html>

@@ -100,7 +100,7 @@
         <div class="btn-item-collect col-md-3 d-flex ">
           <button type="button" class="btn btn-primary ms-auto" onclick = "addReceipt()">
             <i class="fa-solid fa-circle-plus"></i>
-            Thêm nguyên liệu
+            Thêm mặt hàng
           </button>
         </div>
       </div>
@@ -135,6 +135,10 @@
           </ul>
         </nav>
       </div>
+      <div class="row justify-content-end" >
+        <a class="btn btn-warning col-md-2 btnCancelMaterial me-2" href="#" role="button">Huỷ bỏ</a>
+        <a class="btn btn-primary col-md-2 btnSubmitMaterial" href="#" role="button">Xác nhận</a>
+      </div>
     </div>
     <div class="footer">
       <div class="footer-text">
@@ -142,7 +146,7 @@
       </div>
     </div>
 </div>
-<!-- Modal for Add Receipt -->
+<!-- Modal for Add Material -->
 <div class="modal fade" id="addReceiptModal" tabindex="-1" role="dialog" aria-labelledby="addReceiptModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <form class="modal-content" method="post" action="http://localhost:3000/api/admin/material/add">
@@ -153,14 +157,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <!-- <label for="materialCode">Mã Nguyên Liệu:</label>
-        <input type="text" id="materialCode" name="materialCode" class="form-control" readonly> -->
+        <input type="hidden" id="receiptCode" name="receiptCode" class="form-control"></input>
 
         <label for="materialName">Tên Nguyên Liệu:</label>
         <input type="text" id="materialName" name="materialName" class="form-control"></input>
-
-        <!-- <label for="materialQuantity">Số Lượng Tồn:</label>
-        <input type="number" id="materialQuantity" name="materialQuantity" class="form-control" min="1"> -->
 
         <label for="materialUnitValue">Đơn Giá:</label>
         <input type="number" id="materialUnitValue" name="materialUnitValue" class="form-control" min="1">
@@ -176,44 +176,47 @@
   </div>
 </div>
 
-<!-- Modal for Edit Inventory -->
+<!-- Modal for Edit Material -->
 <div class="modal fade" id="editInventoryModal" tabindex="-1" role="dialog" aria-labelledby="editInventoryModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <form class="modal-content" method="post" action="http://localhost:3000/api/admin/material/update">
       <div class="modal-header">
-        <h5 class="modal-title" id="editInventoryModalLabel">Chỉnh sửa Tồn Kho</h5>
+        <h5 class="modal-title" id="editInventoryModalLabel">Chỉnh sửa Nguyên Liệu</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEditedInventory()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+        <label for="editMaterialCode">Mã Nguyên Liệu:</label>
+        <input type="text" id="editMaterialCode" name="editMaterialCode" class="form-control" readonly>
+
         <label for="editMaterialName">Tên Nguyên Liệu:</label>
-        <input type="text" id="editMaterialName" name="editMaterialName" class="form-control" readonly>
+        <input type="text" id="editMaterialName" name="editMaterialName" class="form-control">
 
-        <label for="editUnit">Đơn Vị:</label>
-        <input type="text" id="editUnit" name="editUnit" class="form-control" readonly>
+        <label for="editMaterialUnitPrice">Đơn Giá:</label>
+        <input type="text" id="editMaterialUnitPrice" name="editMaterialUnitPrice" class="form-control">
 
-        <label for="editFinalQuantity">Số Lượng Tồn Cuối:</label>
-        <input type="number" id="editFinalQuantity" name="editFinalQuantity" class="form-control" min="0">
+        <label for="editMaterialUnit">Đơn Vị:</label>
+        <input type="text" id="editMaterialUnit" name="editMaterialUnit" class="form-control">
 
-        <label for="editUnitPrice">Đơn Giá:</label>
-        <input type="text" id="editUnitPrice" name="editUnitPrice" class="form-control">
-
-        <label for="editFinalValue">Giá Trị Tồn Cuối:</label>
-        <input type="text" id="editFinalValue" name="editFinalValue" class="form-control" readonly>
+        <input type="hidden" id="editReceiptCode" name="editReceiptCode" class="form-control"></input>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEditedInventory()">Đóng</button>
-        <button type="button" class="btn btn-primary" onclick="saveEditedInventory()">Lưu thay đổi</button>
+        <button type="submit" class="btn btn-primary" onclick="saveEditedInventory()">Lưu thay đổi</button>
       </div>
-    </div>
+    </form>
   </div>
 </div>
 
 </body>
 
 <script>
+  const searchParams = new URLSearchParams(window.location.search);
+  const MaPhieu = searchParams.get('id');
+
   function addReceipt() {
+    $('#receiptCode').val(MaPhieu);
     $('#addReceiptModal').modal('show');
 
   }
@@ -225,7 +228,18 @@
     $('#addReceiptModal').modal('hide');
 
   }
-  function editInventory() {
+  function editInventory(icon) {
+    var row = $(icon).closest('tr');
+    var editMaterialCode = row.find('td:nth-child(1)').text();
+    var editMaterialName = row.find('td:nth-child(2)').text();
+    var editMaterialUnitPrice = row.find('td:nth-child(3)').text();
+    var editMaterialUnit = row.find('td:nth-child(4)').text();
+
+    $('#editReceiptCode').val(MaPhieu);
+    $('#editMaterialCode').val(editMaterialCode);
+    $('#editMaterialName').val(editMaterialName);
+    $('#editMaterialUnitPrice').val(editMaterialUnitPrice);
+    $('#editMaterialUnit').val(editMaterialUnit);
     $('#editInventoryModal').modal('show');
   }
 
@@ -235,20 +249,29 @@
   function cancelEditedInventory() {
     $('#editInventoryModal').modal('hide');
   }
-  function deleteRow(icon) {
+  async function deleteRow(icon, materialID) {
     var row = $(icon).closest('tr');
     var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
     
     if (confirmDelete) {
-
-      row.remove();
+      try {
+        const result = await fetch(`http://localhost:3000/api/admin/material/delete/?id=${materialID}`);
+        const data = await result.json();
+        if(data.success){
+          row.remove();
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
   // load all material from database
   $(document).ready(async function() {
+    // const searchParams = new URLSearchParams(window.location.search);
+    // const MaPhieu = searchParams.get('id');
     try {
-        const res = await fetch('http://localhost:3000/api/admin/material')
+        const res = await fetch(`http://localhost:3000/api/admin/material?id=${MaPhieu}`)
         const data = await res.json();
         
         let rsHtml = '';
@@ -259,11 +282,11 @@
                         <td>${element.DonGia}</td>
                         <td>${element.DonVi}</td>
                         <td>
-                          <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
-                          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+                          <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory(this)"></i>
+                          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaNguyenLieu})"></i>
                         </td>
                         <td>
-                          <i class="fa-solid fa-circle-check table-item-choose color-blue"></i>
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
                         </td> 
                       </tr>`
         })
@@ -271,7 +294,51 @@
     } catch (error) {
         console.log(error);
     }
+
+    submitMaterialIDChecked(MaPhieu);
+    cancelMaterialIDChecked(MaPhieu);
 });
+
+function submitMaterialIDChecked(MaPhieu){
+  // xu ly su kien click button them nguyen lieu
+  $('.btnSubmitMaterial').on( "click", async function() {
+    const row = $('.form-check-input:checked').closest('tr').toArray();
+    const data = row.map(element => {
+      return {
+        MaPhieu: MaPhieu,
+        MaNguyenLieu: parseInt(element.querySelectorAll('td')[0].innerText),
+        SoLuong: 0
+      }
+    })
+
+    const result = await fetch('http://localhost:3000/api/admin/warehouse-receipt-detail/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(data)
+    })
+
+    const rs = await result.json()
+
+    if(rs.success){
+      // window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/warehouse-receipt-detail.html?id=${MaPhieu}`
+    }
+
+    window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/warehouse-receipt-detail.html?id=${MaPhieu}`
+
+    
+  });
+
+}
+
+function cancelMaterialIDChecked(MaPhieu){
+  // xu ly su kien click button huy bo them nguyen lieu
+  $('.btnCancelMaterial').on( "click", async function() {
+    window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/warehouse-receipt-detail.html?id=${MaPhieu}`
+  });
+
+}
 </script>
 
 </html>

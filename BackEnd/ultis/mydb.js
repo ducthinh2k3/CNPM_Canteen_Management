@@ -48,10 +48,34 @@ module.exports = {
         });
     },
 
+    update2Condition: function(table, entity, condition1, condition2){
+        return new Promise((resolve, reject) => {
+            const sql = `update ${table} set ? where ? and ?`
+            pool.query(sql, [entity, condition1, condition2], function (err, results, fields) {
+                if (err) {
+                    reject(err);
+                }
+                resolve(results);
+            });
+        });
+    },
+
     delete: function(table, condition){
         return new Promise((resolve, reject) => {
             const sql = `delete from ${table} where ?`
             pool.query(sql, condition, function (err, results, fields) {
+                if (err) {
+                    reject(err);
+                }
+                resolve(results);
+            });
+        });
+    },
+
+    delete2Condition: function(table, condition1, condition2){
+        return new Promise((resolve, reject) => {
+            const sql = `delete from ${table} where ? and ?`
+            pool.query(sql, [condition1, condition2], function (err, results, fields) {
                 if (err) {
                     reject(err);
                 }
@@ -70,7 +94,20 @@ module.exports = {
                 resolve(results);
             });
         });
+    },
+
+    load2Table: function(table1, table2, condition, field, value){
+        return new Promise((resolve, reject) => {
+            const sql = `select * from ${table1} inner join ${table2} on ? where ${field} = ?`
+            pool.query(sql, value, function (err, results, fields) {
+                if (err) {
+                    reject(err);
+                }
+                resolve(results);
+            });
+        });
     }
+
 
     // load: async function (sql) {
     //     try {

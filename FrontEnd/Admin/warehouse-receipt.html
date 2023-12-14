@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 </head>
 <body>
   <div class="app">
@@ -98,10 +99,10 @@
           </form>
         </div>
         <div class="btn-item-collect col-md-3 d-flex ">
-          <a type="button" class="btn btn-primary ms-auto" href="warehouse-receipt-detail.html">
+          <button type="button" class="btn btn-primary ms-auto btnAddWarehouseDetail" href="warehouse-receipt-detail.html">
             <i class="fa-solid fa-circle-plus"></i>
             Thêm phiếu nhập
-          </a>
+          </button>
         </div>
       </div>
       <div class="row">
@@ -111,7 +112,6 @@
               <th scope="col">Thời gian tạo</th>
               <th scope="col">Mã phiếu</th>
               <th scope="col">Giá trị đơn nhập</th>
-              <th scope="col">Xem chi tiết</th>
               <th scope="col">Thao tác</th>
             </tr>
           </thead>
@@ -123,10 +123,8 @@
               </td>
               <td>MP002</td>
               <td>20000</td>
-              <td><i class="fa-solid fa-circle-info color-blue table-item-detail"></i></td>
               <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick = "editReceipt()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+                <a href=""><i class="fa-solid fa-pen-to-square color-green table-item-set" onclick = "editReceipt()"></i></a>
               </td>
             </tr>
           </tbody>
@@ -231,9 +229,7 @@
 
   }
 
-  function editReceipt() {
-    $('#editReceiptModal').modal('show');
-
+  function editReceipt(MaPhieu) {
   }
   function saveEditedReceipt() {
     $('#editReceiptModal').modal('hide');
@@ -252,5 +248,60 @@
       row.remove();
     }
   }
+
+  $(document).ready(async function() {
+    // xu ly hien thi tat ca cac phieu nhap kho
+    try {
+        const res = await fetch('http://localhost:3000/api/admin/warehouse-receipt')
+        const dataRes = await res.json();
+        
+        if(dataRes.success){
+          let data = dataRes.result
+          let rsHtml = '';
+          data.forEach(function(element){
+            let date = new Date(element.NgayLap);
+            rsHtml += `<tr>
+                        <td>
+                            <span class="date-create">${date.toLocaleDateString()}</span>
+                            <span class="time-create">${date.toLocaleTimeString()}</span>
+                        </td>
+                        <td>${element.MaPhieu}</td>
+                        <td>${element.TongTien}</td>
+                        <td>
+                          <a href="/FrontEnd/Admin/warehouse-receipt-detail.html?id=${element.MaPhieu}"><i class="fa-solid fa-pen-to-square color-green table-item-set"></i></a>
+                        </td> 
+                      </tr>`
+          })
+        $('tbody').html(rsHtml);
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+    // xu ly su kien click button them nguyen lieu
+    $('.btnAddWarehouseDetail').on( "click", async function() {
+      const data = {
+        NgayLap: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+        TongTien: 0
+      }
+
+      const result = await fetch('http://localhost:3000/api/admin/warehouse-receipt/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(data)
+      })
+
+      const rs = await result.json()
+      console.log(rs);
+
+      if(rs.success){
+        window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/warehouse-receipt-detail.html?id=${rs.id}`
+      }
+    });
+
+  });
 </script>
 </html>
