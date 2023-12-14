@@ -98,10 +98,10 @@
           </form>
         </div>
         <div class="btn-item-collect col-md-3 d-flex ">
-          <!-- <button type="button" class="btn btn-primary ms-auto" onclick = "addReceipt()">
+          <button type="button" class="btn btn-primary ms-auto" onclick = "addReceipt()">
             <i class="fa-solid fa-circle-plus"></i>
-            Thêm nguyên liệu
-          </button> -->
+            Thêm mặt hàng
+          </button>
         </div>
       </div>
       <div class="row">
@@ -112,35 +112,11 @@
               <th scope="col">Tên nguyên liệu</th>
               <th scope="col">Đơn giá</th>
               <th scope="col">Đơn vị</th>
-              <th scope="col">Số lượng tồn</th>
-              <th scope="col">Giá trị tồn</th>
+              <th scope="col">Thao tác</th>
               <th scope="col">Lựa chọn</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Thịt bò</td>
-              <td>kg</td>
-              <td>10</td>
-              <td>50000</td>
-              <td>50000</td>
-              <td>500.000</td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
-            <tr>
-              <td class="color-blue">TỔNG CỘNG</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="color-blue">950.000</td>
-              <td>
-              </td>
-            </tr>
-            
           </tbody>
         </table>
         <nav aria-label="...">
@@ -159,6 +135,10 @@
           </ul>
         </nav>
       </div>
+      <div class="row justify-content-end" >
+        <a class="btn btn-warning col-md-2 btnCancelMaterial me-2" href="#" role="button">Huỷ bỏ</a>
+        <a class="btn btn-primary col-md-2 btnSubmitMaterial" href="#" role="button">Xác nhận</a>
+      </div>
     </div>
     <div class="footer">
       <div class="footer-text">
@@ -166,7 +146,7 @@
       </div>
     </div>
 </div>
-<!-- Modal for Add Receipt -->
+<!-- Modal for Add Material -->
 <div class="modal fade" id="addReceiptModal" tabindex="-1" role="dialog" aria-labelledby="addReceiptModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <form class="modal-content" method="post" action="http://localhost:3000/api/admin/material/add">
@@ -177,14 +157,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <!-- <label for="materialCode">Mã Nguyên Liệu:</label>
-        <input type="text" id="materialCode" name="materialCode" class="form-control" readonly> -->
+        <input type="hidden" id="receiptCode" name="receiptCode" class="form-control"></input>
 
         <label for="materialName">Tên Nguyên Liệu:</label>
         <input type="text" id="materialName" name="materialName" class="form-control"></input>
-
-        <!-- <label for="materialQuantity">Số Lượng Tồn:</label>
-        <input type="number" id="materialQuantity" name="materialQuantity" class="form-control" min="1"> -->
 
         <label for="materialUnitValue">Đơn Giá:</label>
         <input type="number" id="materialUnitValue" name="materialUnitValue" class="form-control" min="1">
@@ -200,12 +176,12 @@
   </div>
 </div>
 
-<!-- Modal for Edit Inventory -->
+<!-- Modal for Edit Material -->
 <div class="modal fade" id="editInventoryModal" tabindex="-1" role="dialog" aria-labelledby="editInventoryModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <form class="modal-content" method="post" action="http://localhost:3000/api/admin/inventory/update">
+    <form class="modal-content" method="post" action="http://localhost:3000/api/admin/material/update">
       <div class="modal-header">
-        <h5 class="modal-title" id="editInventoryModalLabel">Chỉnh sửa Tồn Kho</h5>
+        <h5 class="modal-title" id="editInventoryModalLabel">Chỉnh sửa Nguyên Liệu</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEditedInventory()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -223,12 +199,11 @@
         <label for="editMaterialUnit">Đơn Vị:</label>
         <input type="text" id="editMaterialUnit" name="editMaterialUnit" class="form-control">
 
-        <label for="editReceiptQuantity">Số Lượng Tồn:</label>
-        <input type="number" id="editReceiptQuantity" name="editReceiptQuantity" class="form-control" min ="0">
+        <input type="hidden" id="editReceiptCode" name="editReceiptCode" class="form-control"></input>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEditedInventory()">Đóng</button>
-        <button type="button" class="btn btn-primary" onclick="saveEditedInventory()">Lưu thay đổi</button>
+        <button type="submit" class="btn btn-primary" onclick="saveEditedInventory()">Lưu thay đổi</button>
       </div>
     </form>
   </div>
@@ -237,31 +212,34 @@
 </body>
 
 <script>
-  // function addReceipt() {
-  //   $('#addReceiptModal').modal('show');
+  const searchParams = new URLSearchParams(window.location.search);
+  const MaPhieu = searchParams.get('id');
 
-  // }
-  // function saveAddReceipt() {
-  //   $('#addReceiptModal').modal('hide');
+  function addReceipt() {
+    $('#receiptCode').val(MaPhieu);
+    $('#addReceiptModal').modal('show');
 
-  // }
-  // function cancelAddReceipt() {
-  //   $('#addReceiptModal').modal('hide');
+  }
+  function saveAddReceipt() {
+    $('#addReceiptModal').modal('hide');
 
-  // }
+  }
+  function cancelAddReceipt() {
+    $('#addReceiptModal').modal('hide');
+
+  }
   function editInventory(icon) {
     var row = $(icon).closest('tr');
     var editMaterialCode = row.find('td:nth-child(1)').text();
     var editMaterialName = row.find('td:nth-child(2)').text();
-    var editMaterialUnitPrice = parseInt(row.find('td:nth-child(3)').text());
+    var editMaterialUnitPrice = row.find('td:nth-child(3)').text();
     var editMaterialUnit = row.find('td:nth-child(4)').text();
-    var editReceiptQuantity = parseInt(row.find('td:nth-child(5)').text());
 
+    $('#editReceiptCode').val(MaPhieu);
     $('#editMaterialCode').val(editMaterialCode);
     $('#editMaterialName').val(editMaterialName);
     $('#editMaterialUnitPrice').val(editMaterialUnitPrice);
     $('#editMaterialUnit').val(editMaterialUnit);
-    $('#editReceiptQuantity').val(editReceiptQuantity);
     $('#editInventoryModal').modal('show');
   }
 
@@ -271,13 +249,20 @@
   function cancelEditedInventory() {
     $('#editInventoryModal').modal('hide');
   }
-  function deleteRow(icon) {
+  async function deleteRow(icon, materialID) {
     var row = $(icon).closest('tr');
     var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
     
     if (confirmDelete) {
-
-      row.remove();
+      try {
+        const result = await fetch(`http://localhost:3000/api/admin/material/delete/?id=${materialID}`);
+        const data = await result.json();
+        if(data.success){
+          row.remove();
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
@@ -286,43 +271,74 @@
     // const searchParams = new URLSearchParams(window.location.search);
     // const MaPhieu = searchParams.get('id');
     try {
-        const res = await fetch(`http://localhost:3000/api/admin/inventory`)
+        const res = await fetch(`http://localhost:3000/api/admin/material?id=${MaPhieu}`)
         const data = await res.json();
         
         let rsHtml = '';
-        let sumCurrent = 0;
         data.forEach(function(element){
-            const valueCurrent = element.DonGia * element.SLTon
-            sumCurrent += valueCurrent
             rsHtml += `<tr>
                         <td>${element.MaNguyenLieu}</td>
                         <td>${element.TenNguyenLieu}</td>
                         <td>${element.DonGia}</td>
                         <td>${element.DonVi}</td>
-                        <td>${element.SLTon}</td>
-                        <td>${valueCurrent}</td>
                         <td>
                           <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory(this)"></i>
-                          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+                          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaNguyenLieu})"></i>
                         </td>
+                        <td>
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                        </td> 
                       </tr>`
         })
-
-        rsHtml += `<tr>
-                    <td class="color-blue">TỔNG CỘNG</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="color-blue">${sumCurrent}</td>
-                    <td>
-                    </td>
-                  </tr>`
         $('tbody').html(rsHtml);
     } catch (error) {
         console.log(error);
     }
+
+    submitMaterialIDChecked(MaPhieu);
+    cancelMaterialIDChecked(MaPhieu);
 });
+
+function submitMaterialIDChecked(MaPhieu){
+  // xu ly su kien click button them nguyen lieu
+  $('.btnSubmitMaterial').on( "click", async function() {
+    const row = $('.form-check-input:checked').closest('tr').toArray();
+    const data = row.map(element => {
+      return {
+        MaPhieu: MaPhieu,
+        MaNguyenLieu: parseInt(element.querySelectorAll('td')[0].innerText),
+        SoLuong: 0
+      }
+    })
+
+    const result = await fetch('http://localhost:3000/api/admin/warehouse-receipt-detail/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(data)
+    })
+
+    const rs = await result.json()
+
+    if(rs.success){
+      // window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/warehouse-receipt-detail.html?id=${MaPhieu}`
+    }
+
+    window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/warehouse-receipt-detail.html?id=${MaPhieu}`
+
+    
+  });
+
+}
+
+function cancelMaterialIDChecked(MaPhieu){
+  // xu ly su kien click button huy bo them nguyen lieu
+  $('.btnCancelMaterial').on( "click", async function() {
+    window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/warehouse-receipt-detail.html?id=${MaPhieu}`
+  });
+
+}
 </script>
 
 </html>

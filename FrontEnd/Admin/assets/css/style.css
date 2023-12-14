@@ -143,6 +143,12 @@
     padding: 8px;
 }
 
+.table-item-detail,
+.table-item-choose{
+    font-size: 26px;
+    padding: 8px;
+}
+
 td, th{
     text-align: center;
 }
@@ -198,6 +204,13 @@ td, th{
 .fa-pen-to-square.color-green:hover {
     color: #177426; 
 }
+.fa-solid.fa-circle-info:hover,
+.fa-solid.fa-circle-check:hover{
+    color: #58cbf5;
+    cursor: pointer;
+}
+
+
 #addEmployeeModal .close {
     background-color: rgb(172, 43, 43);
     width: 2rem;
