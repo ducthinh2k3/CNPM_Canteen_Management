@@ -45,15 +45,12 @@ submitBtn.addEventListener('click', () => {
     if (username.value !== '' && feedback.value !== '') {
         const options = {
             timeZone: 'Asia/Ho_Chi_Minh',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
         };
-        let time = new Date().toLocaleString('en-US', options);
+        let time = new Date().toLocaleString('es-CL', options);
+        
 
         reviewContent.insertAdjacentHTML(
             'afterbegin',
@@ -66,7 +63,7 @@ submitBtn.addEventListener('click', () => {
                 </div>
             </div>
             <div class="comment-content">${feedback.value}</div>
-            <time datetime="${time}" title="${time}">Just now</time>
+            <time>${time}</time>
         </div>
         `
         );
@@ -75,12 +72,17 @@ submitBtn.addEventListener('click', () => {
         ratingStars[`${userRatingStar}stars`]++;
         ratingStars.numRatings++;
         calcRating();
+
+        /*
         // UPDATE TIME FOR FEEDBACK
         for (let time of timeouts) {
             clearInterval(time);
         }
+        
         timeouts = []; // reset
         updateTimeAgo(); // update again time for comment
+        */
+
         // set default value
         setDefaultRating();
     }
@@ -181,7 +183,7 @@ function setStars(number) {
 
 function time_seconds(time) {
     let current = new Date().toLocaleString('en-US', {
-        timeZone: 'Asia/Ho_Chi_Minh',
+        timeZone: 'Asia/Ho_Chi_Minh'
     });
     let cur_time = Date.parse(current); // ms
     let time_ago = Date.parse(time); // ms
@@ -209,7 +211,7 @@ function time_elapsed_string(time) {
     } else if (days < 7) {
         if (days == 1) return 'yesterday';
         else return `${days} days ago`;
-    } else if (weeks < 4.3) {
+    } else if (weeks < 4) {
         if (weeks == 1) return 'a week ago';
         else return `${weeks} weeks ago`;
     } else if (months < 12) {
@@ -225,9 +227,7 @@ function updateTimeAgo() {
     const dateTimeEle = document.querySelectorAll('time[datetime]');
     dateTimeEle.forEach((time) => {
         const datetime = time.getAttribute('datetime');
-
-        const timeAgo = time_elapsed_string(datetime);
-        time.textContent = timeAgo;
+        setTimeAgo(time, datetime);
 
         const timeSeconds = time_seconds(datetime);
         let hours = timeSeconds / 3600;
