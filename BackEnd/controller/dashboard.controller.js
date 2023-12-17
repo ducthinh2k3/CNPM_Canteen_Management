@@ -23,7 +23,7 @@ const getAllReviews = async (req, res, next) => {
 
 const addReview = async (req, res, next) => {
     try {
-        const entity = req.nody
+        const entity = req.body
         const rs = await Review.addRowReview(entity);
         res.json(rs); 
     } catch (error) {
