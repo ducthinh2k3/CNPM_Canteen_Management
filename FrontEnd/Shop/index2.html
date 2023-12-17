@@ -22,17 +22,22 @@
         <tr>
           <td>
             <a href="index3.html">
-              <p class="content__choose">Ăn tại quán</p>
+              <p class="content__choose" onclick="saveChoice('Ăn tại quán')">Ăn tại quán</p>
             </a>
             
           </td>
           <td>
             <a href="index3.html">
-              <p class="content__choose">Mang về</p>
+              <p class="content__choose" onclick="saveChoice('Mang về')">Mang về</p>
             </a>
           </td>
         </tr>
       </table>
     </div>
+    <script>
+      function saveChoice(choice) {
+        localStorage.setItem("HinhThuc", JSON.stringify(choice));
+      }
+    </script>
   </body>
 </html>

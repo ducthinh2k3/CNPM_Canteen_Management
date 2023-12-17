@@ -93,13 +93,18 @@ const reloadCard = () => {
 
         total.innerText = totalPrice.toLocaleString();
         quantity.innerText = count;
+
+        // Chuyển đổi total thành số và lưu vào localStorage
+        const numericTotal = parseFloat(total.innerText.replace(/,/g, '')); // Xóa dấu phẩy và chuyển đổi thành số
+        localStorage.setItem("NumericSubTotal", numericTotal);
     })
 }
 
 
 const changeQuantity = (key, quantity) => {
     if (quantity == 0) {
-        delete listCards[key]
+        delete listCards[key];
+        total.innerText = 0
     }
     else {
         listCards[key].quantity = quantity;
