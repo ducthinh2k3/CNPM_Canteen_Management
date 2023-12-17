@@ -36,21 +36,24 @@ const initApp = () => {
         newDiv.classList.add("item");
         newDiv.innerHTML = `
             <img src = "http://localhost:3000/images/products/${value.HinhAnh}">
-            <div class = "title">${value.TenSP}</div>
+            <div class ="title">${value.TenSP}</div>
             <div class="price">${value.GiaBan.toLocaleString()}</div>
             <div class="btn">
-                <button class="add" onclick = "addToCard(${key})">Thêm món</button>
-                <a href="Review.html" "color"="white" "text-decoration"="none">
+                <button class="add">Thêm món</button>
+                <a href="Review.html?id=${value.MaSP}" "color"="white" "text-decoration"="none">
                     <button class="detail">Đánh giá</button>
                 </a>
             </div>
         `;
         list.appendChild(newDiv)
     })
+
+    document.querySelectorAll('.add').forEach((button, key) => {
+        button.addEventListener('click', () => addToCard(key));
+    });
 }
 
 fetchProducts();
-
 
 const addToCard = key => {
     if (listCards[key] == null) {
@@ -69,15 +72,15 @@ const reloadCard = () => {
     let totalPrice = 0;
 
     listCards.forEach((value, key) => {
-        totalPrice = totalPrice + value.price
+        totalPrice = totalPrice + value.GiaBan;
         count = count + value.quantity;
 
         if (value != null) {
             let newDiv = document.createElement("li");
             newDiv.innerHTML = `
-                <div><img src = "Images/${value.image}"></div>
-                <div class = "cardTitle">${value.name}</div>
-                <div class = "cardPrice">${value.price.toLocaleString()}</div>
+                <div><img src = "Images/${value.HinhAnh}"></div>
+                <div class = "cardTitle">${value.TenSP}</div>
+                <div class = "cardPrice">${value.GiaBan.toLocaleString()}</div>
 
                 <div>
                     <button style = "background-color:#61BBE1;" class = "cardButton" onclick = "changeQuantity(${key}, ${value.quantity - 1})">-</button>
@@ -100,7 +103,7 @@ const changeQuantity = (key, quantity) => {
     }
     else {
         listCards[key].quantity = quantity;
-        listCards[key].price = quantity * products[key].price
+        listCards[key].GiaBan = quantity * products[key].GiaBan
     }
     reloadCard()
 }
