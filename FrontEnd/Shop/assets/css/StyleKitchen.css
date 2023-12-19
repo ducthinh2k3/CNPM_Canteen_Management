@@ -2,85 +2,103 @@
     margin-left: 0px;
     padding: 0px;
     box-sizing: border-box;
-    font-family: "Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
 }
+
 .title {
     font-weight: bold;
     font-size: larger;
     padding-left: 5px;
     padding-top: 10px;
 }
+
 .bold-hr {
     border: none;
-    height: 2px; /* Độ dày của thanh ngang */
-    background-color: #000; /* Màu sắc của thanh ngang */
-    margin: 10px 0; /* Khoảng cách giữa thanh ngang và các phần tử xung quanh */
+    height: 2px;
+    /* Độ dày của thanh ngang */
+    background-color: #000;
+    /* Màu sắc của thanh ngang */
+    margin: 10px 0;
+    /* Khoảng cách giữa thanh ngang và các phần tử xung quanh */
 }
-.navbarLeft,.navbarRight{
+
+.navbarLeft,
+.navbarRight {
     font-weight: bold;
-    color :aliceblue;
+    color: aliceblue;
     padding: 10px;
 }
-.vertical-line{
-    border-right: 2px solid #333; /* 2px solid line with dark gray color */
-    height: 200px; /* Adjust the height as needed */
-    margin: 10px; /* Optional margin for spacing */
-}   
-.Bottom{
-    height: 50px;
-    
+
+.vertical-line {
+    border-right: 2px solid #333;
+    /* 2px solid line with dark gray color */
+    height: 200px;
+    /* Adjust the height as needed */
+    margin: 10px;
+    /* Optional margin for spacing */
 }
-.content,.contentRight .row .STT{
+
+.Bottom {
+    height: 50px;
+}
+
+.content,
+.contentRight .row .STT {
     margin-left: 10px;
 }
-.content,.contentRight .row .Quality{
+
+.content,
+.contentRight .row .Quality {
     margin-left: 15px;
 }
-.Footer{
+
+.Footer {
     background-color: rgb(200, 197, 195);
+    bottom: 0;
+    position: fixed;
+    width: 100%;
 }
+
 .contentRight {
     margin-top: 60px;
 }
+
 .hr {
     width: 90%;
 }
 
-.btn_delete_left,.btn_delete_right{
+.btn_delete_left,
+.btn_delete_right {
     background-color: transparent;
     margin-bottom: 5px;
     text-align: center;
 }
-.btn_delete_click{
+
+.btn_delete_click {
     background: red;
 }
-.row .notify{
+
+.row .notify {
     cursor: pointer;
 }
-.row .notify a{
+
+.row .notify a {
     color: #fff;
 }
-.row .notify:hover{
+
+.row .notify:hover {
     color: aqua;
 }
-.row .notify i:hover{
+
+.row .notify i:hover {
     color: aquamarine;
 }
+
 .row .logOut {
     cursor: pointer;
     color: #fff;
 }
 
-.row .logOut:hover{
+.row .logOut:hover {
     color: aquamarine;
 }
-
-
-
-
-
-
-
-
-
-

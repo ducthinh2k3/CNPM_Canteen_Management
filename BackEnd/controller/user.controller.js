@@ -17,6 +17,7 @@ const addUser = async (req, res, next) => {
             Password: req.body.employeePassword,
             VaiTro: req.body.employeeRole
         }
+        console.log("data Add: ",entity)
         const rs = await User.addRow(entity);
         res.redirect('http://127.0.0.1:5500/FrontEnd/Admin/staff.html')
     } catch (error) {
@@ -33,6 +34,7 @@ const updateUser = async (req, res, next) => {
             Password: req.body.editEmployeePassword,
             VaiTro: req.body.editEmployeeRole
         }
+        
         const rs = await User.updateRow(entity);
         res.redirect('http://127.0.0.1:5500/FrontEnd/Admin/staff.html')
     } catch (error) {

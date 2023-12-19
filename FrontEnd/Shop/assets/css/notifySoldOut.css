@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Goudy Bookletter 1911", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #61BBE1;
+    background-size: cover;
+    background-position: center;
+}
+
+header {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    top: 0;
+}
+header i{
+    font-size: 45px;
+    margin: 20px;
+    color: rgb(4, 81, 111);
+}
+header i:hover{
+    color: black;
+}
+header h1{
+    
+    flex-wrap: nowrap;
+    font-size: 40px;
+    padding: 20px;
+}
+
+.wrapper {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 700px;
+    height: 500px;
+    background-color: rgba(238, 231, 231, 0.853);
+    border: 2px solid rgba(255,255,255,.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 20px rgba(0,0,0,.2);
+    border-radius: 10px;
+    padding: 30px 40px;
+} 
+
+.wrapper .nameProduct {
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    margin-top: 30px ;
+}
+.wrapper .idProduct{
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+}
+.nameProduct input {
+    font-size: 15px;
+    padding: 10px;
+    width: 70%;
+    height: 100%;
+}
+.nameProduct p{
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+.idProduct input{
+    font-size: 15px;
+    padding: 10px;
+    width: 70%;
+    height: 100%;
+}
+.idProduct p{
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+.wrapper .accept{
+    font-weight: bold;
+    margin-right: 25px;
+    width: 120px;
+    height: 50px;
+    cursor: pointer;
+}
+.wrapper .accept:hover{
+    background-color: #61BBE1;
+}
+.wrapper .cancel{
+    font-weight: bold;
+    margin-left: 25px;
+    width: 120px;
+    height: 50px;
+    cursor: pointer;
+}
+.wrapper .cancel:hover{
+    background-color: #61BBE1;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/css/StyleRegister.css">
+</head>
+
+<body>
+
+  <form action="http://localhost:3000/api/auth/register" method="POST">
+    <div class="container">
+      <div class="header">
+        <h1>Register</h1>
+        <p>Please fill in this form to create an account.</p>
+      </div>
+      <hr>
+      <label><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" id="usernameId" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" id="passwordId" required>
+      <label><b>Role</b></label>
+      <select id="roleId" name="role" class="form-control">
+        <option value='1'>Nhân Viên</option>
+        <option value='2'>Quản Lý</option>
+        <option value='3'>Bếp</option>
+      </select>
+      <button type="submit" class="registerbtn">Register</button>
+    </div>
+
+    <div class="container signin">
+      <p>Already have an account? <a href="Login.html">Sign in</a>.</p>
+    </div>
+  </form>
+
+</body>
+
+</html>
