@@ -16,19 +16,22 @@ exports.register = (req, res) => {
             `);
                 // res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Register.html');
             }
+            else {
+                bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT_ROUND)).then((hashed) => {
+                    const user = new User({
+                        username: username,
+                        password: hashed,
+                        role: role,
+                    });
+                    User.create(user, (err, user) => {
+                        if (!err) {
+                            res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Login.html')
+                        }
+                    })
+                });
+            }
         })
-        bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT_ROUND)).then((hashed) => {
-            const user = new User({
-                username: username,
-                password: hashed,
-                role: role,
-            });
-            User.create(user, (err, user) => {
-                if (!err) {
-                    res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Login.html')
-                }
-            })
-        });
+
 
     } else {
         const errorMessage = 'Username and password is blank!';
