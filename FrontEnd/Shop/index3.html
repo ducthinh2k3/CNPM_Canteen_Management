@@ -16,7 +16,7 @@
       <table>
         <caption>
           <p>Chọn hình thức thanh toán<br /></p>
-          <span>70.000đ</span>
+          <span id="totalAmount">0</span>
         </caption>
         <tr>
           <td>
@@ -45,5 +45,9 @@
         </tr>
       </table>
     </div>
+    <script>
+      const storedTotalValue = localStorage.getItem('Total');
+      document.getElementById('totalAmount').textContent = storedTotalValue;
+    </script>
   </body>
 </html>

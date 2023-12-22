@@ -9,7 +9,8 @@ const feedback = document.getElementById('feedback');
 const submitBtn = document.querySelector('.submit');
 const feedbackBox = document.querySelector('.feedback-user');
 const starDiv = feedbackBox.querySelector('.stars');
-const closeFeedback = document.querySelector('.close-btn .fas');
+const closeFeedback = document.querySelector('.close-btn .fas'),
+    list = document.querySelector(".review-content")
 
 // rating 5 star when user not click
 const numberStar = 5;
@@ -45,15 +46,12 @@ submitBtn.addEventListener('click', () => {
     if (username.value !== '' && feedback.value !== '') {
         const options = {
             timeZone: 'Asia/Ho_Chi_Minh',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
         };
-        let time = new Date().toLocaleString('en-US', options);
+        let time = new Date().toLocaleString('es-CL', options);
+        
 
         reviewContent.insertAdjacentHTML(
             'afterbegin',
@@ -66,7 +64,7 @@ submitBtn.addEventListener('click', () => {
                 </div>
             </div>
             <div class="comment-content">${feedback.value}</div>
-            <time datetime="${time}" title="${time}">Just now</time>
+            <time>${time}</time>
         </div>
         `
         );
@@ -75,12 +73,17 @@ submitBtn.addEventListener('click', () => {
         ratingStars[`${userRatingStar}stars`]++;
         ratingStars.numRatings++;
         calcRating();
+
+        /*
         // UPDATE TIME FOR FEEDBACK
         for (let time of timeouts) {
             clearInterval(time);
         }
+        
         timeouts = []; // reset
         updateTimeAgo(); // update again time for comment
+        */
+
         // set default value
         setDefaultRating();
     }
@@ -98,9 +101,7 @@ function calcRating() {
         const numberOfStars = ratingStars[`${number}stars`];
         if (numberOfStars) {
             sumStars += number * numberOfStars;
-            percent = ((numberOfStars / ratingStars.numRatings) * 100).toFixed(
-                1
-            );
+            percent = ((numberOfStars / ratingStars.numRatings) * 100).toFixed(1);
         }
 
         barItems[indexProgress].querySelector(
@@ -181,7 +182,7 @@ function setStars(number) {
 
 function time_seconds(time) {
     let current = new Date().toLocaleString('en-US', {
-        timeZone: 'Asia/Ho_Chi_Minh',
+        timeZone: 'Asia/Ho_Chi_Minh'
     });
     let cur_time = Date.parse(current); // ms
     let time_ago = Date.parse(time); // ms
@@ -209,7 +210,7 @@ function time_elapsed_string(time) {
     } else if (days < 7) {
         if (days == 1) return 'yesterday';
         else return `${days} days ago`;
-    } else if (weeks < 4.3) {
+    } else if (weeks < 4) {
         if (weeks == 1) return 'a week ago';
         else return `${weeks} weeks ago`;
     } else if (months < 12) {
@@ -225,9 +226,7 @@ function updateTimeAgo() {
     const dateTimeEle = document.querySelectorAll('time[datetime]');
     dateTimeEle.forEach((time) => {
         const datetime = time.getAttribute('datetime');
-
-        const timeAgo = time_elapsed_string(datetime);
-        time.textContent = timeAgo;
+        setTimeAgo(time, datetime);
 
         const timeSeconds = time_seconds(datetime);
         let hours = timeSeconds / 3600;
@@ -250,3 +249,44 @@ function setTimeAgo(ele, datetime) {
     const timeAgo = time_elapsed_string(datetime);
     ele.textContent = timeAgo;
 }
+
+
+let reviews = [];
+
+async function fetchReviews() {
+    const item = new URLSearchParams(window.location.search);
+    const MaSP = item.get('id');
+
+    try {
+        const res = await fetch(`http://localhost:3000/api/admin/dashboard/product-reviews/${MaSP}`)
+        const data = await res.json();
+        reviews = data;
+        initApp();
+    } catch (error) {
+        console.error('Error fetching reviews:', error);
+    }
+};
+
+const initApp = () => {
+    reviews.forEach((value) => {
+        let newDiv = document.createElement("div");
+        newDiv.classList.add("item");
+        newDiv.innerHTML = `
+            <div class="user-review">
+                <div class="user-rating">
+                    <div class="username">${value.NguoiThucHien}</div>
+                    <div class="stars">
+                        ${setStars(value.Rating)}
+                    </div>
+                </div>
+                <div class="comment-content">
+                    ${value.NoiDung}
+                </div>
+                <time>${value.NgayThucHien}</time>
+            </div>
+        `;
+        list.appendChild(newDiv)
+    })
+}
+
+// fetchReviews();

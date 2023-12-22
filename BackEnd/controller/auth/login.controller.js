@@ -43,7 +43,14 @@ exports.login = (req, res) => {
     if (username && password) {
         User.FindByUsername(username, (err, user) => {
             if (!user) {
-                res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Login.html');
+                const errorMessage = 'Username or password is incorrest!';
+                res.send(`
+                <script>
+                    alert("${errorMessage}");
+                    window.location.href = "http://127.0.0.1:5500/FrontEnd/Auth/Login.html"; // Chuyển hướng đến trang chính hoặc trang khác
+                </script>
+            `);
+                //res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Login.html');
             } else {
                 bcrypt.compare(password, user.Password, (err, result) => {
                     if (result == true) {

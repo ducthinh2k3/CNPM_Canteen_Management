@@ -17,8 +17,8 @@
           <div id="coupon">
             <h3>Áp dụng khuyến mãi</h3>
             <div>
-              <input type="text" placeholder="Nhập mã khuyến mãi" />
-              <button class="normal">Áp dụng</button>
+              <input id="couponCode" type="text" placeholder="Nhập mã khuyến mãi" />
+              <button class="normal" id="applyCouponButton">Áp dụng</button>
             </div>
           </div>
         </section>
@@ -26,46 +26,6 @@
         <section id="cart-add">
           <table>
             <!-- Mã 1 -->
-            <tr>
-              <td>
-                <div class="wrapper__content">
-                  <img src="Images/coupon.png" />
-                  <div value="10KM">
-                    <p><strong>[KM010] Giảm 10%</strong></p>
-                    <small>Đơn tối thiểu 100.000đ<br /></small>
-                    <small>Hết hạn trong: 6 giờ</small>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <!-- Mã 2 -->
-            <tr>
-              <td>
-                <div class="wrapper__content">
-                  <img src="Images/coupon.png" />
-                  <div>
-                    <p><strong>[KM020] Giảm 20%</strong></p>
-                    <small>Đơn tối thiểu 300.000đ<br /></small>
-                    <small>Hết hạn trong: 5 giờ</small>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <!-- Mã 3 -->
-            <tr>
-              <td>
-                <div class="wrapper__content">
-                  <img src="Images/coupon.png" />
-                  <div>
-                    <p><strong>[KM015] Giảm 15%</strong></p>
-                    <small>Đơn tối thiểu 200.000đ<br /></small>
-                    <small>Hết hạn trong: 7 giờ</small>
-                  </div>
-                </div>
-              </td>
-            </tr>
           </table>
         </section>
       </div>
@@ -75,20 +35,20 @@
           <table>
             <tr>
               <td>Tạm tính:</td>
-              <td>100.000đ</td>
+              <td id="subTotalAmount"></td>
             </tr>
 
             <tr>
               <td>Khuyến mãi:</td>
-              <td>-10.000đ</td>
+              <td id="discountAmount"></td>
             </tr>
 
             <tr>
               <td>
                 <strong>Thành tiền:</strong>
               </td>
-              <td>
-                <strong>90.000đ</strong>
+              <td id="totalAmount">
+                <strong></strong>
               </td>
             </tr>
           </table>
@@ -98,5 +58,6 @@
         </div>
       </div>
     </div>
+    <script src="./assets/javascript/script1.js"></script>
   </body>
 </html>

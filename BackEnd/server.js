@@ -4,16 +4,11 @@ const app = express()
 const cors = require('cors');
 const fs = require('fs/promises')
 const port = process.env.PORT || 3000;
-const session = require('express-session')
 // set dir
 app.use(express.static(__dirname + '/public'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-/* app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-})); */
+
 // middleware
 app.use(cors())
 
@@ -22,12 +17,22 @@ app.use(cors())
 // router
 const userRouter = require('./routers/user.router');
 const productRouter = require('./routers/product.router');
+const materialRouter = require('./routers/material.router');
+const wareHouseRouter = require('./routers/warehouse.router');
+const DashboardRouter = require('./routers/dashboard.router');
+const couponRouter = require('./routers/coupon.router');
+const orderRouter = require('./routers/order.router');
 const authRouter = require('./routers/auth.router');
 const kitchenRouter = require('./routers/kitchen.router');
 
 // use router
 app.use('/api/admin', userRouter);
 app.use('/api/admin', productRouter);
+app.use('/api/admin', materialRouter);
+app.use('/api/admin', wareHouseRouter);
+app.use('/api/admin', DashboardRouter);
+app.use('/api/admin', couponRouter);
+app.use('/api/admin', orderRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/shop', kitchenRouter);
 

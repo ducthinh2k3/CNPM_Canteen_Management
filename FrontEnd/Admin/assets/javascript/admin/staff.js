@@ -1,63 +1,63 @@
 function toggleContent(icon) {
-  var row = icon.closest('tr');
-  var cells = row.getElementsByTagName('td');
+    var row = icon.closest('tr');
+    var cells = row.getElementsByTagName('td');
 
-  if (row.classList.contains('hidden-content')) {
-    for (var i = 0; i < cells.length - 1; i++) {
-      //cells[i].textContent = 'Original Text';
+    if (row.classList.contains('hidden-content')) {
+      for (var i = 0; i < cells.length - 1; i++) {
+        //cells[i].textContent = 'Original Text';
+      }
+      row.classList.remove('hidden-content'); 
+      icon.classList.remove('fa-eye-slash'); 
+      icon.classList.add('fa-eye'); 
+    } else {
+      for (var i = 0; i < cells.length - 1; i++) {
+        //cells[i].textContent = '*****';
+      }
+      row.classList.add('hidden-content'); 
+      icon.classList.remove('fa-eye'); 
+      icon.classList.add('fa-eye-slash'); 
     }
-    row.classList.remove('hidden-content');
-    icon.classList.remove('fa-eye-slash');
-    icon.classList.add('fa-eye');
-  } else {
-    for (var i = 0; i < cells.length - 1; i++) {
-      //cells[i].textContent = '*****';
+  }
+  function addEmployee() {
+
+    $('#addEmployeeModal').modal('show');
+  }
+  function cancelAddEmployee() {
+
+    $('#addEmployeeModal').modal('hide');
+  }
+
+  function saveAddEmployee() {
+
+    $('#addEmployeeModal').modal('hide');
+
+  }
+
+  async function editEmployee(userID) {
+    const res = await fetch(`http://localhost:3000/api/admin/user/edit/?id=${userID}`)
+    const user = await res.json();
+    let role = "";
+    if(user.VaiTro == 1){
+        role = "employee"
+    } else if (user.VaiTro == 2){
+        role = "manager"
+    } else if (user.VaiTro == 3){
+        role = "chef"
     }
-    row.classList.add('hidden-content');
-    icon.classList.remove('fa-eye');
-    icon.classList.add('fa-eye-slash');
+    $("#editEmployeeModal #editEmployeeCode").val(user.UserID);
+    $("#editEmployeeModal #editEmployeeName").val(user.HoTen);
+    $("#editEmployeeModal #editEmployeeRole").val(user.VaiTro);
+    $("#editEmployeeModal #editEmployeeUser").val(user.Username);
+    $("#editEmployeeModal #editEmployeePassword").val(user.Password);
+    $('#editEmployeeModal').modal('show');
   }
-}
-function addEmployee() {
-
-  $('#addEmployeeModal').modal('show');
-}
-function cancelAddEmployee() {
-
-  $('#addEmployeeModal').modal('hide');
-}
-
-function saveAddEmployee() {
-
-  $('#addEmployeeModal').modal('hide');
-
-}
-
-async function editEmployee(userID) {
-  const res = await fetch(`http://localhost:3000/api/admin/user/edit/?id=${userID}`)
-  const user = await res.json();
-  let role = "";
-  if (user.VaiTro == 1) {
-    role = "employee"
-  } else if (user.VaiTro == 2) {
-    role = "manager"
-  } else if (user.VaiTro == 3) {
-    role = "chef"
-  }
-  $("#editEmployeeModal #editEmployeeCode").val(user.UserID);
-  $("#editEmployeeModal #editEmployeeName").val(user.HoTen);
-  $("#editEmployeeModal #editEmployeeRole").val(user.VaiTro);
-  $("#editEmployeeModal #editEmployeeUser").val(user.Username);
-  $("#editEmployeeModal #editEmployeePassword").val(user.Password);
-  $('#editEmployeeModal').modal('show');
-}
-function cancelEditedEmployee() {
+  function cancelEditedEmployee() {
 
   $('#editEmployeeModal').modal('hide');
 }
 
 function saveEditedEmployee() {
-  $('#editEmployeeModal').modal('hide');
+    $('#editEmployeeModal').modal('hide');
 }
 async function deleteRow(userID) {
   // var row = $(icon).closest('tr');
@@ -66,26 +66,27 @@ async function deleteRow(userID) {
   if (confirmDelete) {
     await fetch(`http://localhost:3000/api/admin/user/delete/?id=${userID}`)
     window.location.href = 'http://127.0.0.1:5500/FrontEnd/Admin/staff.html';
-    // row.remove();
+      // row.remove();
   }
 }
 
 // load all staff from database
-$(document).ready(async function () {
-  try {
-    const res = await fetch('http://localhost:3000/api/admin/user')
-    const data = await res.json();
-    let rsHtml = '';
-    data.forEach(function (element) {
-      let role = "";
-      if (element.VaiTro == 1) {
-        role = "Nhân Viên"
-      } else if (element.VaiTro == 2) {
-        role = "Quản Lý"
-      } else if (element.VaiTro == 3) {
-        role = "Bếp"
-      }
-      rsHtml += `<tr>
+$(document).ready(async function() {
+    try {
+        const res = await fetch('http://localhost:3000/api/admin/user')
+        const data = await res.json();
+        
+        let rsHtml = '';
+        data.forEach(function(element){
+            let role = "";
+            if(element.VaiTro == 1){
+                role = "Nhân Viên"
+            } else if (element.VaiTro == 2){
+                role = "Quản Lý"
+            } else if (element.VaiTro == 3){
+                role = "Bếp"
+            }
+            rsHtml += `<tr>
                             <td>${element.UserID}</td>
                             <td>${element.HoTen}</td>
                             <td>${role}</td>
@@ -101,9 +102,9 @@ $(document).ready(async function () {
                                 <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(${element.UserID})"></i>
                             </td>
                         </tr>`
-    })
-    $('tbody').html(rsHtml);
-  } catch (error) {
-    console.log(error);
-  }
+        })
+        $('tbody').html(rsHtml);
+    } catch (error) {
+        console.log(error);
+    }
 });
