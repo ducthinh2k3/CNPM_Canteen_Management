@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="./assets/css/report.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>
 </head>
 <body>
   <div class="app">
@@ -188,21 +190,7 @@
             </tr>
           </tbody>
         </table>
-        <nav aria-label="...">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <span class="page-link">Previous</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-              <span class="page-link">2</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
+        <div class="pagination-container" id="pagination-container"></div>
       </div>
     </div>
     <div class="footer">
@@ -330,6 +318,68 @@
   $('.report-option-spend').click(function() {
     openExpensesForm();
   });
+
+  //hiển thị bảng, phân trang. Thay thế api, viết lại câu lệnh html hiển thị lên
+  $('#pagination-container').pagination({
+    dataSource: 'http://localhost:3000/api/admin/inventory',
+    locator: 'data',
+    totalNumberLocator: function (response) {
+      return response.total;
+    },
+    pageSize: 4,
+    afterPageOnClick: function (event, pageNumber) {
+      loadPage(pageNumber);
+    },
+    afterPreviousOnClick: function (event, pageNumber) {
+      loadPage(pageNumber);
+    },
+    afterNextOnClick: function (event, pageNumber) {
+      loadPage(pageNumber);
+    },
+  });
+  function loadPage(page) {
+    const tableBody = $('.table tbody');
+    tableBody.empty();
+
+    $.ajax({
+      url: 'http://localhost:3000/api/admin/inventory?page=' + page,
+    })
+      .then(result => {
+        console.log(result.data);
+        displayData(result.data);
+      })
+      .catch(err => {
+        console.log('Error from server:', err);
+      });
+  }
+
+  function displayData(displayedData) {
+    const tableBody = $('.table tbody');
+    tableBody.empty();
+    let sumCurrent = 0;
+
+    if (Array.isArray(displayedData)) {
+      for (let i = 0; i < displayedData.length; i++) {
+        let element = displayedData[i];
+        const valueCurrent = element.DonGia * element.SLTon;
+        sumCurrent += valueCurrent;
+
+        const rowHtml = `<tr>
+                        <td>${element.MaNguyenLieu}</td>
+                        <td>${element.TenNguyenLieu}</td>
+                        <td>${element.DonGia}</td>
+                        <td>${element.DonVi}</td>
+                        <td>${element.SLTon}</td>
+                      </tr>`;
+
+        tableBody.append(rowHtml);
+      }
+    } else {
+      console.error('displayedData is not an array:', displayedData);
+    }
+  }
+
+  loadPage(1);
 </script>
 
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +11,10 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>
 </head>
+
 <body>
   <div class="app">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -18,39 +22,41 @@
         <a class="navbar-brand" href="#">
           <img src="./assets/images/icon-shop.png" alt="" class="navbar-brand-logo">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="overview.html">
-                  <i class="fa-solid fa-house nav-link-icon"></i>
-                  Tổng quan
+                <i class="fa-solid fa-house nav-link-icon"></i>
+                Tổng quan
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="report.html">
-                  <i class="fa-solid fa-chart-line nav-link-icon"></i>
-                  Báo cáo
+                <i class="fa-solid fa-chart-line nav-link-icon"></i>
+                Báo cáo
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="items.html">
-                  <i class="fa-solid fa-bag-shopping nav-link-icon"></i>
-                  Mặt hàng
+                <i class="fa-solid fa-bag-shopping nav-link-icon"></i>
+                Mặt hàng
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="staff.html">
-                  <i class="fa-solid fa-users nav-link-icon"></i>
-                  Nhân viên
+                <i class="fa-solid fa-users nav-link-icon"></i>
+                Nhân viên
               </a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="warehouse-receipt.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa-solid fa-warehouse nav-link-icon"></i>
-                  Kho hàng
+              <a class="nav-link dropdown-toggle" href="warehouse-receipt.html" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fa-solid fa-warehouse nav-link-icon"></i>
+                Kho hàng
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="warehouse-receipt.html">Nhập kho</a></li>
@@ -59,14 +65,15 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="discount-manager.html">
-                  <i class="fa-solid fa-percent nav-link-icon"></i>
-                  Khuyến mãi
+                <i class="fa-solid fa-percent nav-link-icon"></i>
+                Khuyến mãi
               </a>
             </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown nav-account">
-              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-bell nav-account-icon p-2"></i>
                 <img src="./assets/images/icon-avatar.png" alt="avatar" class="nav-account-avatar rounded-circle">
                 <span class="nav-link-name p-1">Admin</span>
@@ -105,10 +112,10 @@
         </div>
       </div>
       <div class="row m-2 mt-5">
-          <a href="" class="all-item item-active col-md-2">
-            Tất cả khuyến mãi
-          </a>
-        </div>
+        <a href="" class="all-item item-active col-md-2">
+          Tất cả khuyến mãi
+        </a>
+      </div>
       <div class="row">
         <table class="table table-hover">
           <thead>
@@ -127,7 +134,7 @@
               <td>KM500_20</td>
               <td>Giảm 20k</td>
               <td>Đơn trên 500k</td>
-              <td>21-25/11-2023   </td>
+              <td>21-25/11-2023 </td>
               <td>
                 <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editPromotion()"></i>
                 <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
@@ -138,7 +145,7 @@
               <td>KM500_20</td>
               <td>Giảm 20k</td>
               <td>Đơn trên 500k</td>
-              <td>21-25/11-2023   </td>
+              <td>21-25/11-2023 </td>
               <td>
                 <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editPromotion()"></i>
                 <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
@@ -149,7 +156,7 @@
               <td>KM500_20</td>
               <td>Giảm 20k</td>
               <td>Đơn trên 500k</td>
-              <td>21-25/11-2023   </td>
+              <td>21-25/11-2023 </td>
               <td>
                 <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editPromotion()"></i>
                 <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
@@ -157,21 +164,7 @@
             </tr>
           </tbody>
         </table>
-        <nav aria-label="...">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <span class="page-link">Previous</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-              <span class="page-link">2</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
+        <div class="pagination-container" id="pagination-container"></div>
       </div>
     </div>
     <div class="footer">
@@ -179,74 +172,78 @@
         Footer
       </div>
     </div>
-</div>
-<!-- Modal for Add Promotion -->
-<div class="modal fade" id="addPromotionModal" tabindex="-1" role="dialog" aria-labelledby="addPromotionModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addPromotionModalLabel">Thêm Khuyến Mãi</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelAddPromotion()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <label for="promotionCode">Mã Khuyến Mãi:</label>
-        <input type="text" id="promotionCode" name="promotionCode" class="form-control">
+  </div>
+  <!-- Modal for Add Promotion -->
+  <div class="modal fade" id="addPromotionModal" tabindex="-1" role="dialog" aria-labelledby="addPromotionModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPromotionModalLabel">Thêm Khuyến Mãi</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelAddPromotion()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="promotionCode">Mã Khuyến Mãi:</label>
+          <input type="text" id="promotionCode" name="promotionCode" class="form-control">
 
-        <label for="promotionDescription">Mô Tả Chi Tiết:</label>
-        <textarea id="promotionDescription" name="promotionDescription" class="form-control"></textarea>
+          <label for="promotionDescription">Mô Tả Chi Tiết:</label>
+          <textarea id="promotionDescription" name="promotionDescription" class="form-control"></textarea>
 
-        <label for="promotionCondition">Điều Kiện Áp Dụng:</label>
-        <input type="text" id="promotionCondition" name="promotionCondition" class="form-control">
+          <label for="promotionCondition">Điều Kiện Áp Dụng:</label>
+          <input type="text" id="promotionCondition" name="promotionCondition" class="form-control">
 
-        <label for="promotionStartTime">Thời Gian Bắt Đầu:</label>
-        <input type="datetime-local" id="promotionStartTime" name="promotionStartTime" class="form-control">
+          <label for="promotionStartTime">Thời Gian Bắt Đầu:</label>
+          <input type="datetime-local" id="promotionStartTime" name="promotionStartTime" class="form-control">
 
-        <label for="promotionEndTime">Thời Gian Kết Thúc:</label>
-        <input type="datetime-local" id="promotionEndTime" name="promotionEndTime" class="form-control">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelAddPromotion()">Đóng</button>
-        <button type="button" class="btn btn-primary" onclick="saveAddPromotion()">Thêm Khuyến Mãi</button>
+          <label for="promotionEndTime">Thời Gian Kết Thúc:</label>
+          <input type="datetime-local" id="promotionEndTime" name="promotionEndTime" class="form-control">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"
+            onclick="cancelAddPromotion()">Đóng</button>
+          <button type="button" class="btn btn-primary" onclick="saveAddPromotion()">Thêm Khuyến Mãi</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Modal for Edit Promotion -->
-<div class="modal fade" id="editPromotionModal" tabindex="-1" role="dialog" aria-labelledby="editPromotionModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editPromotionModalLabel">Chỉnh sửa Khuyến Mãi</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEditedPromotion()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <label for="editPromotionCode">Mã Khuyến Mãi:</label>
-        <input type="text" id="editPromotionCode" name="editPromotionCode" class="form-control" readonly>
+  <!-- Modal for Edit Promotion -->
+  <div class="modal fade" id="editPromotionModal" tabindex="-1" role="dialog" aria-labelledby="editPromotionModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editPromotionModalLabel">Chỉnh sửa Khuyến Mãi</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEditedPromotion()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="editPromotionCode">Mã Khuyến Mãi:</label>
+          <input type="text" id="editPromotionCode" name="editPromotionCode" class="form-control" readonly>
 
-        <label for="editPromotionDescription">Mô Tả Chi Tiết:</label>
-        <textarea id="editPromotionDescription" name="editPromotionDescription" class="form-control"></textarea>
+          <label for="editPromotionDescription">Mô Tả Chi Tiết:</label>
+          <textarea id="editPromotionDescription" name="editPromotionDescription" class="form-control"></textarea>
 
-        <label for="editPromotionCondition">Điều Kiện Áp Dụng:</label>
-        <input type="text" id="editPromotionCondition" name="editPromotionCondition" class="form-control">
+          <label for="editPromotionCondition">Điều Kiện Áp Dụng:</label>
+          <input type="text" id="editPromotionCondition" name="editPromotionCondition" class="form-control">
 
-        <label for="editPromotionStartTime">Thời Gian Bắt Đầu:</label>
-        <input type="datetime-local" id="editPromotionStartTime" name="editPromotionStartTime" class="form-control">
+          <label for="editPromotionStartTime">Thời Gian Bắt Đầu:</label>
+          <input type="datetime-local" id="editPromotionStartTime" name="editPromotionStartTime" class="form-control">
 
-        <label for="editPromotionEndTime">Thời Gian Kết Thúc:</label>
-        <input type="datetime-local" id="editPromotionEndTime" name="editPromotionEndTime" class="form-control">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEditedPromotion()">Đóng</button>
-        <button type="button" class="btn btn-primary" onclick="saveEditedPromotion()">Lưu thay đổi</button>
+          <label for="editPromotionEndTime">Thời Gian Kết Thúc:</label>
+          <input type="datetime-local" id="editPromotionEndTime" name="editPromotionEndTime" class="form-control">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"
+            onclick="cancelEditedPromotion()">Đóng</button>
+          <button type="button" class="btn btn-primary" onclick="saveEditedPromotion()">Lưu thay đổi</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 </body>
@@ -274,14 +271,79 @@
   function deleteRow(icon) {
     var row = $(icon).closest('tr');
     var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
-    
+
     if (confirmDelete) {
 
       row.remove();
     }
   }
+  //hiển thị bảng, phân trang. Thay thế api, viết lại câu lệnh html hiển thị lên
+  $('#pagination-container').pagination({
+    dataSource: 'http://localhost:3000/api/admin/inventory',
+    locator: 'data',
+    totalNumberLocator: function (response) {
+      return response.total;
+    },
+    pageSize: 4,
+    afterPageOnClick: function (event, pageNumber) {
+      loadPage(pageNumber);
+    },
+    afterPreviousOnClick: function (event, pageNumber) {
+      loadPage(pageNumber);
+    },
+    afterNextOnClick: function (event, pageNumber) {
+      loadPage(pageNumber);
+    },
+  });
+  function loadPage(page) {
+    const tableBody = $('.table tbody');
+    tableBody.empty();
 
-  
+    $.ajax({
+      url: 'http://localhost:3000/api/admin/inventory?page=' + page,
+    })
+      .then(result => {
+        console.log(result.data);
+        displayData(result.data);
+      })
+      .catch(err => {
+        console.log('Error from server:', err);
+      });
+  }
+
+  function displayData(displayedData) {
+    const tableBody = $('.table tbody');
+    tableBody.empty();
+    let sumCurrent = 0;
+
+    if (Array.isArray(displayedData)) {
+      for (let i = 0; i < displayedData.length; i++) {
+        let element = displayedData[i];
+        const valueCurrent = element.DonGia * element.SLTon;
+        sumCurrent += valueCurrent;
+
+        const rowHtml = `<tr>
+                        <td>${element.MaNguyenLieu}</td>
+                        <td>${element.TenNguyenLieu}</td>
+                        <td>${element.DonGia}</td>
+                        <td>${element.DonVi}</td>
+                        <td>${element.SLTon}</td>
+                        <td>
+                          <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory(this)"></i>
+                          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
+                        </td>
+                      </tr>`;
+
+        tableBody.append(rowHtml);
+      }
+    } else {
+      console.error('displayedData is not an array:', displayedData);
+    }
+  }
+
+  loadPage(1);
+
+
 </script>
 
 </html>

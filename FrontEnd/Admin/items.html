@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +8,25 @@
   <title>Canteen | Mặt hàng</title>
   <link rel="stylesheet" href="./assets/font/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+<<<<<<< Updated upstream
   <link rel="stylesheet" href="./assets/css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+=======
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css"
+    integrity="sha512-sHiVTDN234pgseKqjDwH39VjS9DkyffX4S00kuAWWq+FrTq7HlFjPoWbfX/QFAxkdG9i9/1ftdG2sS+XWLcJmw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/fileinput.min.js"
+    integrity="sha512-XxRivO6jA7xU9a0ozATMIFQFdNySyRrB8uE1QctFmjTTGSGUj9tC7CpnVf7xq1e/QeVhbY9ZLbxEzPFIWpW+xA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>
+>>>>>>> Stashed changes
 </head>
+
 <body>
   <div class="app">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -18,39 +34,41 @@
         <a class="navbar-brand" href="#">
           <img src="./assets/images/icon-shop.png" alt="" class="navbar-brand-logo">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="overview.html">
-                  <i class="fa-solid fa-house nav-link-icon"></i>
-                  Tổng quan
+                <i class="fa-solid fa-house nav-link-icon"></i>
+                Tổng quan
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="report.html">
-                  <i class="fa-solid fa-chart-line nav-link-icon"></i>
-                  Báo cáo
+                <i class="fa-solid fa-chart-line nav-link-icon"></i>
+                Báo cáo
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="items.html">
-                  <i class="fa-solid fa-bag-shopping nav-link-icon"></i>
-                  Mặt hàng
+                <i class="fa-solid fa-bag-shopping nav-link-icon"></i>
+                Mặt hàng
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="staff.html">
-                  <i class="fa-solid fa-users nav-link-icon"></i>
-                  Nhân viên
+                <i class="fa-solid fa-users nav-link-icon"></i>
+                Nhân viên
               </a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="warehouse-receipt.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa-solid fa-warehouse nav-link-icon"></i>
-                  Kho hàng
+              <a class="nav-link dropdown-toggle" href="warehouse-receipt.html" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fa-solid fa-warehouse nav-link-icon"></i>
+                Kho hàng
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="warehouse-receipt.html">Nhập kho</a></li>
@@ -59,14 +77,15 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="discount-manager.html">
-                  <i class="fa-solid fa-percent nav-link-icon"></i>
-                  Khuyến mãi
+                <i class="fa-solid fa-percent nav-link-icon"></i>
+                Khuyến mãi
               </a>
             </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown nav-account">
-              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-bell nav-account-icon p-2"></i>
                 <img src="./assets/images/icon-avatar.png" alt="avatar" class="nav-account-avatar rounded-circle">
                 <span class="nav-link-name p-1">Admin</span>
@@ -92,8 +111,9 @@
       </div>
       <div class="row m-3">
         <div class="search container-fluid col-md-6 offset-md-0">
-          <form class="d-flex search-item" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <form class="d-flex search-item" role="search" id="searchForm">
+            <input class="form-control me-2" type="search" placeholder="Tên mặt hàng" aria-label="Search"
+              id="searchInput">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>
@@ -206,21 +226,7 @@
             </tr>
           </tbody>
         </table>
-        <nav aria-label="...">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <span class="page-link">Previous</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-              <span class="page-link">2</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
+        <div class="pagination-container" id="pagination-container"></div>
       </div>
     </div>
     <div class="footer">
@@ -230,6 +236,7 @@
     </div>
   </div>
   <!-- Modal for Add Item -->
+<<<<<<< Updated upstream
 <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -245,10 +252,30 @@
 
         <label for="itemCode">Mã mặt hàng:</label>
         <input type="text" id="itemCode" name="itemCode" class="form-control">
+=======
+  <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" method="post" action="http://localhost:3000/api/admin/product/add"
+        enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addItemModalLabel">Thêm mặt hàng</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelAddItemForm()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="itemImage">Hình ảnh:</label>
+          <input type="file" id="itemImage" name="itemImage" class="form-control file-input">
 
-        <label for="itemName">Tên mặt hàng:</label>
-        <input type="text" id="itemName" name="itemName" class="form-control">
+          <!-- <label for="itemCode">Mã mặt hàng:</label>
+        <input type="text" id="itemCode" name="itemCode" class="form-control"> -->
+>>>>>>> Stashed changes
 
+          <label for="itemName">Tên mặt hàng:</label>
+          <input type="text" id="itemName" name="itemName" class="form-control">
+
+<<<<<<< Updated upstream
         <label for="itemCategory">Danh mục:</label>
         <select id="itemCategory" name="itemCategory" class="form-control">
           <option value="category1">Thức ăn nhanh</option>
@@ -263,10 +290,28 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelAddItemForm()">Đóng</button>
         <button type="button" class="btn btn-primary" onclick="submitAddItemForm()">Thêm</button>
       </div>
+=======
+          <label for="itemCategory">Danh mục:</label>
+          <select id="itemCategory" name="itemCategory" class="form-control">
+            <option value="1">Thức ăn nhanh</option>
+            <option value="2">Đồ uống</option>
+            <option value="3">Đồ ăn trưa</option>
+          </select>
+
+          <label for="itemCost">Giá thành:</label>
+          <input type="number" id="itemCost" name="itemCost" class="form-control">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"
+            onclick="cancelAddItemForm()">Đóng</button>
+          <button type="submit" class="btn btn-primary" onclick="submitAddItemForm()">Thêm</button>
+        </div>
+      </form>
+>>>>>>> Stashed changes
     </div>
   </div>
-</div>
 
+<<<<<<< Updated upstream
 <!-- Modal for Edit Item -->
 <div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -284,10 +329,33 @@
 
         <label for="editItemCode">Mã mặt hàng:</label>
         <input type="text" id="editItemCode" name="editItemCode" class="form-control">
+=======
+  <!-- Modal for Edit Item -->
+  <div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" method="post" method="post" action="http://localhost:3000/api/admin/product/update"
+        enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editItemModalLabel">Chỉnh sửa mặt hàng</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEdit()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="editItemImage">Hình ảnh:</label>
+          <img src="" alt="img" id="editItemImage" class="table-item-img mb-3" />
+          <input type="hidden" id="editNameImage" name="editNameImage" class="form-control">
+          <input type="file" id="editItemImage" name="editItemImage" class="form-control file-input">
 
-        <label for="editItemName">Tên mặt hàng:</label>
-        <input type="text" id="editItemName" name="editItemName" class="form-control">
+          <label for="editItemCode">Mã mặt hàng:</label>
+          <input type="text" id="editItemCode" name="editItemCode" class="form-control" readonly>
+>>>>>>> Stashed changes
 
+          <label for="editItemName">Tên mặt hàng:</label>
+          <input type="text" id="editItemName" name="editItemName" class="form-control">
+
+<<<<<<< Updated upstream
         <label for="editItemCategory">Danh mục:</label>
         <select id="editItemCategory" name="editItemCategory" class="form-control">
           <option value="editCategory1">Danh mục 1</option>
@@ -301,9 +369,25 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEdit()">Đóng</button>
         <button type="button" class="btn btn-primary" onclick="saveChanges()">Lưu thay đổi</button>
       </div>
+=======
+          <label for="editItemCategory">Danh mục:</label>
+          <select id="editItemCategory" name="editItemCategory" class="form-control">
+            <option value="1">Thức ăn nhanh</option>
+            <option value="2">Đồ uống</option>
+            <option value="3">Đồ ăn trưa</option>
+          </select>
+
+          <label for="editItemCost">Giá thành:</label>
+          <input type="number" id="editItemCost" name="editItemCost" class="form-control">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEdit()">Đóng</button>
+          <button type="submit" class="btn btn-primary" onclick="saveChanges()">Lưu thay đổi</button>
+        </div>
+      </form>
+>>>>>>> Stashed changes
     </div>
   </div>
-</div>
 </body>
 <script>
   function toggleContent(icon) {
@@ -314,16 +398,16 @@
       for (var i = 0; i < cells.length - 1; i++) {
         //cells[i].textContent = 'Original Text';
       }
-      row.classList.remove('hidden-content'); 
-      icon.classList.remove('fa-eye-slash'); 
-      icon.classList.add('fa-eye'); 
+      row.classList.remove('hidden-content');
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye');
     } else {
       for (var i = 0; i < cells.length - 1; i++) {
         //cells[i].textContent = '*****';
       }
-      row.classList.add('hidden-content'); 
-      icon.classList.remove('fa-eye'); 
-      icon.classList.add('fa-eye-slash'); 
+      row.classList.add('hidden-content');
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
     }
   }
 
@@ -346,10 +430,25 @@
     var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
     
     if (confirmDelete) {
+<<<<<<< Updated upstream
 
       row.remove();
     }
   }
+=======
+      try {
+        const result = await fetch(`http://localhost:3000/api/admin/product/delete/?id=${productID}`);
+        const data = await result.json();
+        if (data.success) {
+          row.remove();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
+>>>>>>> Stashed changes
   function editRow(icon) {
     var row = $(icon).closest('tr');
     var itemImageSrc = row.find('.table-item-img img').attr('src');
@@ -358,6 +457,20 @@
     var itemCategory = row.find('td:nth-child(4)').text();
     var itemCost = row.find('td:nth-child(5)').text();
 
+<<<<<<< Updated upstream
+=======
+    let nameImage = itemImageSrc.substring(itemImageSrc.lastIndexOf('/') + 1);
+
+    let itemCatNumber = 1;
+    if (itemCategory == "Thức ăn nhanh") {
+      itemCatNumber = 1;
+    } else if (itemCategory == "Đồ uống") {
+      itemCatNumber = 2;
+    } else if (itemCategory == "Đồ ăn trưa") {
+      itemCatNumber = 3;
+    }
+
+>>>>>>> Stashed changes
     $('#editItemImage').attr('src', itemImageSrc);
     $('#editItemCode').val(itemCode);
     $('#editItemName').val(itemName);
@@ -366,12 +479,197 @@
 
     $('#editItemModal').modal('show');
   }
-  function saveChanges(){
+  function saveChanges() {
     $('#editItemModal').modal('hide');
   }
   function cancelEdit() {
     $('#editItemModal').modal('hide');
 
   }
+<<<<<<< Updated upstream
+=======
+
+  $('.file-input').fileinput({
+    showCaption: false,
+    dropZoneEnabled: false,
+    showUpload: false
+  })
+
+  // load all product from database
+  // $(document).ready(async function () {
+  //   try {
+  //     const res = await fetch('http://localhost:3000/api/admin/product')
+  //     const data = await res.json();
+
+  //     let rsHtml = '';
+  //     data.forEach(function (element) {
+  //       let danhMuc = "";
+  //       if (element.DanhMuc == 1) {
+  //         danhMuc = "Thức ăn nhanh"
+  //       } else if (element.DanhMuc == 2) {
+  //         danhMuc = "Đồ uống"
+  //       } else if (element.DanhMuc == 3) {
+  //         danhMuc = "Đồ ăn trưa"
+  //       }
+  //       rsHtml += `<tr>
+  //                         <td><img src="http://localhost:3000/images/products/${element.HinhAnh}"
+  //                           alt="img" class="table-item-img"/></td>
+  //                         <td>${element.MaSP}</td>
+  //                         <td>${element.TenSP}</td>
+  //                         <td>${danhMuc}</td>
+  //                         <td class="color-green">${element.GiaBan}</td>
+  //                         <td>
+  //                           <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editRow(this)"></i>
+  //                           <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaSP})"></i>
+  //                         </td>
+  //                         <td><i class="fa-solid fa-eye table-item-visible" onclick="toggleContent(this)"></i></td>
+  //                       </tr>`
+  //     })
+  //     $('tbody').html(rsHtml);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // });
+
+  ///////////////////////////////////////////
+  $('#pagination-container').pagination({
+    dataSource: 'http://localhost:3000/api/admin/product/read?page=1',
+    locator: 'data',
+    totalNumberLocator: function (response) {
+      return response.total;
+    },
+    pageSize: 2,
+    afterPageOnClick: function (event, pageNumber) {
+      loadPage(pageNumber);
+    },
+    afterPreviousOnClick: function (event, pageNumber) {
+      loadPage(pageNumber);
+    },
+    afterNextOnClick: function (event, pageNumber) {
+      loadPage(pageNumber);
+    },
+  });
+
+  function loadPage(page) {
+    const tableBody = $('.table tbody');
+    tableBody.empty();
+
+    $.ajax({
+      url: 'http://localhost:3000/api/admin/product/read?page=' + page,
+    })
+      .then(result => {
+        displayData(result.data);
+      })
+      .catch(err => {
+        console.log('Error from server:', err);
+      });
+  }
+
+  function displayData(displayedData) {
+    const tableBody = $('.table tbody');
+    tableBody.empty();
+
+    if (Array.isArray(displayedData)) {
+      for (let i = 0; i < displayedData.length; i++) {
+        let element = displayedData[i];
+        let danhMuc = "";
+
+        if (element.DanhMuc == 1) {
+          danhMuc = "Thức ăn nhanh";
+        } else if (element.DanhMuc == 2) {
+          danhMuc = "Đồ uống";
+        } else if (element.DanhMuc == 3) {
+          danhMuc = "Đồ ăn trưa";
+        }
+
+        const rowHtml = `<tr>
+        <td><img src="http://localhost:3000/images/products/${element.HinhAnh}" alt="img" class="table-item-img"/></td>
+        <td>${element.MaSP}</td>
+        <td>${element.TenSP}</td>
+        <td>${danhMuc}</td>
+        <td class="color-green">${element.GiaBan}</td>
+        <td>
+          <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editRow(this)"></i>
+          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaSP})"></i>
+        </td>
+        <td><i class="fa-solid fa-eye table-item-visible" onclick="toggleContent(this)"></i></td>
+      </tr>`;
+
+        tableBody.append(rowHtml);
+      }
+    } else {
+      console.error('displayedData is not an array:', displayedData);
+    }
+  }
+
+  loadPage(1);
+
+  document.getElementById('searchForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const searchValue = document.getElementById('searchInput').value;
+    loadPageSearch(1, searchValue);
+    if (searchValue) {
+      $('#pagination-container').pagination({
+        dataSource: `http://localhost:3000/api/admin/product/search?name=${searchValue}&page=1`,
+        locator: 'data',
+        totalNumberLocator: function (response) {
+          return response.total;
+        },
+        pageSize: 2,
+        afterPageOnClick: function (event, pageNumber) {
+          loadPageSearch(pageNumber, searchValue);
+        },
+        afterPreviousOnClick: function (event, pageNumber) {
+          loadPageSearch(pageNumber, searchValue);
+        },
+        afterNextOnClick: function (event, pageNumber) {
+          loadPageSearch(pageNumber, searchValue);
+        },
+      });
+      loadPageSearch(1, searchValue);
+    } else {
+      loadPage(1);
+      $('#pagination-container').pagination({
+        dataSource: 'http://localhost:3000/api/admin/product/read?page=1',
+        locator: 'data',
+        totalNumberLocator: function (response) {
+          return response.total;
+        },
+        pageSize: 2,
+        afterPageOnClick: function (event, pageNumber) {
+          loadPage(pageNumber);
+        },
+        afterPreviousOnClick: function (event, pageNumber) {
+          loadPage(pageNumber);
+        },
+        afterNextOnClick: function (event, pageNumber) {
+          loadPage(pageNumber);
+        },
+      });
+    }
+  });
+
+
+
+  function loadPageSearch(page, searchValue) {
+    const tableBody = $('.table tbody');
+    tableBody.empty();
+
+    $.ajax({
+      url: `http://localhost:3000/api/admin/product/search?name=${searchValue}&page=${page}`,
+    })
+      .then(result => {
+        console.log(result.data);
+        displayData(result.data);
+      })
+      .catch(err => {
+        console.log('Error from server:', err);
+      });
+  }
+
+
+>>>>>>> Stashed changes
 </script>
+
 </html>
