@@ -3,7 +3,9 @@ const Warehouse = require('../models/warehouse.model')
 // Warehouse
 const getWarehousePage = async (req, res, next) => {
     try{
-        const result = await Warehouse.getAll();
+        const page = req.query.page || 1;
+        const pageSize = req.query.pageSize || 4; // số dòng trên 1 trang
+        const result = await Warehouse.getByPage(page, pageSize);
         res.json({ success: true, result: result });
     } catch (error) {
         res.json({ success: false, message: "Warehouse-receipt not found or could not be deleted." });
@@ -51,16 +53,30 @@ const deleteWarehouseReceipt = async (req, res, next) => {
 } 
 
 // Warehouse detail
+// const getWarehouseDetailPage = async (req, res, next) => {
+//     try{
+//         const MaPhieu = req.params.id;
+//         const result = await Warehouse.getAllDetailWithID(MaPhieu);
+//         res.json({ success: true, result: result});
+//     } catch (error) {
+//         res.json({ success: false, message: "Warehouse-receipt-detail not found or could not be deleted." });
+//         next(error);
+//     }
+// }
 const getWarehouseDetailPage = async (req, res, next) => {
-    try{
+    try {
         const MaPhieu = req.params.id;
-        const result = await Warehouse.getAllDetailWithID(MaPhieu);
-        res.json({ success: true, result: result});
+        const page = req.query.page || 1; 
+        const pageSize = req.query.pageSize || 4; 
+
+        const result = await Warehouse.getAllDetailWithID(MaPhieu, page, pageSize);
+        res.json({ success: true, result: result });
     } catch (error) {
         res.json({ success: false, message: "Warehouse-receipt-detail not found or could not be deleted." });
         next(error);
     }
-}
+};
+
 
 const addWarehouseReceiptDetail = async (req, res, next) => {
     try{

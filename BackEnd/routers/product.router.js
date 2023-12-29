@@ -3,7 +3,8 @@ const {
     addProduct,
     getProductPage,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    searchProductsByNameAndPage
 } = require('../controller/product.controller');
 
 const express = require('express');
@@ -20,7 +21,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-router.get('/product', getProductPage);
+router.get('/product/read', getProductPage);
+router.get('/product/search', searchProductsByNameAndPage);
 router.post('/product/add', upload.single('itemImage'), addProduct);
 router.post('/product/update', upload.single('editItemImage') ,updateProduct);
 router.get('/product/delete' ,deleteProduct);

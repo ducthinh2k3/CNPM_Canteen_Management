@@ -1,17 +1,76 @@
 const Material = require('../models/material.model');
 
+// const getMaterialPage = async (req, res, next) => {
+//     try{
+//         const receiptID = req.query.id;
+//         const result = await Material.getAllExceptExits(receiptID);
+//         res.json(result)
+//     } catch (error) {
+//         next(error);
+//     }
+// }
 const getMaterialPage = async (req, res, next) => {
-    try{
-        const receiptID = req.query.id;
-        const result = await Material.getAllExceptExits(receiptID);
-        res.json(result)
+    try {
+        let receiptID = req.query.id;
+        const match = receiptID.match(/^(\d+)/);
+
+        if (match) {
+            receiptID = parseInt(match[1]);
+        } else {
+            throw new Error('Invalid receiptID format');
+        }
+        const page = parseInt(req.query.page, 10) || 1;
+        const pageSize = parseInt(req.query.pageSize, 10) || 4; // Số dòng trên 1 trang
+        console.log('id:', receiptID); 
+        console.log('page:', page);
+        console.log('pageSize:', pageSize);
+
+        const result = await Material.getAllExceptExits(receiptID, page, pageSize);
+        console.log('data:', result);
+        res.json(result);
     } catch (error) {
         next(error);
     }
-}
+};
+
+const searchByNameAndPaging = async (req, res, next) => {
+    try {
+      let receiptID = req.query.id;
+      const match = receiptID.match(/^(\d+)/);
+  
+      if (match) {
+        receiptID = parseInt(match[1]);
+      } else {
+        throw new Error('Invalid receiptID format');
+      }
+  
+      const name = req.query.name || ''; 
+      const page = parseInt(req.query.page, 10) || 1;
+      const pageSize = parseInt(req.query.pageSize, 10) || 4;
+  
+      const result = await Material.searchByNameAndPaging(receiptID, name, page, pageSize);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+
+const getMaterialSearchPage = async (req, res, next) => {
+    try {
+        const page = req.query.page || 1;
+        const pageSize = req.query.pageSize || 4;
+        const searchValue = req.query.search || '';
+
+        const result = await Material.searchByNameAndPage(page, pageSize, searchValue);
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+};
 
 const addMaterial = async (req, res, next) => {
-    try{
+    try {
         const MaPhieu = req.body.receiptCode
         const entity = {
             TenNguyenLieu: req.body.materialName,
@@ -27,7 +86,7 @@ const addMaterial = async (req, res, next) => {
 }
 
 const updateMaterial = async (req, res, next) => {
-    try{
+    try {
         const MaPhieu = req.body.editReceiptCode
         const entity = {
             MaNguyenLieu: req.body.editMaterialCode,
@@ -43,7 +102,7 @@ const updateMaterial = async (req, res, next) => {
 }
 
 const updateQuantityMaterial = async (req, res, next) => {
-    try{
+    try {
         const entity = req.body
         // for(let i=0; i<entity.length; i++){
         //     const rs = await Material.updateRow(entity[i]);
@@ -57,7 +116,7 @@ const updateQuantityMaterial = async (req, res, next) => {
 }
 
 const deleteMaterial = async (req, res, next) => {
-    try{
+    try {
         const materialID = req.query.id;
         const result = await Material.deleteRowByID(materialID);
         res.json({ success: true, message: "Product deleted successfully." });
@@ -69,8 +128,10 @@ const deleteMaterial = async (req, res, next) => {
 
 // Inventory
 const getInventoryPage = async (req, res, next) => {
-    try{
-        const result = await Material.getAll();
+    try {
+        const page = req.query.page || 1;
+        const pageSize = req.query.pageSize || 4; //số dòng trên 1 trang
+        const result = await Material.getByPage(page, pageSize);
         res.json(result)
     } catch (error) {
         next(error);
@@ -78,7 +139,7 @@ const getInventoryPage = async (req, res, next) => {
 }
 
 const updateInventory = async (req, res, next) => {
-    try{
+    try {
         const entity = {
             MaNguyenLieu: req.body.editMaterialCode,
             TenNguyenLieu: req.body.editMaterialName,
@@ -112,5 +173,7 @@ module.exports = {
     updateMaterial,
     deleteMaterial,
     updateQuantityMaterial,
-    getInventoryPage
+    getInventoryPage,
+    getMaterialSearchPage,
+    searchByNameAndPaging
 }

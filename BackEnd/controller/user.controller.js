@@ -1,13 +1,35 @@
 const User = require('../models/user.model');
 
 const getUserPage = async (req, res, next) => {
-    try{
-        const result = await User.getAll();
-        res.json(result)
+    try {
+        const page = req.query.page || 1;
+        const pageSize = req.query.pageSize || 4; //số dòng trên 1 trang
+
+        const result = await User.getUsersByPage(page, pageSize);
+        res.json(result);
     } catch (error) {
         next(error);
     }
 }
+
+const searchUsersByName = async (req, res, next) => {
+    try {
+        const name = req.query.name;
+        const page = req.query.page || 1;
+        const pageSize = req.query.pageSize || 4; // Số lượng mục trên mỗi trang
+
+
+        if (!name) {
+            return res.status(400).json({ success: false, message: 'Missing required parameter: name' });
+        }
+
+        const searchResult = await User.searchByNameWithPagination(name, page, pageSize);
+        res.json({ success: true, result: searchResult });
+    } catch (error) {
+        console.error('Error in searchUsersByName:', error);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+};
 
 const addUser = async (req, res, next) => {
     try{
@@ -65,6 +87,7 @@ const getByID = async (req, res, next) => {
 }
 
 module.exports = {
+    searchUsersByName,
     getUserPage,
     addUser,
     updateUser,
