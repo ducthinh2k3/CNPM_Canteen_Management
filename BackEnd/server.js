@@ -15,10 +15,31 @@ app.use(cors())
 //template engine and view engine
 
 // router
+<<<<<<< Updated upstream
 const productRouter = require('./routers/user.router');
+=======
+const userRouter = require('./routers/user.router');
+const productRouter = require('./routers/product.router');
+const materialRouter = require('./routers/material.router');
+const wareHouseRouter = require('./routers/warehouse.router');
+const DashboardRouter = require('./routers/dashboard.router');
+const couponRouter = require('./routers/coupon.router');
+const orderRouter = require('./routers/order.router');
+const reviewRouter = require('./routers/review.router');
+>>>>>>> Stashed changes
 
 // use router
 app.use('/api/admin', productRouter);
+<<<<<<< Updated upstream
+=======
+app.use('/api/admin', materialRouter);
+app.use('/api/admin', wareHouseRouter);
+app.use('/api/admin', DashboardRouter);
+app.use('/api/admin', couponRouter);
+app.use('/api/admin', orderRouter);
+app.use('/api/admin', reviewRouter);
+
+>>>>>>> Stashed changes
 
 app.use((err, req, res, next ) => {
     console.log(err.stack);

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rating</title>
+        <link rel="stylesheet" href="assets/css/Review.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+            integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+            crossorigin="anonymous"
+        />
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="rating-box">
+                <div class="rating-header">
+                    <h1 class="title">Đánh giá</h1>
+                    
+                    <div class="info-rating">
+                        <div class="star-count">
+                            <span class="avg">4.9</span>/5
+                        </div>
+                        <div class="stars">
+                            <div class="avg-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="rating-count">
+                                <span class="count"></span> Lượt đánh giá
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rating-bar">
+                        <div class="bar-item">
+                            <div class="star">5<i class="fas fa-star"></i></div>
+                            <div class="progress">
+                                <div class="progress-line"></div>
+                            </div>
+                            <div class="percent"></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="star">4<i class="fas fa-star"></i></div>
+                            <div class="progress">
+                                <div class="progress-line"></div>
+                            </div>
+                            <div class="percent"></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="star">3<i class="fas fa-star"></i></div>
+                            <div class="progress">
+                                <div class="progress-line"></div>
+                            </div>
+                            <div class="percent"></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="star">2<i class="fas fa-star"></i></div>
+                            <div class="progress">
+                                <div class="progress-line"></div>
+                            </div>
+                            <div class="percent"></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="star">1<i class="fas fa-star"></i></div>
+                            <div class="progress">
+                                <div class="progress-line"></div>
+                            </div>
+                            <div class="percent"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-box" method="post" action="http://localhost:3000/api/shop/review">
+                    <div class="review-header">
+                        <div class="count-review"><span></span>Nhận xét</div>
+                        <div class="txt btn-write">Thêm bài đánh giá</div>
+                    </div>
+                    <div id="reviewsList" class="review-content"></div>
+                </div>
+            </div>
+
+            <div class="feedback-user">
+                <div class="feedback-header">
+                    <div class="close-btn"><i class="fas fa-times"></i></div>
+                    <div class="title">Send us your feedback!</div>
+                    <div class="txt">
+                        Cho chúng mình biết cảm nhận của bạn sau khi điền những thông tin dưới đây.
+                    </div>
+                </div>
+                <div class="feedback-content">
+                    <div class="rating">
+                        <div class="title">Chất lượng sản phẩm</div>
+                        <div class="stars">
+                            <i class="fas fa-star" data-rating="1"></i>
+                            <i class="fas fa-star" data-rating="2"></i>
+                            <i class="fas fa-star" data-rating="3"></i>
+                            <i class="fas fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                    </div>
+                    <div class="form">
+                        <div class="form-input">
+                            <label for="name">Tên của bạn là ?</label>
+                            <input
+                                id="name"
+                                type="text"
+                                placeholder="Tên của bạn..."
+                            />
+                        </div>
+                        <div class="form-input">
+                            <label for="feedback">Trải nghiệm của bạn ?</label>
+                            <textarea
+                                name=""
+                                id="feedback"
+                                cols="30"
+                                rows="8"
+                                placeholder="Nhận xét ở đây ..."
+                            ></textarea>
+                        </div>
+                    </div>
+                    <button class="submit">Gửi</button>
+                </div>
+            </div>
+        </div>
+        <script src="assets/javascript/Review.js"></script>
+    </body>
+</html>
