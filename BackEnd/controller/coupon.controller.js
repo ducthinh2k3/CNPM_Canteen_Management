@@ -9,6 +9,20 @@ const getCoupons = async (req, res, next) => {
     }
 };
 
+const getCouponByCode = async (req, res, next) => {
+    try{
+        const couponCode = req.query.id;
+        const result = await Coupon.getByCode(couponCode);
+        if(result.length == 0){
+            res.send('Invalid')
+        }
+        const code = result[0];
+        res.json(code)
+    } catch (error) {
+        next(error);
+    }
+}
+
 const applyCoupon = async (req, res, next) => {
     try {
         const couponCode = req.query.code;
@@ -37,4 +51,5 @@ function calculateDiscountedAmount(totalAmount, discountPercent) {
 module.exports = {
     getCoupons,
     applyCoupon,
+    getCouponByCode
 };

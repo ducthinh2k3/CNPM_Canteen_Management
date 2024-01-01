@@ -290,3 +290,17 @@ const initApp = () => {
 }
 
 // fetchReviews();
+
+async function saveReviewToDatabase(username, feedback, rating, time) {
+    try {
+        const response = await fetch('http://localhost:3000/api/admin/dashboard/product-reviews/save-review');
+        
+        if (response.ok) {
+            console.log('Đánh giá đã được lưu thành công!');
+        } else {
+            console.error('Lưu đánh giá thất bại.');
+        }
+    } catch (error) {
+        console.error('Lỗi khi gửi request đến API:', error);
+    }
+}

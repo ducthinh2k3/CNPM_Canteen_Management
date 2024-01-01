@@ -33,6 +33,8 @@ app.use('/api/admin', DashboardRouter);
 app.use('/api/shop', reviewRouter);
 app.use('/api/admin', couponRouter);
 app.use('/api/admin', orderRouter);
+app.use('/api/admin', reviewRouter);
+
 
 app.use((err, req, res, next ) => {
     console.log(err.stack);

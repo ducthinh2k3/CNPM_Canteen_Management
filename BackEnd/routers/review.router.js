@@ -1,12 +1,12 @@
 const {
-    getAllReviews,
+    getReviewByID,
     addReview
 } = require('../controller/review.controller');
 
 const express = require('express');
 const router = express.Router();
 
-router.get('/product-reviews/:id', getAllReviews);
-router.post('/product-reviews/add', addReview);
+router.get('/review', getReviewByID);
+router.post('/review/add', addReview);
 
 module.exports = router;
