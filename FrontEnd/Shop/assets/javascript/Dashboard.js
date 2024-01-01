@@ -36,10 +36,10 @@ const initApp = () => {
         newDiv.classList.add("item");
         newDiv.innerHTML = `
             <img src = "http://localhost:3000/images/products/${value.HinhAnh}">
-            <div class ="title">${value.TenSP}</div>
+            <div class = "title">${value.TenSP}</div>
             <div class="price">${value.GiaBan.toLocaleString()}</div>
             <div class="btn">
-                <button class="add">Thêm món</button>
+                <button class="add" onclick = "addToCard(${key})">Thêm món</button>
                 <a href="Review.html?id=${value.MaSP}" "color"="white" "text-decoration"="none">
                     <button class="detail">Đánh giá</button>
                 </a>
@@ -47,13 +47,10 @@ const initApp = () => {
         `;
         list.appendChild(newDiv)
     })
-
-    document.querySelectorAll('.add').forEach((button, key) => {
-        button.addEventListener('click', () => addToCard(key));
-    });
 }
 
 fetchProducts();
+
 
 const addToCard = key => {
     if (listCards[key] == null) {
@@ -72,15 +69,15 @@ const reloadCard = () => {
     let totalPrice = 0;
 
     listCards.forEach((value, key) => {
-        totalPrice = totalPrice + value.GiaBan;
+        totalPrice = totalPrice + value.price
         count = count + value.quantity;
 
         if (value != null) {
             let newDiv = document.createElement("li");
             newDiv.innerHTML = `
-                <div><img src = "Images/${value.HinhAnh}"></div>
-                <div class = "cardTitle">${value.TenSP}</div>
-                <div class = "cardPrice">${value.GiaBan.toLocaleString()}</div>
+                <div><img src = "Images/${value.image}"></div>
+                <div class = "cardTitle">${value.name}</div>
+                <div class = "cardPrice">${value.price.toLocaleString()}</div>
 
                 <div>
                     <button style = "background-color:#61BBE1;" class = "cardButton" onclick = "changeQuantity(${key}, ${value.quantity - 1})">-</button>
@@ -93,22 +90,17 @@ const reloadCard = () => {
 
         total.innerText = totalPrice.toLocaleString();
         quantity.innerText = count;
-
-        // Chuyển đổi total thành số và lưu vào localStorage
-        const numericTotal = parseFloat(total.innerText.replace(/,/g, '')); // Xóa dấu phẩy và chuyển đổi thành số
-        localStorage.setItem("NumericSubTotal", numericTotal);
     })
 }
 
 
 const changeQuantity = (key, quantity) => {
     if (quantity == 0) {
-        delete listCards[key];
-        total.innerText = 0
+        delete listCards[key]
     }
     else {
         listCards[key].quantity = quantity;
-        listCards[key].GiaBan = quantity * products[key].GiaBan
+        listCards[key].price = quantity * products[key].price
     }
     reloadCard()
 }

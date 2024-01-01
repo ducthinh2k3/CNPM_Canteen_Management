@@ -13,22 +13,23 @@ const saveOrder = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-    
 }
+
 const getRevenueByHour = async (req, res, next) => {
-    console.log(req.query.startDate);
-    try {
-      const startDate = req.query.startDate;
-      console.log(startDate);
-  
-      const result = await order.getRevenueByHour(startDate);
-  
-      res.json(result);
-    } catch (error) {
-      console.error('Error in getRevenueByHour controller:', error);
-      res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-  };
+  console.log(req.query.startDate);
+  try {
+    const startDate = req.query.startDate;
+    console.log(startDate);
+
+    const result = await order.getRevenueByHour(startDate);
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error in getRevenueByHour controller:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
 module.exports = {
     saveOrder,
     getRevenueByHour
