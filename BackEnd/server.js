@@ -15,10 +15,24 @@ app.use(cors())
 //template engine and view engine
 
 // router
-const productRouter = require('./routers/user.router');
+const userRouter = require('./routers/user.router');
+const productRouter = require('./routers/product.router');
+const materialRouter = require('./routers/material.router');
+const wareHouseRouter = require('./routers/warehouse.router');
+const DashboardRouter = require('./routers/dashboard.router');
+const couponRouter = require('./routers/coupon.router');
+const orderRouter = require('./routers/order.router');
+const reviewRouter = require('./routers/review.router');
 
 // use router
+app.use('/api/admin', userRouter);
 app.use('/api/admin', productRouter);
+app.use('/api/admin', materialRouter);
+app.use('/api/admin', wareHouseRouter);
+app.use('/api/admin', DashboardRouter);
+app.use('/api/shop', reviewRouter);
+app.use('/api/admin', couponRouter);
+app.use('/api/admin', orderRouter);
 
 app.use((err, req, res, next ) => {
     console.log(err.stack);
