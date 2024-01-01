@@ -15,11 +15,16 @@ const closeFeedback = document.querySelector('.close-btn .fas'),
 // rating 5 star when user not click
 const numberStar = 5;
 let userRatingStar = 5;
+
 // initialize rating object
 let ratingStars = {
     numRatings: 0,
     avgRating: 0,
 };
+
+const item = new URLSearchParams(window.location.search);
+const MaSP = item.get('id');
+
 // use for update time of feedback
 let timeouts = [];
 // set default value
@@ -42,7 +47,7 @@ writeBtn.addEventListener('click', () => {
 closeFeedback.addEventListener('click', setDefaultRating);
 
 // submit feedback
-submitBtn.addEventListener('click', () => {
+submitBtn.addEventListener('click', async function () {
     if (username.value !== '' && feedback.value !== '') {
         const options = {
             timeZone: 'Asia/Ho_Chi_Minh',
@@ -68,11 +73,36 @@ submitBtn.addEventListener('click', () => {
         </div>
         `
         );
+        
+        //list.appendChild(reviewContent);
 
         // CALC RATING AND SET TO DOM
         ratingStars[`${userRatingStar}stars`]++;
         ratingStars.numRatings++;
         calcRating();
+
+        // set default value
+        setDefaultRating();
+
+        // Gửi dữ liệu lên server
+        const data = {
+            MaSP: MaSP,
+            NgayThucHien: time,
+            NguoiThucHien: username.value,
+            NoiDung: feedback.value,
+            Rating: userRatingStar
+        }
+
+        const result = await fetch('http://localhost:3000/api/admin/product-reviews/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const rs = await result.json();
+        console.log(rs);
 
         /*
         // UPDATE TIME FOR FEEDBACK
@@ -84,8 +114,7 @@ submitBtn.addEventListener('click', () => {
         updateTimeAgo(); // update again time for comment
         */
 
-        // set default value
-        setDefaultRating();
+
     }
 });
 
@@ -253,12 +282,9 @@ function setTimeAgo(ele, datetime) {
 
 let reviews = [];
 
-async function fetchReviews() {
-    const item = new URLSearchParams(window.location.search);
-    const MaSP = item.get('id');
-
+async function fetchReviews(MaSP) {
     try {
-        const res = await fetch(`http://localhost:3000/api/admin/dashboard/product-reviews/${MaSP}`)
+        const res = await fetch(`http://localhost:3000/api/admin/product-reviews/${MaSP}`)
         const data = await res.json();
         reviews = data;
         initApp();
@@ -282,25 +308,15 @@ const initApp = () => {
                 <div class="comment-content">
                     ${value.NoiDung}
                 </div>
-                <time>${value.NgayThucHien}</time>
+                <time>${new Date(value.NgayThucHien).toLocaleString('en-GB', { timeZone: 'Asia/Ho_Chi_Minh' })}</time>
             </div>
         `;
-        list.appendChild(newDiv)
+        list.appendChild(newDiv);
+
+        ratingStars[`${value.Rating}stars`]++;
+        ratingStars.numRatings++;
+        calcRating();
     })
 }
 
-// fetchReviews();
-
-async function saveReviewToDatabase(username, feedback, rating, time) {
-    try {
-        const response = await fetch('http://localhost:3000/api/admin/dashboard/product-reviews/save-review');
-        
-        if (response.ok) {
-            console.log('Đánh giá đã được lưu thành công!');
-        } else {
-            console.error('Lưu đánh giá thất bại.');
-        }
-    } catch (error) {
-        console.error('Lỗi khi gửi request đến API:', error);
-    }
-}
+fetchReviews(MaSP);

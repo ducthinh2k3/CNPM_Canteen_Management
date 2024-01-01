@@ -2,12 +2,12 @@ const mydb = require('../ultis/mydb');
 const tableNameReviews = 'DanhGia'
 
 module.exports = class Review {
-    static getByID(productID) {
+    static getAllReviewsWithID(productID) {
         return mydb.load(`select * from ${tableNameReviews}
                           where ${tableNameReviews}.MaSP = ${productID}`);
     }
 
-    static addRow(entity) {
+    static addRowReview(entity) {
         return mydb.add(tableNameReviews, entity);
     }
 }

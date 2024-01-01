@@ -4,7 +4,7 @@ const Review = require('../models/review.model');
 const getDashboardPage = async(req, res, next) => {
     try {
         const result = await Product.getAll();
-        res.json(result)
+        res.json(result);
     }
     catch (error) {
         next(error);
@@ -13,7 +13,7 @@ const getDashboardPage = async(req, res, next) => {
 
 const getAllReviews = async (req, res, next) => {
     try {
-        const productId = req.params.MaSP;
+        const productId = req.params.id
         const reviews = await Review.getAllReviewsWithID(productId);
         res.json(reviews); 
     } catch (error) {
@@ -23,9 +23,10 @@ const getAllReviews = async (req, res, next) => {
 
 const addReview = async (req, res, next) => {
     try {
-        const entity = req.body
+        const productId = req.body.MaSP;
+        const entity = req.body;
         const rs = await Review.addRowReview(entity);
-        res.json(rs); 
+        res.redirect(`http://127.0.0.1:5500/FrontEnd/Shop/Review.html?id=${productId}`);
     } catch (error) {
         next(error);
     }
