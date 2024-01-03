@@ -1,4 +1,4 @@
-require ('dotenv').config();
+require('dotenv').config();
 const mysql = require('mysql2');
 
 const pool = mysql.createPool({
@@ -13,6 +13,7 @@ const pool = mysql.createPool({
 })
 
 module.exports = {
+    pool,
     load: function (sql) {
         return new Promise((resolve, reject) => {
             pool.query(sql, function (err, results, fields) {
@@ -24,7 +25,7 @@ module.exports = {
         });
     },
 
-    add: function(table, entity){
+    add: function (table, entity) {
         return new Promise((resolve, reject) => {
             const sql = `insert into ${table} set ?`
             pool.query(sql, entity, function (err, results, fields) {
@@ -36,7 +37,7 @@ module.exports = {
         });
     },
 
-    update: function(table, entity, condition){
+    update: function (table, entity, condition) {
         return new Promise((resolve, reject) => {
             const sql = `update ${table} set ? where ?`
             pool.query(sql, [entity, condition], function (err, results, fields) {
@@ -48,7 +49,7 @@ module.exports = {
         });
     },
 
-    update2Condition: function(table, entity, condition1, condition2){
+    update2Condition: function (table, entity, condition1, condition2) {
         return new Promise((resolve, reject) => {
             const sql = `update ${table} set ? where ? and ?`
             pool.query(sql, [entity, condition1, condition2], function (err, results, fields) {
@@ -59,8 +60,18 @@ module.exports = {
             });
         });
     },
-
-    delete: function(table, condition){
+    updateKitchen: function (table, entity, condition) {
+        return new Promise((resolve, reject) => {
+            const sql = `update ${table} set ? where MaSP=${condition.MaSP} and STT=${condition.STT}`
+            pool.query(sql, entity, function (err, results, fields) {
+                if (err) {
+                    reject(err);
+                }
+                resolve(results);
+            });
+        });
+    },
+    delete: function (table, condition) {
         return new Promise((resolve, reject) => {
             const sql = `delete from ${table} where ?`
             pool.query(sql, condition, function (err, results, fields) {
@@ -72,7 +83,7 @@ module.exports = {
         });
     },
 
-    delete2Condition: function(table, condition1, condition2){
+    delete2Condition: function (table, condition1, condition2) {
         return new Promise((resolve, reject) => {
             const sql = `delete from ${table} where ? and ?`
             pool.query(sql, [condition1, condition2], function (err, results, fields) {
@@ -84,7 +95,7 @@ module.exports = {
         });
     },
 
-    loadSingle: function(table, field, value){
+    loadSingle: function (table, field, value) {
         return new Promise((resolve, reject) => {
             const sql = `select * from ${table} where ${field} = ?`
             pool.query(sql, value, function (err, results, fields) {
@@ -96,7 +107,7 @@ module.exports = {
         });
     },
 
-    load2Table: function(table1, table2, condition, field, value){
+    load2Table: function (table1, table2, condition, field, value) {
         return new Promise((resolve, reject) => {
             const sql = `select * from ${table1} inner join ${table2} on ? where ${field} = ?`
             pool.query(sql, value, function (err, results, fields) {
