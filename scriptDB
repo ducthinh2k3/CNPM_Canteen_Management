@@ -110,8 +110,8 @@ ALTER TABLE `ChiTietPhieuNhap` ADD CONSTRAINT fk_ChiTietPhieuNhap_NguyenLieu
   FOREIGN KEY (`MaNguyenLieu`) REFERENCES `NguyenLieu` (`MaNguyenLieu`);
 
 -- ALTER TABLE `PhieuChi` ADD FOREIGN KEY (`MaPhieu`) REFERENCES `PhieuNhapKho` (`MaPhieu`);
-ALTER TABLE `PhieuChi` ADD CONSTRAINT fk_PheuChi_PhieuNhapKho
-  FOREIGN KEY (`MaPhieu`) REFERENCES `PhieuNhapKho` (`MaPhieu`);
+-- ALTER TABLE `PhieuChi` ADD CONSTRAINT fk_PheuChi_PhieuNhapKho
+--   FOREIGN KEY (`MaPhieu`) REFERENCES `PhieuNhapKho` (`MaPhieu`);
 
 -- ALTER TABLE `DanhGia` ADD FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
 ALTER TABLE `DanhGia` ADD CONSTRAINT fk_DanhGia_SanPham
@@ -172,7 +172,7 @@ FOR EACH ROW
 BEGIN
 
   DELETE FROM giaodich
-  WHERE MaPhieu = NEW.MaPhieu AND LoaiPhieu = 'ChiNhapKho';
+  WHERE MaPhieu = OLD.MaPhieu AND LoaiPhieu = 'ChiNhapKho';
 
 END; //
 DELIMITER ;
