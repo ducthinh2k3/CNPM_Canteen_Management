@@ -9,7 +9,7 @@
 }
 
 .color-green{
-    color: rgb(26, 240, 168);
+    color: rgb(7, 156, 74);
 }
 
 /* Navbar */
@@ -127,7 +127,7 @@
 }
 
 .box-collect .box-detail-price{
-    color: rgb(26, 240, 168);
+    color: rgb(7, 156, 74);
 }
 
 .box-spending .box-detail-price{
@@ -145,6 +145,10 @@
 /* Table */
 .table>:not(caption)>*>*{
     padding: 1rem 1rem;
+}
+
+td, th {
+    text-align: center;
 }
 
 .footer{
@@ -173,6 +177,7 @@
 #dateForm {
     display: flex;
     flex-direction: row;
+    align-items: center;
     max-width: 100%;
     margin: 2rem auto;
 }
@@ -184,6 +189,7 @@ label {
 input[type="date"] {
     margin-left: 0.5rem;
     margin-right: 1.5rem;
+    margin-top: 0.5rem;
     padding: 8px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -248,13 +254,33 @@ button:hover {
 #collectModal select {
   margin-left: 3px;
 }
-#expensesModal .close {
+#expensesModal .close,
+#editExpenseModal .close{
     background-color: rgb(172, 43, 43);
 }
-#expensesModal .close:hover {
+#expensesModal .close:hover,
+#editExpenseModal .close:hover {
     background-color: rgb(117, 22, 22);
 }
 #expensesModal input,
 #expensesModal select {
   margin-left: 3px;
+}
+
+/* icon */
+.table-item-set,
+.table-item-remove
+{
+    font-size: 20px;
+    padding: 8px;
+}
+
+.fa-trash.color-red:hover {
+    cursor: pointer;
+    color: #990000; 
+}
+
+.fa-pen-to-square.color-green:hover {
+    cursor: pointer;
+    color: #177426; 
 }

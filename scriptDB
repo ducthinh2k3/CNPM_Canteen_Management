@@ -64,11 +64,20 @@ CREATE TABLE `NguyenLieu` (
   `DonGia` INT
 );
 
-CREATE TABLE `PhieuChi` (
-  `MaPhieu` INT PRIMARY KEY,
+-- CREATE TABLE `PhieuChi` (
+--   `MaPhieu` INT AUTO_INCREMENT PRIMARY KEY,
+--   `MoTa` TEXT,
+--   `NgayLap` TIMESTAMP,
+--   `TongTien` DECIMAL(15, 2)
+-- );
+
+CREATE TABLE `GiaoDich` (
+  `MaGiaoDich` INT AUTO_INCREMENT PRIMARY KEY,
+  `MaPhieu` INT,
+  `LoaiPhieu` ENUM('Thu', 'ChiNhapKho' , 'ChiKhac'),
+  `NgayLap` TIMESTAMP,
   `MoTa` TEXT,
-  `KhoanChiKhac` NUMERIC(15, 2),
-  `TongChi` INT
+  `TongTien` DECIMAL(15, 2)
 );
 
 CREATE TABLE `DanhGia` (
@@ -138,5 +147,32 @@ BEGIN
   UPDATE phieunhapkho
   SET TongTien = TongTien - (select DonGia from nguyenlieu where MaNguyenLieu = OLD.MaNguyenLieu) * (OLD.SoLuong)
   WHERE MaPhieu = OLD.MaPhieu;
+END; //
+DELIMITER ;
+
+-- DROP TRIGGER after_update_phieunhapkho;
+DELIMITER //
+CREATE TRIGGER after_update_phieunhapkho
+AFTER UPDATE ON phieunhapkho
+FOR EACH ROW
+BEGIN
+
+  UPDATE giaodich
+  SET TongTien = NEW.TongTien
+  WHERE MaPhieu = NEW.MaPhieu AND LoaiPhieu = 'ChiNhapKho';
+
+END; //
+DELIMITER ;
+
+-- DROP TRIGGER after_delete_phieunhapkho;
+DELIMITER //
+CREATE TRIGGER after_delete_phieunhapkho
+AFTER DELETE ON phieunhapkho
+FOR EACH ROW
+BEGIN
+
+  DELETE FROM giaodich
+  WHERE MaPhieu = NEW.MaPhieu AND LoaiPhieu = 'ChiNhapKho';
+
 END; //
 DELIMITER ;

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Favicon -->
+		<link rel="icon" href="./images/favicon.png" type="image/x-icon" />
+
+		<!-- Invoice styling -->
+		<link rel="stylesheet" href="./assets/css/report-file.css">
+	</head>
+
+	<body>
+		<div class="invoice-box">
+			<table>
+				<tr class="top">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td class="title">
+									<img src="./assets/images/icon-shop.png" alt="Company logo" style="width: 100%; max-width: 150px" />
+								</td>
+
+								<td>
+									<div class="report-header">Báo cáo Doanh Thu</div>
+									Ngày tạo: <span id="date-created">1/1/2023</span><br />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="information">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td>
+									251 Võ Văn Ngân<br />
+									Linh Chiểu, quận Thủ Đức<br />
+									TP. Hồ Chí Minh
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr class="heading">
+					<td>Chi tiết</td>
+					<td>Giá</td>
+				</tr>
+
+				<tr class="item">
+					<td>Chi phí nhập hàng</td>
+					<td id="warehouseMoney">$300.00</td>
+				</tr>
+
+				<tr class="item">
+					<td>Chi phí khác</td>
+					<td id="otherCost">$75.00</td>
+				</tr>
+
+				<tr class="item last">
+					<td>Doanh thu bán hàng</td>
+					<td id="receiveMoney">$10.00</td>
+				</tr>
+
+				<tr class="total">
+					<td></td>
+					<td id="balance">$385.00</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	<script>
+		async function loadPage(){
+			var today = new Date();
+			document.getElementById('date-created').innerHTML = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}`
+
+			// Lấy tham số truy vấn từ URL
+			const urlParams = new URLSearchParams(window.location.search);
+			const startDate = urlParams.get('startDate');
+			const endDate = urlParams.get('endDate');
+
+			const result = await fetch(`http://localhost:3000/api/admin/trade/read-all?startDate=${startDate}&endDate=${endDate}`)
+   			const rs = await result.json()
+			
+			let warehouseMoney = 0
+			let otherCost = 0
+			let receiveMoney = 0
+
+			rs.result.forEach(item => {
+					console.log(item.TongTien);
+					if(item.LoaiPhieu == 'ChiNhapKho'){
+						warehouseMoney += parseFloat(item.TongTien)
+					} else if (item.LoaiPhieu == 'ChiKhac'){
+						otherCost += parseFloat(item.TongTien)
+					}else{
+						receiveMoney += parseFloat(item.TongTien)
+					}
+			})
+			
+			document.getElementById('warehouseMoney').innerHTML = warehouseMoney + 'đ';
+			document.getElementById('otherCost').innerHTML = otherCost + 'đ';
+			document.getElementById('receiveMoney').innerHTML = receiveMoney + 'đ';
+			document.getElementById('balance').innerHTML =`Số dư: ${receiveMoney-otherCost-warehouseMoney}đ`
+		}
+		loadPage()
+	</script>
+</html>

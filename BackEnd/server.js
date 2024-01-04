@@ -23,6 +23,7 @@ const DashboardRouter = require('./routers/dashboard.router');
 const couponRouter = require('./routers/coupon.router');
 const orderRouter = require('./routers/order.router');
 const reviewRouter = require('./routers/review.router');
+const tradeRouter = require('./routers/trade.router');
 
 // use router
 app.use('/api/admin', userRouter);
@@ -34,6 +35,7 @@ app.use('/api/shop', reviewRouter);
 app.use('/api/admin', couponRouter);
 app.use('/api/admin', orderRouter);
 app.use('/api/admin', reviewRouter);
+app.use('/api/admin', tradeRouter);
 
 
 app.use((err, req, res, next ) => {

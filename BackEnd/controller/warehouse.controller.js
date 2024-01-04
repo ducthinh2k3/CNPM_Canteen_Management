@@ -1,4 +1,5 @@
 const Warehouse = require('../models/warehouse.model')
+const Trade = require('../models/trade.model');
 
 // Warehouse
 const getWarehousePage = async (req, res, next) => {
@@ -20,6 +21,13 @@ const addWarehouseReceipt = async (req, res, next) => {
             TongTien: req.body.TongTien,
         }
         const rs = await Warehouse.addRow(entity);
+        const rsTrade = await Trade.addRow({
+            MaPhieu: rs.insertId,
+            LoaiPhieu: 'ChiNhapKho',
+            NgayLap: req.body.NgayLap,
+            MoTa: 'Nhập Kho',
+            TongTien: req.body.TongTien,
+        })
         res.json({ success: true, id: rs.insertId });
     } catch (error) {
         next(error);

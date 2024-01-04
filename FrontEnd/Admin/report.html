@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="./assets/css/report.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>
 </head>
@@ -91,53 +92,43 @@
         <div class="report-filter">
           <div class="report-header">Báo cáo bán hàng</div>
           <div class="report-filter-choose col-md-6">
-            <select class="form-select w-25 filter-month" aria-label="Default select example">
-              <option selected>Tháng 1</option>
-              <option value="1">Tháng 2</option>
-              <option value="2">Tháng 3</option>
-              <option value="3">Tháng 4</option>
-              <option value="4">Tháng 5</option>
-            </select>
-            <select class="form-select w-25 filter-year" aria-label="Default select example">
-              <option selected>Năm 2018</option>
-              <option value="1">Năm 2019</option>
-              <option value="2">Năm 2020</option>
-              <option value="3">Năm 2021</option>
-              <option value="4">Năm 2022</option>
-            </select>
-            <button type="button" class="btn btn-primary filter-button">Xem báo cáo</button>
+            <label for="startDate"><b>Từ Ngày:</b></label>
+            <input type="date" id="startDate" name="startDate" required>
+            <label for="startDate"><b>Đến Ngày:</b></label>
+            <input type="date" id="endDate" name="startDate" required>
+            <button type="button" class="btn btn-primary filter-button" onclick="display()">Xem báo cáo</button>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="report-option col-md-4 offset-md-8">
-          <button type="button" class="btn btn-primary report-option-collect">
+        <div class="report-option col-md-3 offset-md-9">
+          <!-- <a class="btn btn-primary report-option-collect" href="/">
             <i class="fa-solid fa-circle-plus"></i>
             Lập phiếu thu
-          </button>
-          <button type="button" class="btn btn-primary report-option-spend">
+          </a> -->
+          <a class="btn btn-primary report-option-spend" href="/FrontEnd/Admin/expense.html">
             <i class="fa-solid fa-circle-minus"></i>
-            Lập phiếu chi
-          </button>
-          <button type="button" class="btn btn-primary report-option-export">
+            Lập phiếu chi khác
+          </a>
+          <a type="button" class="btn btn-primary report-option-export">
             <i class="fa-solid fa-file-export"></i>
             Xuất file
-          </button>
+          </a>
         </div>
       </div>
       <div class="row">
         <div class="box-infomation">
           <div class="box-detail w-25 box-collect">
             <div class="box-detail-text">Tổng Thu</div>
-            <div class="box-detail-price">$12,789,00</div>
+            <div class="box-detail-price box-detail-receive">$12,789,00</div>
           </div>
           <div class="box-detail w-25 box-spending">
             <div class="box-detail-text">Tổng Chi</div>
-            <div class="box-detail-price">$12,789,00</div>
+            <div class="box-detail-price box-detail-expense">$12,789,00</div>
           </div>
           <div class="box-detail w-25 box-storage">
             <div class="box-detail-text">Tồn Quỹ</div>
-            <div class="box-detail-price">$12,789,00</div>
+            <div class="box-detail-price box-detail-balance">$12,789,00</div>
           </div>
         </div>
       </div>
@@ -147,47 +138,12 @@
             <tr>
               <th scope="col">Mã phiếu</th>
               <th scope="col">Thời gian</th>
-              <th scope="col">Người nộp / nhận</th>
               <th scope="col">Loại thu phí</th>
+              <th scope="col">Mô tả</th>
               <th scope="col">Giá trị</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>23/03/2023</td>
-              <td>Thornton</td>
-              <td>Sell</td>
-              <td class="color-red">$1000</td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>23/03/2023</td>
-              <td>Thornton</td>
-              <td>Sell</td>
-              <td class="color-green">$1000</td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>23/03/2023</td>
-              <td>Thornton</td>
-              <td>Sell</td>
-              <td class="color-green">$1000</td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>23/03/2023</td>
-              <td>Thornton</td>
-              <td>Sell</td>
-              <td class="color-red">$1000</td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>23/03/2023</td>
-              <td>Thornton</td>
-              <td>Sell</td>
-              <td class="color-green">$1000</td>
-            </tr>
           </tbody>
         </table>
         <div class="pagination-container" id="pagination-container"></div>
@@ -199,132 +155,45 @@
       </div>
     </div>
   </div>
-  <!-- Modal for Collect -->
-<div class="modal fade" id="collectModal" tabindex="-1" role="dialog" aria-labelledby="collectModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="collectModalLabel">Lập phiếu thu</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelCollectForm()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <label for="code">Mã phiếu:</label>
-        <input type="text" id="code" name="code" class="form-control">
-
-        <label for="date">Thời gian:</label>
-        <input type="date" id="date" name="date" class="form-control">
-
-        <label for="type">Loại thu:</label>
-        <select id="type" name="type" class="form-control">
-          <option value="type1">Loại 1</option>
-          <option value="type2">Loại 2</option>
-        </select>
-
-        <label for="amount">Giá trị:</label>
-        <input type="text" id="amount" name="amount" class="form-control">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelCollectForm()">Đóng</button>
-        <button type="button" class="btn btn-primary" onclick="submitCollectForm()">Lưu</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal for Expenses -->
-<div class="modal fade" id="expensesModal" tabindex="-1" role="dialog" aria-labelledby="expensesModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="expensesModalLabel">Lập phiếu chi</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelExpensesForm()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <label for="expensesCode">Mã phiếu chi:</label>
-        <input type="text" id="expensesCode" name="expensesCode" class="form-control">
-
-        <label for="expensesDate">Thời gian:</label>
-        <input type="date" id="expensesDate" name="expensesDate" class="form-control">
-
-        <label for="expensesType">Loại chi:</label>
-        <select id="expensesType" name="expensesType" class="form-control">
-          <option value="expensesType1">Loại 1</option>
-          <option value="expensesType2">Loại 2</option>
-        </select>
-
-        <label for="expensesAmount">Giá trị:</label>
-        <input type="text" id="expensesAmount" name="expensesAmount" class="form-control">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelExpensesForm()">Đóng</button>
-        <button type="button" class="btn btn-primary" onclick="submitExpensesForm()">Lưu</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 </body>
 <script>
-  function openCollectModal() {
-    $('#collectModal').modal('show');
-  }
+  // Hien thi bao cao theo thoi gian da chon, mac dinh la thang hien tai
+  async function displayReport(startDate, endDate){
+    console.log(startDate);
+    console.log(endDate);
 
-  function submitCollectForm() {
-    var code = $('#code').val();
-    var date = $('#date').val();
-    var type = $('#type').val();
-    var amount = $('#amount').val();
+    const result = await fetch(`http://localhost:3000/api/admin/trade/read-all?startDate=${startDate}&endDate=${endDate}`)
+    const rs = await result.json()
+    let expenseMoney = 0
+    let receiveMoney = 0 
+    rs.result.forEach(item => {
+      console.log(item.TongTien);
+      if(item.LoaiPhieu == 'ChiNhapKho' || item.LoaiPhieu == 'ChiKhac'){
+        expenseMoney += parseFloat(item.TongTien)
+      } else {
+        receiveMoney += parseFloat(item.TongTien)
+      }
+    })
+    let balanceMoney = receiveMoney - expenseMoney
+    $('.box-detail-receive').text(receiveMoney)
+    $('.box-detail-expense').text(expenseMoney)
+    $('.box-detail-balance').text(balanceMoney)
 
-    if (code === '' || date === '' || type === '' || amount === '') {
-      alert('Vui lòng điền đầy đủ thông tin');
-    } else {
-      $('#collectModal').modal('hide');
-    }
-  }
+    // xử lý export file
+    $('.report-option-export').on("click", async function() {
+        const result = await fetch(`http://localhost:3000/api/admin/trade/report-pdf?startDate=${startDate}&endDate=${endDate}`);
+        if(result.ok){
+          window.open('http://localhost:3000/files/report.pdf', '_blank');
+        }
+    });
 
-  function cancelCollectForm() {
-    $('#collectModal').modal('hide');
-  }
 
-  $('.report-option-collect').click(function() {
-    openCollectModal();
-  });
-  
-  $('#collectModal').on('hidden.bs.modal', function (e) {
-    $('#code').val('');
-    $('#date').val('');
-    $('#type').val('');
-    $('#amount').val('');
-  });
-  function cancelExpensesForm() {
-    $('#expensesModal').modal('hide');
-
-  }
-
-  function submitExpensesForm() {
-    $('#expensesModal').modal('hide');
-  }
-  function openExpensesForm() {
-    $('#expensesModal').modal('show');
-
-  }
-  $('.report-option-spend').click(function() {
-    openExpensesForm();
-  });
-
-  //hiển thị bảng, phân trang. Thay thế api, viết lại câu lệnh html hiển thị lên
-  $('#pagination-container').pagination({
-    dataSource: 'http://localhost:3000/api/admin/inventory',
-    locator: 'data',
+    //hiển thị bảng, phân trang. Thay thế api, viết lại câu lệnh html hiển thị lên
+    $('#pagination-container').pagination({
+    dataSource: `http://localhost:3000/api/admin/trade/read?startDate=${startDate}&endDate=${endDate}`,
+    locator: 'result.data',
     totalNumberLocator: function (response) {
-      return response.total;
+      return response.result.total;
     },
     pageSize: 4,
     afterPageOnClick: function (event, pageNumber) {
@@ -336,50 +205,79 @@
     afterNextOnClick: function (event, pageNumber) {
       loadPage(pageNumber);
     },
-  });
-  function loadPage(page) {
-    const tableBody = $('.table tbody');
-    tableBody.empty();
+    });
+    function loadPage(page) {
+      const tableBody = $('.table tbody');
+      tableBody.empty();
 
-    $.ajax({
-      url: 'http://localhost:3000/api/admin/inventory?page=' + page,
-    })
-      .then(result => {
-        console.log(result.data);
-        displayData(result.data);
+      $.ajax({
+        url: `http://localhost:3000/api/admin/trade/read?page=${page}&startDate=${startDate}&endDate=${endDate}`,
       })
-      .catch(err => {
-        console.log('Error from server:', err);
-      });
+        .then(result => {
+          displayData(result.result.data);
+        })
+        .catch(err => {
+          console.log('Error from server:', err);
+        });
+    }
+
+    function displayData(displayedData) {
+      const tableBody = $('.table tbody');
+      tableBody.empty();
+      let sumCurrent = 0;
+
+      if (Array.isArray(displayedData)) {
+        for (let i = 0; i < displayedData.length; i++) {
+          let element = displayedData[i];
+          const date = new Date(element.NgayLap);
+          let loaiChi;
+          if(element.LoaiPhieu == 'ChiKhac'){
+            loaiChi = 'Chi phí khác'
+          } else if (element.LoaiPhieu == 'ChiNhapKho'){
+            loaiChi = 'Chi phí nhập kho'
+          } else {
+            loaiChi = 'Bán hàng'
+          }
+          let rowHtml = ` <tr>
+                            <th scope="row">${element.MaGiaoDich}</th>
+                            <td>
+                              ${date.toLocaleTimeString()} &nbsp ${date.toLocaleDateString()}
+                            </td>
+                            <td>${loaiChi}</td>
+                            <td>${element.MoTa}</td>` 
+            
+          if(element.LoaiPhieu == 'ChiKhac' || element.LoaiPhieu == 'ChiNhapKho'){
+            rowHtml += `<td class="color-red">-${element.TongTien}</td>
+                        </tr>`
+          }
+
+          tableBody.append(rowHtml);
+        }
+      } else {
+        console.error('displayedData is not an array:', displayedData);
+      }
+    }
+
+    loadPage(1);
   }
 
-  function displayData(displayedData) {
-    const tableBody = $('.table tbody');
-    tableBody.empty();
-    let sumCurrent = 0;
+  const currentDate = moment(Date.now()).format('YYYY-MM-DD')
+  $("#startDate").val(currentDate)
+  $("#endDate").val(currentDate)
+  displayReport(currentDate, currentDate)
 
-    if (Array.isArray(displayedData)) {
-      for (let i = 0; i < displayedData.length; i++) {
-        let element = displayedData[i];
-        const valueCurrent = element.DonGia * element.SLTon;
-        sumCurrent += valueCurrent;
+  function display(){
+    const startDate = $("#startDate").val();
+    const endDate = $("#endDate").val();
 
-        const rowHtml = `<tr>
-                        <td>${element.MaNguyenLieu}</td>
-                        <td>${element.TenNguyenLieu}</td>
-                        <td>${element.DonGia}</td>
-                        <td>${element.DonVi}</td>
-                        <td>${element.SLTon}</td>
-                      </tr>`;
-
-        tableBody.append(rowHtml);
-      }
+    if(!startDate || !endDate || startDate > endDate){
+      alert("Ngày không hợp lệ");
+      return;
     } else {
-      console.error('displayedData is not an array:', displayedData);
+      displayReport(startDate, endDate)
+      return;
     }
   }
-
-  loadPage(1);
 </script>
 
 </html>
