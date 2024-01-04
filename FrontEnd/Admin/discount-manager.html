@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="./assets/css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>
@@ -120,48 +121,15 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">STT</th>
               <th scope="col">Mã khuyến mãi</th>
               <th scope="col">Mô tả chi tiết</th>
-              <th scope="col">Điều kiện áp dụng</th>
-              <th scope="col">Thời gian</th>
+              <th scope="col">Thời gian bắt đầu</th>
+              <th scope="col">Thời gian kết thúc</th>
+              <th scope="col">Chiết khấu</th>
               <th scope="col">Thao tác</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>KM500_20</td>
-              <td>Giảm 20k</td>
-              <td>Đơn trên 500k</td>
-              <td>21-25/11-2023 </td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editPromotion()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>KM500_20</td>
-              <td>Giảm 20k</td>
-              <td>Đơn trên 500k</td>
-              <td>21-25/11-2023 </td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editPromotion()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>KM500_20</td>
-              <td>Giảm 20k</td>
-              <td>Đơn trên 500k</td>
-              <td>21-25/11-2023 </td>
-              <td>
-                <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editPromotion()"></i>
-                <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-              </td>
-            </tr>
           </tbody>
         </table>
         <div class="pagination-container" id="pagination-container"></div>
@@ -177,7 +145,7 @@
   <div class="modal fade" id="addPromotionModal" tabindex="-1" role="dialog" aria-labelledby="addPromotionModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <form class="modal-content" method="post" action="">
+      <form class="modal-content" id="addPromotion" method="post" action="http://localhost:3000/api/admin/coupon/add">
         <div class="modal-header">
           <h5 class="modal-title" id="addPromotionModalLabel">Thêm Khuyến Mãi</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelAddPromotion()">
@@ -191,22 +159,19 @@
           <label for="promotionDescription">Mô Tả Chi Tiết:</label>
           <textarea id="promotionDescription" name="promotionDescription" class="form-control"></textarea>
 
-          <label for="promotionCondition">Điều Kiện Áp Dụng:</label>
-          <input type="text" id="promotionCondition" name="promotionCondition" class="form-control">
-
           <label for="promotionStartTime">Thời Gian Bắt Đầu:</label>
-          <input type="datetime-local" id="promotionStartTime" name="promotionStartTime" class="form-control">
+          <input type="date" id="promotionStartTime" name="promotionStartTime" class="form-control">
 
           <label for="promotionEndTime">Thời Gian Kết Thúc:</label>
-          <input type="datetime-local" id="promotionEndTime" name="promotionEndTime" class="form-control">
+          <input type="date" id="promotionEndTime" name="promotionEndTime" class="form-control">
 
           <label for="promotionPercent">Chiết Khấu:</label>
-          <input type="number" id="promotionPerson" name="promotionPerson" class="form-control" min="0">
+          <input type="number" id="promotionPercent" name="promotionPercent" class="form-control" min="0">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"
             onclick="cancelAddPromotion()">Đóng</button>
-          <button type="submit" class="btn btn-primary" onclick="saveAddPromotion()">Thêm Khuyến Mãi</button>
+          <button type="button" class="btn btn-primary" onclick="saveAddPromotion()">Thêm Khuyến Mãi</button>
         </div>
       </form>
     </div>
@@ -216,7 +181,7 @@
   <div class="modal fade" id="editPromotionModal" tabindex="-1" role="dialog" aria-labelledby="editPromotionModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <form class="modal-content" method="post" action="http://localhost:3000/api/admin/coupon/edit">
         <div class="modal-header">
           <h5 class="modal-title" id="editPromotionModalLabel">Chỉnh sửa Khuyến Mãi</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelEditedPromotion()">
@@ -230,38 +195,74 @@
           <label for="editPromotionDescription">Mô Tả Chi Tiết:</label>
           <textarea id="editPromotionDescription" name="editPromotionDescription" class="form-control"></textarea>
 
-          <label for="editPromotionCondition">Điều Kiện Áp Dụng:</label>
-          <input type="text" id="editPromotionCondition" name="editPromotionCondition" class="form-control">
-
           <label for="editPromotionStartTime">Thời Gian Bắt Đầu:</label>
-          <input type="datetime-local" id="editPromotionStartTime" name="editPromotionStartTime" class="form-control">
+          <input type="date" id="editPromotionStartTime" name="editPromotionStartTime" class="form-control">
 
           <label for="editPromotionEndTime">Thời Gian Kết Thúc:</label>
-          <input type="datetime-local" id="editPromotionEndTime" name="editPromotionEndTime" class="form-control">
+          <input type="date" id="editPromotionEndTime" name="editPromotionEndTime" class="form-control">
+
+          <label for="promotionPercent">Chiết Khấu:</label>
+          <input type="number" id="editPromotionPercent" name="editPromotionPercent" class="form-control" min="0">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"
             onclick="cancelEditedPromotion()">Đóng</button>
-          <button type="button" class="btn btn-primary" onclick="saveEditedPromotion()">Lưu thay đổi</button>
+          <button type="submit" class="btn btn-primary" onclick="saveEditedPromotion()">Lưu thay đổi</button>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 
 
 </body>
 <script>
+  
+
   function addPromotion() {
     $('#addPromotionModal').modal('show');
   }
-  function saveAddPromotion() {
-    $('#addPromotionModal').modal('hide');
+
+  async function saveAddPromotion() {
+    const entity = {
+      promotionCode: $("#promotionCode").val(),
+      promotionDescription: $("#promotionDescription").val(),
+      promotionStartTime: $("#promotionStartTime").val(),
+      promotionEndTime: $("#promotionEndTime").val(),
+      promotionPercent: $("#promotionPercent").val(),
+    }
+    const result = await fetch('http://localhost:3000/api/admin/coupon/add',{
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(entity)
+    })
+
+    const res = await result.json();
+    console.log(res);
+    if(res.success){
+      window.location.href = `http://127.0.0.1:5500/FrontEnd/Admin/discount-manager.html`;
+      $('#addPromotionModal').modal('hide');
+    } else {
+      alert('Mã Khuyến Mãi đã tồn tại')
+    }
   }
+
   function cancelAddPromotion() {
     $('#addPromotionModal').modal('hide');
   }
 
-  function editPromotion() {
+  function editPromotion(icon) {
+    var row = $(icon).closest('tr');
+    const editPromotionCode = row.find('td:nth-child(1)').text();
+    const editPromotionDescription = row.find('td:nth-child(2)').text();
+    const editPromotionStartTime = row.find('td:nth-child(3)').text();
+    const editPromotionEndTime = row.find('td:nth-child(4)').text();
+    const editPromotionPercent = parseFloat(row.find('td:nth-child(5)').text());
+    
+    $("#editPromotionModal #editPromotionCode").val(editPromotionCode);
+    $("#editPromotionModal #editPromotionDescription").val(editPromotionDescription);
+    $("#editPromotionModal #editPromotionStartTime").val(editPromotionStartTime);
+    $("#editPromotionModal #editPromotionEndTime").val(editPromotionEndTime);
+    $("#editPromotionModal #editPromotionPercent").val(editPromotionPercent);
     $('#editPromotionModal').modal('show');
   }
 
@@ -271,18 +272,18 @@
   function cancelEditedPromotion() {
     $('#editPromotionModal').modal('hide');
   }
-  function deleteRow(icon) {
-    var row = $(icon).closest('tr');
+  async function deleteRow(icon, PromotionCode) {
     var confirmDelete = confirm('Bạn có chắc chắn muốn xóa hàng này không?');
 
     if (confirmDelete) {
-
-      row.remove();
+      await fetch(`http://localhost:3000/api/admin/coupon/delete?id=${PromotionCode}`)
+      window.location.href = 'http://127.0.0.1:5500/FrontEnd/Admin/discount-manager.html';
+      // row.remove();
     }
   }
   //hiển thị bảng, phân trang. Thay thế api, viết lại câu lệnh html hiển thị lên
   $('#pagination-container').pagination({
-    dataSource: 'http://localhost:3000/api/admin/inventory',
+    dataSource: 'http://localhost:3000/api/admin/coupon/read',
     locator: 'data',
     totalNumberLocator: function (response) {
       return response.total;
@@ -298,23 +299,24 @@
       loadPage(pageNumber);
     },
   });
+
   function loadPage(page) {
     const tableBody = $('.table tbody');
     tableBody.empty();
 
     $.ajax({
-      url: 'http://localhost:3000/api/admin/inventory?page=' + page,
+      url: 'http://localhost:3000/api/admin/coupon/read?page=' + page,
     })
       .then(result => {
         console.log(result.data);
-        displayData(result.data);
+        displayData(result.data, page);
       })
       .catch(err => {
         console.log('Error from server:', err);
       });
   }
 
-  function displayData(displayedData) {
+  function displayData(displayedData, page) {
     const tableBody = $('.table tbody');
     tableBody.empty();
     let sumCurrent = 0;
@@ -322,20 +324,19 @@
     if (Array.isArray(displayedData)) {
       for (let i = 0; i < displayedData.length; i++) {
         let element = displayedData[i];
-        const valueCurrent = element.DonGia * element.SLTon;
-        sumCurrent += valueCurrent;
-
+        const dateStart = new Date(element.TGBatDau);
+        const dateEnd = new Date(element.TGKetThuc);    
         const rowHtml = `<tr>
-                        <td>${element.MaNguyenLieu}</td>
-                        <td>${element.TenNguyenLieu}</td>
-                        <td>${element.DonGia}</td>
-                        <td>${element.DonVi}</td>
-                        <td>${element.SLTon}</td>
-                        <td>
-                          <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editInventory(this)"></i>
-                          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this)"></i>
-                        </td>
-                      </tr>`;
+                          <td>${element.MaKM}</td>
+                          <td>${element.MoTa}</td>
+                          <td>${moment(dateStart).format('YYYY-MM-DD')}</td>
+                          <td>${moment(dateEnd).format('YYYY-MM-DD')}</td>
+                          <td>${element.ChietKhau} </td>
+                          <td>
+                            <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editPromotion(this)"></i>
+                            <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, '${element.MaKM}')"></i>
+                          </td>
+                        </tr>`;
 
         tableBody.append(rowHtml);
       }
