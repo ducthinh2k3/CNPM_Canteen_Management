@@ -48,8 +48,74 @@ function calculateDiscountedAmount(totalAmount, discountPercent) {
     return totalAmount - discount;
 }
 
+// Xy ly them, sua, xoa khuyen mai
+const addCoupon = async (req, res, next) => {
+    try {
+        const exist = await Coupon.getCouponByCode(req.body.promotionCode);
+        if (exist.length != 0) {
+            return res.json({ success: false, message: "Coupon is exist" });
+        }
+        
+        const entity = {
+            MaKM: req.body.promotionCode,
+            MoTa: req.body.promotionDescription,
+            TGBatDau: req.body.promotionStartTime,
+            TGKetThuc: req.body.promotionEndTime,
+            ChietKhau: req.body.promotionPercent,
+        }
+        const rs = await Coupon.addRow(entity);
+        res.json({ success: true, message: "Coupon add successfull" });
+    } catch (error) {
+        res.json({ success: false, message: "false" });
+        next(error);
+    }
+}
+
+const getCouponPage = async (req, res, next) => {
+    try {
+        const page = req.query.page || 1;
+        const pageSize = req.query.pageSize || 4; // số dòng trên 1 trang
+
+        const result = await Coupon.getCouponByPage(page, pageSize);
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+};
+
+const updateCoupon = async (req, res, next) => {
+    try {
+        const entity = {
+            MaKM: req.body.editPromotionCode,
+            MoTa: req.body.editPromotionDescription,
+            TGBatDau: req.body.editPromotionStartTime,
+            TGKetThuc: req.body.editPromotionEndTime,
+            ChietKhau: req.body.editPromotionPercent,
+        }
+        const rs = await Coupon.updateRow(entity);
+        res.redirect('http://127.0.0.1:5500/FrontEnd/Admin/discount-manager.html')
+    } catch (error) {
+        next(error);
+    }
+}
+
+const deleteCoupon = async (req, res, next) => {
+    try {
+        const PromotionCode = req.query.id;
+        const result = await Coupon.deleteRowByID(PromotionCode);
+        res.json({ success: true, message: "Product deleted successfully." });
+    } catch (error) {
+        res.json({ success: false, message: "Product not found or could not be deleted." });
+        next(error);
+    }
+}
+
 module.exports = {
     getCoupons,
     applyCoupon,
-    getCouponByCode
+    getCouponByCode,
+    addCoupon,
+    getCouponPage,
+    updateCoupon,
+    deleteCoupon
 };

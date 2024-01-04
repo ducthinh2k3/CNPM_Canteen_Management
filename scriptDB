@@ -28,16 +28,15 @@ CREATE TABLE `ChiTietDonHang` (
 CREATE TABLE `DonHang` (
   `STT` INT,
   `NgayMua` TIMESTAMP,
-  `MaKM` INT,
+  `MaKM` VARCHAR(100),
   `HinhThuc` VARCHAR(100),
   `ThanhTien` INT,
   PRIMARY KEY (`STT`, `NgayMua`)
 );
 
 CREATE TABLE `KhuyenMai` (
-  `MaKM` INT AUTO_INCREMENT PRIMARY KEY,
+  `MaKM` VARCHAR(100) PRIMARY KEY,
   `MoTa` VARCHAR(100),
-  `DieuKien` VARCHAR(255),
   `TGBatDau` TIMESTAMP ,
   `TGKetThuc` TIMESTAMP,
   `ChietKhau` FLOAT
