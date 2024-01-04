@@ -26,6 +26,7 @@ const orderRouter = require('./routers/order.router');
 const reviewRouter = require('./routers/review.router');
 const authRouter = require('./routers/auth.router');
 const kitchenRouter = require('./routers/kitchen.router');
+const tradeRouter = require('./routers/trade.router');
 
 // use router
 app.use('/api/admin', userRouter);
@@ -45,6 +46,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }))
+app.use('/api/admin', tradeRouter);
 
 
 app.use((err, req, res, next) => {
