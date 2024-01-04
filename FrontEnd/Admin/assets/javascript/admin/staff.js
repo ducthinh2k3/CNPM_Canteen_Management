@@ -48,7 +48,7 @@ async function editEmployee(userID) {
   $("#editEmployeeModal #editEmployeeName").val(user.HoTen);
   $("#editEmployeeModal #editEmployeeRole").val(user.VaiTro);
   $("#editEmployeeModal #editEmployeeUser").val(user.Username);
-  $("#editEmployeeModal #editEmployeePassword").val(user.Password);
+  // $("#editEmployeeModal #editEmployeePassword").val(user.Password);
   $('#editEmployeeModal').modal('show');
 }
 function cancelEditedEmployee() {
@@ -177,12 +177,6 @@ function displayData(displayedData) {
       <td>${element.HoTen}</td>
       <td>${role}</td>
       <td>${element.Username}</td>
-      <td>
-        <div class="password hide">
-          ${element.Password}
-          <i class="fa-solid fa-eye-slash table-item-hide" onclick="toggleContent(this)"></i>
-        </div>
-      </td>
       <td>
         <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editEmployee(${element.UserID})"></i>
         <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(${element.UserID})"></i>

@@ -52,7 +52,6 @@ const updateUser = async (req, res, next) => {
             UserID: req.body.editEmployeeCode,
             HoTen: req.body.editEmployeeName,
             Username: req.body.editEmployeeUser,
-            Password: req.body.editEmployeePassword,
             VaiTro: req.body.editEmployeeRole
         }
         const rs = await User.updateRow(entity);
