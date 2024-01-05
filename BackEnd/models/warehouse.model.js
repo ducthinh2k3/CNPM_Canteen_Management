@@ -68,7 +68,7 @@ module.exports = class Warehouse {
             const offset = (page - 1) * pageSize;
             const limit = pageSize;
     
-            const query = `SELECT ${tableNameDetail}.*, nguyenlieu.TenNguyenLieu, nguyenlieu.DonGia, nguyenlieu.DonVi
+            const query = `SELECT ${tableNameDetail}.*, nguyenlieu.TenNguyenLieu, nguyenlieu.DonGia, nguyenlieu.DonVi, nguyenlieu.HinhAnh
                            FROM ${tableNameDetail}
                            INNER JOIN nguyenlieu ON nguyenlieu.MaNguyenLieu = ${tableNameDetail}.MaNguyenLieu
                            WHERE ${tableNameDetail}.MaPhieu = ${receiptID}

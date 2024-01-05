@@ -298,7 +298,7 @@
     var row = $(icon).closest('tr');
     const expenseCode = row.find('th:nth-child(1)').text();
     const expenseDetail = row.find('td:nth-child(4)').text();
-    const expenseAmount = parseInt(row.find('td:nth-child(5)').text());
+    const expenseAmount = parseFloat(row.find('td:nth-child(5)').text().replace(/[\-.]/g, ''));
     
     $("#editExpenseModal #expensesEditCode").val(expenseCode);
     $("#editExpenseModal #expensesEditDetail").val(expenseDetail);
@@ -385,7 +385,7 @@ async function deleteRow(icon, expenseCode) {
                           </td>
                           <td>${loaiChi}</td>
                           <td>${element.MoTa}</td>
-                          <td class="color-red">-${element.TongTien}</td>
+                          <td class="color-red">-${parseFloat(element.TongTien).toLocaleString()}</td>
                           <td>
                             <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editExpense(this)"></i>
                             <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaGiaoDich})"></i>

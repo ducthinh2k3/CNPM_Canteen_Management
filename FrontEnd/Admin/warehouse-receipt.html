@@ -310,7 +310,7 @@
                      <span class="time-create">${date.toLocaleTimeString()}</span>
                   </td>
                 <td>${element.MaPhieu}</td>
-               <td>${element.TongTien}</td>
+               <td>${parseFloat(element.TongTien).toLocaleString()}</td>
                <td>
                       <a href="/FrontEnd/Admin/warehouse-receipt-detail.html?id=${element.MaPhieu}"><i class="fa-solid fa-pen-to-square color-green table-item-set"></i></a>
                     </td> 

@@ -117,6 +117,7 @@
           <thead>
             <tr>
               <th scope="col">Mã nguyên liệu</th>
+              <th scope="col">Hình ảnh</th>
               <th scope="col">Tên nguyên liệu</th>
               <th scope="col">Đơn giá</th>
               <th scope="col">Đơn vị</th>
@@ -203,7 +204,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"
             onclick="cancelEditedInventory()">Đóng</button>
-          <button type="button" class="btn btn-primary" onclick="saveEditedInventory()">Lưu thay đổi</button>
+          <button type="submit" class="btn btn-primary" onclick="saveEditedInventory()">Lưu thay đổi</button>
         </div>
       </form>
     </div>
@@ -227,10 +228,10 @@
   function editInventory(icon) {
     var row = $(icon).closest('tr');
     var editMaterialCode = row.find('td:nth-child(1)').text();
-    var editMaterialName = row.find('td:nth-child(2)').text();
-    var editMaterialUnitPrice = parseInt(row.find('td:nth-child(3)').text());
-    var editMaterialUnit = row.find('td:nth-child(4)').text();
-    var editReceiptQuantity = parseInt(row.find('td:nth-child(5)').text());
+    var editMaterialName = row.find('td:nth-child(3)').text();
+    var editMaterialUnitPrice = parseInt(row.find('td:nth-child(4)').text());
+    var editMaterialUnit = row.find('td:nth-child(5)').text();
+    var editReceiptQuantity = parseInt(row.find('td:nth-child(6)').text());
 
     $('#editMaterialCode').val(editMaterialCode);
     $('#editMaterialName').val(editMaterialName);
@@ -367,6 +368,7 @@
 
         const rowHtml = `<tr>
                         <td>${element.MaNguyenLieu}</td>
+                        <td><img src="http://localhost:3000/images/products/${element.HinhAnh}" alt="img" width="30px"/></td>
                         <td>${element.TenNguyenLieu}</td>
                         <td>${element.DonGia}</td>
                         <td>${element.DonVi}</td>
@@ -383,6 +385,7 @@
 
       const totalRowHtml = `<tr>
                     <td class="color-blue">TỔNG CỘNG</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

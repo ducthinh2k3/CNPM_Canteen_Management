@@ -1,4 +1,5 @@
 const Product = require('../models/product.model');
+const Material = require('../models/material.model');
 
 const getProductPage = async (req, res, next) => {
     try {
@@ -31,7 +32,7 @@ const addProduct = async (req, res, next) => {
     try {
         const entity = {
             TenSP: req.body.itemName,
-            DanhMuc: req.body.itemCategory,
+            DanhMuc: 2,
             HinhAnh: req.file.filename,
             SLTon: 1,
             GiaBan: parseInt(req.body.itemCost),
@@ -50,11 +51,33 @@ const updateProduct = async (req, res, next) => {
         const entity = {
             MaSP: req.body.editItemCode,
             TenSP: req.body.editItemName,
-            DanhMuc: req.body.editItemCategory,
+            // DanhMuc: req.body.editItemCategory,
             GiaBan: parseInt(req.body.editItemCost),
         }
         if (req.file) {
             entity.HinhAnh = req.file.filename
+        }
+        if (req.body.editItemCategory == 2) {
+            entity.SLTon = req.body.editItemQuantity
+        } else {
+            const material = {
+                MaSP: entity.MaSP,
+                SLTon: req.body.editItemQuantity
+            }
+            await Material.updateRowByProID(material);
+        }
+        const rs = await Product.updateRow(entity);
+        res.redirect('http://127.0.0.1:5500/FrontEnd/Admin/items.html')
+    } catch (error) {
+        next(error);
+    }
+}
+
+const updateProductStatus = async (req, res, next) => {
+    try {
+        const entity = {
+            MaSP: req.query.productID,
+            TrangThai: req.query.status
         }
         const rs = await Product.updateRow(entity);
         res.redirect('http://127.0.0.1:5500/FrontEnd/Admin/items.html')
@@ -93,5 +116,6 @@ module.exports = {
     getProductPage,
     updateProduct,
     deleteProduct,
-    searchProductsByNameAndPage
+    searchProductsByNameAndPage,
+    updateProductStatus
 }

@@ -1,4 +1,5 @@
 const Material = require('../models/material.model');
+const Product = require('../models/product.model');
 
 // const getMaterialPage = async (req, res, next) => {
 //     try{
@@ -73,11 +74,28 @@ const addMaterial = async (req, res, next) => {
     try {
         const MaPhieu = req.body.receiptCode
         const entity = {
+            HinhAnh: req?.file?.filename || "default.png",
             TenNguyenLieu: req.body.materialName,
             SLTon: 0,
             DonVi: req.body.materialUnit,
             DonGia: parseInt(req.body.materialUnitValue),
+            TrangThaiBan: req.body.materialStatus,
         }
+
+        if (req.body.materialStatus == 1) {
+            const product = {
+                TenSP: entity.TenNguyenLieu,
+                DanhMuc: 1,
+                HinhAnh: entity.HinhAnh,
+                SLTon: 0,
+                GiaBan: entity.DonGia,
+                DanhGia: 0,
+                TrangThai: 1
+            }
+            const result = await Product.addRow(product);
+            entity.MaSP = result.insertId
+        }
+
         const rs = await Material.addRow(entity);
         res.redirect(`http://127.0.0.1:5500/FrontEnd/Admin/material.html?id=${MaPhieu}`)
     } catch (error) {
@@ -92,7 +110,11 @@ const updateMaterial = async (req, res, next) => {
             MaNguyenLieu: req.body.editMaterialCode,
             TenNguyenLieu: req.body.editMaterialName,
             DonVi: req.body.editMaterialUnit,
-            DonGia: req.body.editMaterialUnitPrice
+            DonGia: req.body.editMaterialUnitPrice,
+            TrangThaiBan: req.body.editMaterialStatus,
+        }
+        if (req.file) {
+            entity.HinhAnh = req.file.filename
         }
         const rs = await Material.updateRow(entity);
         res.redirect(`http://127.0.0.1:5500/FrontEnd/Admin/material.html?id=${MaPhieu}`)
@@ -101,13 +123,13 @@ const updateMaterial = async (req, res, next) => {
     }
 }
 
-const updateQuantityMaterial = async (req, res, next) => {
+const updateQuantityMaterialByProID = async (req, res, next) => {
     try {
-        const entity = req.body
-        // for(let i=0; i<entity.length; i++){
-        //     const rs = await Material.updateRow(entity[i]);
-        // }
-        // res.redirect(`http://127.0.0.1:5500/FrontEnd/Admin/material.html?id=${MaPhieu}`)
+        const entity = {
+            MaSP: req.query.proID,
+            SLTon: req.query.proQuantity
+        }
+        const rs = await Material.updateRowByProID(entity);
         res.json({ success: true, message: "Product deleted successfully." });
     } catch (error) {
         res.json({ success: false, message: "Product not found or could not be deleted." });
@@ -143,11 +165,12 @@ const updateInventory = async (req, res, next) => {
         const entity = {
             MaNguyenLieu: req.body.editMaterialCode,
             TenNguyenLieu: req.body.editMaterialName,
+            SLTon: req.body.editReceiptQuantity,
             DonVi: req.body.editMaterialUnit,
             DonGia: req.body.editMaterialUnitPrice
         }
         const rs = await Material.updateRow(entity);
-        res.redirect(`http://127.0.0.1:5500/FrontEnd/Admin/material.html?id=${MaPhieu}`)
+        res.redirect(`http://127.0.0.1:5500/FrontEnd/Admin/inventory.html`)
     } catch (error) {
         next(error);
     }
@@ -172,8 +195,9 @@ module.exports = {
     addMaterial,
     updateMaterial,
     deleteMaterial,
-    updateQuantityMaterial,
+    updateQuantityMaterialByProID,
     getInventoryPage,
     getMaterialSearchPage,
-    searchByNameAndPaging
+    searchByNameAndPaging,
+    updateInventory
 }

@@ -61,7 +61,7 @@ const addCoupon = async (req, res, next) => {
             MoTa: req.body.promotionDescription,
             TGBatDau: req.body.promotionStartTime,
             TGKetThuc: req.body.promotionEndTime,
-            ChietKhau: req.body.promotionPercent,
+            ChietKhau: parseFloat(req.body.promotionPercent),
         }
         const rs = await Coupon.addRow(entity);
         res.json({ success: true, message: "Coupon add successfull" });
@@ -90,7 +90,7 @@ const updateCoupon = async (req, res, next) => {
             MoTa: req.body.editPromotionDescription,
             TGBatDau: req.body.editPromotionStartTime,
             TGKetThuc: req.body.editPromotionEndTime,
-            ChietKhau: req.body.editPromotionPercent,
+            ChietKhau: parseFloat(req.body.editPromotionPercent),
         }
         const rs = await Coupon.updateRow(entity);
         res.redirect('http://127.0.0.1:5500/FrontEnd/Admin/discount-manager.html')

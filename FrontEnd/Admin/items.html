@@ -135,6 +135,7 @@
               <th scope="col">Tên mặt hàng</th>
               <th scope="col">Danh mục</th>
               <th scope="col">Giá thành</th>
+              <th scope="col">Số lượng tồn</th>
               <th scope="col">Thao tác</th>
               <th scope="col">Ẩn mặt hàng</th>
             </tr>
@@ -173,12 +174,11 @@
           <label for="itemName">Tên mặt hàng:</label>
           <input type="text" id="itemName" name="itemName" class="form-control">
 
-          <label for="itemCategory">Danh mục:</label>
+          <!-- <label for="itemCategory">Danh mục:</label>
           <select id="itemCategory" name="itemCategory" class="form-control">
-            <option value="1">Thức ăn nhanh</option>
-            <option value="2">Đồ uống</option>
-            <option value="3">Đồ ăn trưa</option>
-          </select>
+            <option value="1">Hàng nhập</option>
+            <option value="2">Chế biến</option>
+          </select> -->
 
           <label for="itemCost">Giá thành:</label>
           <input type="number" id="itemCost" name="itemCost" class="form-control">
@@ -216,15 +216,16 @@
           <label for="editItemName">Tên mặt hàng:</label>
           <input type="text" id="editItemName" name="editItemName" class="form-control">
 
-          <label for="editItemCategory">Danh mục:</label>
-          <select id="editItemCategory" name="editItemCategory" class="form-control">
-            <option value="1">Thức ăn nhanh</option>
-            <option value="2">Đồ uống</option>
-            <option value="3">Đồ ăn trưa</option>
+          <select id="editItemCategory" name="editItemCategory" class="form-control" hidden>
+            <option value="1">Hàng nhập</option>
+            <option value="2">Chế biến</option>
           </select>
 
           <label for="editItemCost">Giá thành:</label>
           <input type="number" id="editItemCost" name="editItemCost" class="form-control">
+
+          <label for="editItemQuantity">Số lượng tồn:</label>
+          <input type="number" id="editItemQuantity" name="editItemQuantity" class="form-control">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelEdit()">Đóng</button>
@@ -235,21 +236,16 @@
   </div>
 </body>
 <script>
-  function toggleContent(icon) {
+  async function toggleContent(icon, productID) {
     var row = icon.closest('tr');
-    var cells = row.getElementsByTagName('td');
 
     if (row.classList.contains('hidden-content')) {
-      for (var i = 0; i < cells.length - 1; i++) {
-        //cells[i].textContent = 'Original Text';
-      }
+      const result = await fetch(`http://localhost:3000/api/admin/product/update-status?productID=${productID}&status=${1}`)
       row.classList.remove('hidden-content');
       icon.classList.remove('fa-eye-slash');
       icon.classList.add('fa-eye');
     } else {
-      for (var i = 0; i < cells.length - 1; i++) {
-        //cells[i].textContent = '*****';
-      }
+      const result = await fetch(`http://localhost:3000/api/admin/product/update-status?productID=${productID}&status=${0}`)
       row.classList.add('hidden-content');
       icon.classList.remove('fa-eye');
       icon.classList.add('fa-eye-slash');
@@ -293,17 +289,16 @@
     var itemCode = row.find('td:nth-child(2)').text();
     var itemName = row.find('td:nth-child(3)').text();
     var itemCategory = row.find('td:nth-child(4)').text();
-    var itemCost = row.find('td:nth-child(5)').text();
+    var itemCost = parseFloat(row.find('td:nth-child(5)').text().replace(/\./g, ''));
+    var itemQuantity = parseInt(row.find('td:nth-child(6)').text());
 
     let nameImage = itemImageSrc.substring(itemImageSrc.lastIndexOf('/') + 1);
 
     let itemCatNumber = 1;
-    if (itemCategory == "Thức ăn nhanh") {
+    if (itemCategory == "Hàng nhập") {
       itemCatNumber = 1;
-    } else if (itemCategory == "Đồ uống") {
+    } else if (itemCategory == "Chế biến") {
       itemCatNumber = 2;
-    } else if (itemCategory == "Đồ ăn trưa") {
-      itemCatNumber = 3;
     }
 
     $('#editItemImage').attr('src', itemImageSrc);
@@ -312,6 +307,7 @@
     $('#editItemCategory').val(itemCatNumber);
     $('#editItemCost').val(itemCost);
     $('#editNameImage').val(nameImage);
+    $('#editItemQuantity').val(itemQuantity);
 
     $('#editItemModal').modal('show');
   }
@@ -409,25 +405,42 @@
         let danhMuc = "";
 
         if (element.DanhMuc == 1) {
-          danhMuc = "Thức ăn nhanh";
+          danhMuc = "Hàng nhập";
         } else if (element.DanhMuc == 2) {
-          danhMuc = "Đồ uống";
-        } else if (element.DanhMuc == 3) {
-          danhMuc = "Đồ ăn trưa";
+          danhMuc = "Chế biến";
         }
 
-        const rowHtml = `<tr>
-        <td><img src="http://localhost:3000/images/products/${element.HinhAnh}" alt="img" class="table-item-img"/></td>
-        <td>${element.MaSP}</td>
-        <td>${element.TenSP}</td>
-        <td>${danhMuc}</td>
-        <td class="color-green">${element.GiaBan}</td>
-        <td>
-          <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editRow(this)"></i>
-          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaSP})"></i>
-        </td>
-        <td><i class="fa-solid fa-eye table-item-visible" onclick="toggleContent(this)"></i></td>
-      </tr>`;
+        let rowHtml ='';
+        if(element.TrangThai == 1){
+          rowHtml = `<tr>
+                      <td><img src="http://localhost:3000/images/products/${element.HinhAnh}" alt="img" class="table-item-img"/></td>
+                      <td>${element.MaSP}</td>
+                      <td>${element.TenSP}</td>
+                      <td>${danhMuc}</td>
+                      <td class="color-green">${parseFloat(element.GiaBan).toLocaleString()}</td>
+                      <td>${parseInt(element.SLTon)}</td>
+                      <td>
+                        <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editRow(this)"></i>
+                        <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaSP})"></i>
+                      </td>
+                      <td><i class="fa-solid fa-eye table-item-visible" onclick="toggleContent(this, ${element.MaSP})"></i></td>
+                    </tr>`;
+        } else {
+          rowHtml = `<tr class = "hidden-content">
+                      <td><img src="http://localhost:3000/images/products/${element.HinhAnh}" alt="img" class="table-item-img"/></td>
+                      <td>${element.MaSP}</td>
+                      <td>${element.TenSP}</td>
+                      <td>${danhMuc}</td>
+                      <td class="color-green">${parseFloat(element.GiaBan).toLocaleString()}</td>
+                      <td>${parseInt(element.SLTon)}</td>
+                      <td>
+                        <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editRow(this)"></i>
+                        <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaSP})"></i>
+                      </td>
+                      <td><i class="fa-solid fa-eye-slash table-item-visible" onclick="toggleContent(this, ${element.MaSP})"></i></td>
+                    </tr>`;
+        }
+        
 
         tableBody.append(rowHtml);
       }
