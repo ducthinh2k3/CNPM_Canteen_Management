@@ -45,9 +45,12 @@
                             </button>
                         </div>
                         <div class="col-1">
-                            <button type="button" class="btn logOut" id="logOut">
-                                <i class="fa-solid fa-arrow-right-from-bracket border-0 mt-1 fs-3 "></i>
-                            </button>
+                            <form action="http://localhost:3000/api/auth/logout" method="POST">
+                                <button class="btn logOut" id="logOut" type="submit">
+                                    <i class="fa-solid fa-arrow-right-from-bracket border-0 mt-1 fs-3 "></i>
+                                </button>
+                            </form>
+
                         </div>
                     </div>
                 </section>
