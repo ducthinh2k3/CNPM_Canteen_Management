@@ -63,6 +63,19 @@ const updateProduct = async (req, res, next) => {
     }
 }
 
+const updateProductStatus = async (req, res, next) => {
+    try {
+        const entity = {
+            MaSP: req.query.productID,
+            TrangThai: req.query.status
+        }
+        const rs = await Product.updateRow(entity);
+        res.redirect('http://127.0.0.1:5500/FrontEnd/Admin/items.html')
+    } catch (error) {
+        next(error);
+    }
+}
+
 const deleteProduct = async (req, res, next) => {
     try {
         const productID = req.query.id;
@@ -93,5 +106,6 @@ module.exports = {
     getProductPage,
     updateProduct,
     deleteProduct,
-    searchProductsByNameAndPage
+    searchProductsByNameAndPage,
+    updateProductStatus
 }

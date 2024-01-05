@@ -235,21 +235,16 @@
   </div>
 </body>
 <script>
-  function toggleContent(icon) {
+  async function toggleContent(icon, productID) {
     var row = icon.closest('tr');
-    var cells = row.getElementsByTagName('td');
 
     if (row.classList.contains('hidden-content')) {
-      for (var i = 0; i < cells.length - 1; i++) {
-        //cells[i].textContent = 'Original Text';
-      }
+      const result = await fetch(`http://localhost:3000/api/admin/product/update-status?productID=${productID}&status=${1}`)
       row.classList.remove('hidden-content');
       icon.classList.remove('fa-eye-slash');
       icon.classList.add('fa-eye');
     } else {
-      for (var i = 0; i < cells.length - 1; i++) {
-        //cells[i].textContent = '*****';
-      }
+      const result = await fetch(`http://localhost:3000/api/admin/product/update-status?productID=${productID}&status=${0}`)
       row.classList.add('hidden-content');
       icon.classList.remove('fa-eye');
       icon.classList.add('fa-eye-slash');
@@ -293,7 +288,7 @@
     var itemCode = row.find('td:nth-child(2)').text();
     var itemName = row.find('td:nth-child(3)').text();
     var itemCategory = row.find('td:nth-child(4)').text();
-    var itemCost = row.find('td:nth-child(5)').text();
+    var itemCost = parseFloat(row.find('td:nth-child(5)').text().replace(/\./g, ''));
 
     let nameImage = itemImageSrc.substring(itemImageSrc.lastIndexOf('/') + 1);
 
@@ -416,18 +411,35 @@
           danhMuc = "Đồ ăn trưa";
         }
 
-        const rowHtml = `<tr>
-        <td><img src="http://localhost:3000/images/products/${element.HinhAnh}" alt="img" class="table-item-img"/></td>
-        <td>${element.MaSP}</td>
-        <td>${element.TenSP}</td>
-        <td>${danhMuc}</td>
-        <td class="color-green">${element.GiaBan}</td>
-        <td>
-          <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editRow(this)"></i>
-          <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaSP})"></i>
-        </td>
-        <td><i class="fa-solid fa-eye table-item-visible" onclick="toggleContent(this)"></i></td>
-      </tr>`;
+        let rowHtml ='';
+        if(element.TrangThai == 1){
+          rowHtml = `<tr>
+                      <td><img src="http://localhost:3000/images/products/${element.HinhAnh}" alt="img" class="table-item-img"/></td>
+                      <td>${element.MaSP}</td>
+                      <td>${element.TenSP}</td>
+                      <td>${danhMuc}</td>
+                      <td class="color-green">${parseFloat(element.GiaBan).toLocaleString()}</td>
+                      <td>
+                        <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editRow(this)"></i>
+                        <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaSP})"></i>
+                      </td>
+                      <td><i class="fa-solid fa-eye table-item-visible" onclick="toggleContent(this, ${element.MaSP})"></i></td>
+                    </tr>`;
+        } else {
+          rowHtml = `<tr class = "hidden-content">
+                      <td><img src="http://localhost:3000/images/products/${element.HinhAnh}" alt="img" class="table-item-img"/></td>
+                      <td>${element.MaSP}</td>
+                      <td>${element.TenSP}</td>
+                      <td>${danhMuc}</td>
+                      <td class="color-green">${parseFloat(element.GiaBan).toLocaleString()}</td>
+                      <td>
+                        <i class="fa-solid fa-pen-to-square color-green table-item-set" onclick="editRow(this)"></i>
+                        <i class="fa-solid fa-trash color-red table-item-remove" onclick="deleteRow(this, ${element.MaSP})"></i>
+                      </td>
+                      <td><i class="fa-solid fa-eye-slash table-item-visible" onclick="toggleContent(this, ${element.MaSP})"></i></td>
+                    </tr>`;
+        }
+        
 
         tableBody.append(rowHtml);
       }

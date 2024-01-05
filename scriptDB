@@ -57,10 +57,13 @@ CREATE TABLE `ChiTietPhieuNhap` (
 
 CREATE TABLE `NguyenLieu` (
   `MaNguyenLieu` INT AUTO_INCREMENT PRIMARY KEY,
+  `HinhAnh` TEXT,
   `TenNguyenLieu` VARCHAR(50),
   `SLTon` INT,
   `DonVi` VARCHAR(20),
-  `DonGia` INT
+  `DonGia` INT,
+  `TrangThaiBan` BOOLEAN,
+  `MaSP` INT
 );
 
 -- CREATE TABLE `PhieuChi` (
@@ -172,6 +175,20 @@ BEGIN
 
   DELETE FROM giaodich
   WHERE MaPhieu = OLD.MaPhieu AND LoaiPhieu = 'ChiNhapKho';
+
+END; //
+DELIMITER ;
+
+-- DROP TRIGGER after_update_nguyenlieu;
+DELIMITER //
+CREATE TRIGGER after_update_nguyenlieu
+AFTER UPDATE ON nguyenlieu
+FOR EACH ROW
+BEGIN
+
+  UPDATE sanpham
+  SET SLTon = NEW.SLTon
+  WHERE NEW.MaSP IS NOT NULL AND MaSP = NEW.MaSP;
 
 END; //
 DELIMITER ;

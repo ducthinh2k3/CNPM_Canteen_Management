@@ -118,6 +118,7 @@
             <tr>
               <th scope="col">Mã phiếu</th>
               <th scope="col">Mã nguyên liệu</th>
+              <th scope="col">Hình ảnh</th>
               <th scope="col">Tên nguyên liệu</th>
               <th scope="col">Đơn giá</th>
               <th scope="col">Đơn vị</th>
@@ -190,10 +191,10 @@
     var row = $(icon).closest('tr');
     var editReceiptCode = row.find('td:nth-child(1)').text();
     var editMaterialCode = row.find('td:nth-child(2)').text();
-    var editMaterialName = row.find('td:nth-child(3)').text();
-    var editUnitPrice = parseInt(row.find('td:nth-child(4)').text());
-    var editUnit = (row.find('td:nth-child(5)').text());
-    var editReceiptQuantity = parseInt(row.find('td:nth-child(6)').text());
+    var editMaterialName = row.find('td:nth-child(4)').text();
+    var editUnitPrice = parseInt(row.find('td:nth-child(5)').text());
+    var editUnit = (row.find('td:nth-child(6)').text());
+    var editReceiptQuantity = parseInt(row.find('td:nth-child(7)').text());
 
 
     $('#editReceiptCode').val(editReceiptCode);
@@ -321,6 +322,7 @@
         const rowHtml = `<tr>
                     <td>${element.MaPhieu}</td>
                     <td>${element.MaNguyenLieu}</td>
+                    <td><img src="http://localhost:3000/images/products/${element.HinhAnh}" alt="img" width="46px"/></td>
                     <td>${element.TenNguyenLieu}</td>
                     <td>${element.DonGia}</td>
                     <td>${element.DonVi}</td>

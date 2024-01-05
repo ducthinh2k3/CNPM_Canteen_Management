@@ -159,9 +159,6 @@
 <script>
   // Hien thi bao cao theo thoi gian da chon, mac dinh la thang hien tai
   async function displayReport(startDate, endDate){
-    console.log(startDate);
-    console.log(endDate);
-
     const result = await fetch(`http://localhost:3000/api/admin/trade/read-all?startDate=${startDate}&endDate=${endDate}`)
     const rs = await result.json()
     let expenseMoney = 0
@@ -175,9 +172,9 @@
       }
     })
     let balanceMoney = receiveMoney - expenseMoney
-    $('.box-detail-receive').text(receiveMoney)
-    $('.box-detail-expense').text(expenseMoney)
-    $('.box-detail-balance').text(balanceMoney)
+    $('.box-detail-receive').text(receiveMoney.toLocaleString() + " Đ")
+    $('.box-detail-expense').text(expenseMoney.toLocaleString() + " Đ")
+    $('.box-detail-balance').text(balanceMoney.toLocaleString() + " Đ")
 
     // xử lý export file
     $('.report-option-export').on("click", async function() {
@@ -247,7 +244,10 @@
                             <td>${element.MoTa}</td>` 
             
           if(element.LoaiPhieu == 'ChiKhac' || element.LoaiPhieu == 'ChiNhapKho'){
-            rowHtml += `<td class="color-red">-${element.TongTien}</td>
+            rowHtml += `<td class="color-red">-${parseFloat(element.TongTien).toLocaleString()} đ</td>
+                        </tr>`
+          } else {
+            rowHtml += `<td class="color-green">+${parseFloat(element.TongTien).toLocaleString()} đ</td>
                         </tr>`
           }
 
