@@ -123,13 +123,13 @@ const updateMaterial = async (req, res, next) => {
     }
 }
 
-const updateQuantityMaterial = async (req, res, next) => {
+const updateQuantityMaterialByProID = async (req, res, next) => {
     try {
-        const entity = req.body
-        // for(let i=0; i<entity.length; i++){
-        //     const rs = await Material.updateRow(entity[i]);
-        // }
-        // res.redirect(`http://127.0.0.1:5500/FrontEnd/Admin/material.html?id=${MaPhieu}`)
+        const entity = {
+            MaSP: req.query.proID,
+            SLTon: req.query.proQuantity
+        }
+        const rs = await Material.updateRowByProID(entity);
         res.json({ success: true, message: "Product deleted successfully." });
     } catch (error) {
         res.json({ success: false, message: "Product not found or could not be deleted." });
@@ -195,7 +195,7 @@ module.exports = {
     addMaterial,
     updateMaterial,
     deleteMaterial,
-    updateQuantityMaterial,
+    updateQuantityMaterialByProID,
     getInventoryPage,
     getMaterialSearchPage,
     searchByNameAndPaging,

@@ -162,6 +162,14 @@ module.exports = class Material {
         return mydb.update(tableName, entity, condition);
     }
 
+    static updateRowByProID(entity) {
+        const condition = {
+            MaSP: entity.MaSP
+        }
+        delete entity.MaSP;
+        return mydb.update(tableName, entity, condition);
+    }
+
     static deleteRowByID(materialID) {
         const condition = {
             MaNguyenLieu: materialID

@@ -5,7 +5,7 @@ const {
     updateMaterial,
     deleteMaterial,
     getInventoryPage,
-    updateQuantityMaterial,
+    updateQuantityMaterialByProID,
     getMaterialSearchPage,
     searchByNameAndPaging,
     updateInventory
@@ -35,7 +35,7 @@ router.get('/material', getMaterialPage);
 router.get('/material/search', searchByNameAndPaging);
 router.post('/material/add', upload.single('materialImage'), addMaterial);
 router.post('/material/update',upload.single('editMaterialImage'), updateMaterial);
-router.post('/material/update-quantity', updateQuantityMaterial);
+//router.post('/material/update-quantity', updateQuantityMaterial);
 router.get('/material/delete' ,deleteMaterial);
 
 module.exports = router; 
