@@ -2,6 +2,9 @@ const User = require('../../models/auth.model');
 const bcrypt = require('bcrypt');
 require('dotenv/config');
 
+exports.create = (req, res) => {
+    res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Register.html')
+}
 exports.register = (req, res) => {
     const { fullname, username, password, role } = req.body;
     if (username && password) {

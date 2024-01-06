@@ -102,7 +102,14 @@ async function MoveBackProduct(itemSTT, itemSTT) {
     }
 }
 
-document.getElementById("logOut").addEventListener("click", function () {
-    // Chuyển đến trang HTML khác (thay đổi đường dẫn)
-    window.location.href = "Login.html";
-});
+// document.getElementById("logOut").addEventListener("click", function () {
+//     // Chuyển đến trang HTML khác (thay đổi đường dẫn)
+//     window.location.href = "http://127.0.0.1:5500/FrontEnd/Auth/Login.html";
+// });
+// async function logOut() {
+//     try {
+//         await fetch(`http://localhost:3000/api/auth/logout`);
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }

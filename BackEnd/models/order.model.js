@@ -1,10 +1,15 @@
 const mydb = require('../ultis/mydb');
-const tableName = 'donhang'
+const tableName = 'donhang';
+const tableName1 = 'chitietdonhang';
 
 module.exports = class DonHang {
     static addRow(entity){
         return mydb.add(tableName, entity);
     }
+
+    static addRowDetail(entity){
+      return mydb.add(tableName1, entity);
+  }
 
     static async getRevenueByHour(startDate) {
         try {

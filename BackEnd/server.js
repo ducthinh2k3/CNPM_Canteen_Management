@@ -12,7 +12,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // middleware
 app.use(cors())
-
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+}))
 //template engine and view engine
 
 // router
@@ -28,24 +32,21 @@ const authRouter = require('./routers/auth.router');
 const kitchenRouter = require('./routers/kitchen.router');
 const tradeRouter = require('./routers/trade.router');
 
+
 // use router
 app.use('/api/admin', userRouter);
 app.use('/api/admin', productRouter);
 app.use('/api/admin', materialRouter);
 app.use('/api/admin', wareHouseRouter);
 app.use('/api/admin', DashboardRouter);
-app.use('/api/shop', reviewRouter);
+app.use('/api/admin', reviewRouter);
 app.use('/api/admin', couponRouter);
 app.use('/api/admin', orderRouter);
 app.use('/api/admin', reviewRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/shop', kitchenRouter);
 
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-}))
+
 app.use('/api/admin', tradeRouter);
 
 

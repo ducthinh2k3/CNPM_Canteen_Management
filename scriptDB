@@ -22,11 +22,12 @@ CREATE TABLE `ChiTietDonHang` (
   `NgayMua` TIMESTAMP,
   `MaSP` INT,
   `SoLuong` INT,
+  `TrangThai` BOOLEAN,
   PRIMARY KEY (`STT`, `NgayMua`, `MaSP`)
 );
 
 CREATE TABLE `DonHang` (
-  `STT` INT,
+  `STT` INT AUTO_INCREMENT,
   `NgayMua` TIMESTAMP,
   `MaKM` VARCHAR(100),
   `HinhThuc` VARCHAR(100),

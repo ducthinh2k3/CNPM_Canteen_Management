@@ -38,6 +38,9 @@ const User = require('../../models/auth.model');
 const bcrypt = require('bcrypt');
 require('dotenv/config');
 
+exports.showLoginForm = (req, res) => {
+    res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Login.html');
+}
 exports.login = (req, res) => {
     const { username, password } = req.body;
     if (username && password) {
@@ -54,8 +57,8 @@ exports.login = (req, res) => {
             } else {
                 bcrypt.compare(password, user.Password, (err, result) => {
                     if (result == true) {
-                        //req.session.loggedin = true;
-                        //req.session.user = user;
+                        req.session.loggedin = true;
+                        req.session.user = user;
                         if (user.VaiTro === 1) {
                             res.redirect('http://127.0.0.1:5500/FrontEnd/Shop/DashBoard.html');
                         }
@@ -66,7 +69,14 @@ exports.login = (req, res) => {
                             res.redirect('http://127.0.0.1:5500/FrontEnd/Shop/Kitchen.html');
                         }
                     } else {
-                        res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Login.html')
+                        //res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Login.html')
+                        const errorMessage = 'Username or password is incorrest!';
+                        res.send(`
+                            <script>
+                                alert("${errorMessage}");
+                                window.location.href = "http://127.0.0.1:5500/FrontEnd/Auth/Login.html"; // Chuyển hướng đến trang chính hoặc trang khác
+                            </script>
+                        `);
                     }
                 })
             }
@@ -78,7 +88,11 @@ exports.login = (req, res) => {
     }
 }
 exports.logout = (req, res) => {
+    //console.log("In here");
     req.session.destroy((err) => {
-        if (err) res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Login.html');
+        if (err) {
+            console.log(err);
+        }
+        return res.redirect('http://127.0.0.1:5500/FrontEnd/Auth/Login.html');
     })
 }
