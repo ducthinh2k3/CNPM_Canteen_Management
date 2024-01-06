@@ -29,6 +29,7 @@ async function fetchProducts() {
 };
 
 let listCards = [];
+let cartItems = [];
 
 const initApp = () => {
     products.forEach((value, key) => {
@@ -61,10 +62,18 @@ const addToCard = key => {
         // console.log(listCards);
         listCards[key].quantity = 1;
         // console.log(listCards[key].quantity);
+
+        cartItems.push({
+            productId: listCards[key].MaSP,
+            quantity: listCards[key].quantity,
+        });
+        // Lưu cartItems vào localStorage
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }
 
     reloadCard()
 }
+
 
 const reloadCard = () => {
     listCard.innerHTML = "";
@@ -99,17 +108,73 @@ const reloadCard = () => {
         localStorage.setItem("NumericSubTotal", numericTotal);
     })
 }
+ // oldFunc
 
+/*
+// newFunc
+const reloadCard = () => {
+    listCard.innerHTML = "";
+    let count = 0;
+    let totalPrice = 0;
+
+    cartItems.forEach(cartItem => {
+        const key = products.findIndex(product => product.MaSP === cartItem.productId);
+        const product = products[key];
+
+        totalPrice = totalPrice + product.GiaBan * cartItem.quantity;
+        count = count + cartItem.quantity;
+
+        let newDiv = document.createElement("li");
+        newDiv.innerHTML = `
+            <div><img src="http://localhost:3000/images/products/${product.HinhAnh}"></div>
+            <div class="cardTitle">${product.TenSP}</div>
+            <div class="cardPrice">${product.GiaBan.toLocaleString()}</div>
+
+            <div>
+                <button style="background-color:#61BBE1;" class="cardButton" onclick="changeQuantity(${key}, ${cartItem.quantity - 1})">-</button>
+                <div class="count">${cartItem.quantity}</div>
+                <button style="background-color:#61BBE1;" class="cardButton" onclick="changeQuantity(${key}, ${cartItem.quantity + 1})">+</button>
+            </div>
+        `;
+        listCard.appendChild(newDiv);
+    });
+
+    total.innerText = totalPrice.toLocaleString();
+    quantity.innerText = count;
+
+    // Chuyển đổi total thành số và lưu vào localStorage
+    const numericTotal = parseFloat(total.innerText.replace(/,/g, '')); // Xóa dấu phẩy và chuyển đổi thành số
+    localStorage.setItem("NumericSubTotal", numericTotal);
+};*/
 
 const changeQuantity = (key, quantity) => {
+    const indexToUpdate = cartItems.findIndex(item => item.productId === listCards[key].MaSP);
+
     if (quantity == 0) {
+        if (indexToUpdate  !== -1) {
+            cartItems.splice(indexToUpdate , 1);
+        }
+
         delete listCards[key];
-        total.innerText = 0
+        total.innerText = 0;
     }
     else {
         listCards[key].quantity = quantity;
-        listCards[key].GiaBan = quantity * products[key].GiaBan
+        listCards[key].GiaBan = quantity * products[key].GiaBan;
+
+        if (indexToUpdate  !== -1) {
+            // Nếu sản phẩm có trong cartItems, cập nhật số lượng
+            cartItems[indexToUpdate ].quantity = quantity;
+        } else {
+            // Nếu không có trong cartItems, thêm mới vào
+            cartItems.push({
+                productId: listCards[key].MaSP,
+                quantity: quantity,
+            });
+        }
     }
+    // Lưu cartItems vào localStorage
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
     reloadCard()
 }
 
