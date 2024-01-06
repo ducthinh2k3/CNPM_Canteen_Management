@@ -16,7 +16,7 @@ exports.GetKitchenPageComplete = async (req, res, next) => {
     }
 }
 exports.notifyKitchenPageComplete = async (req, res, next) => {
-    console.log(req.query);
+
     try {
         const entity = {
             STT: req.query.STT,
@@ -30,13 +30,14 @@ exports.notifyKitchenPageComplete = async (req, res, next) => {
     }
 }
 exports.notifyKitchenPageNotComplete = async (req, res, next) => {
+    console.log(req.query);
     try {
         const entity = {
             STT: req.query.STT,
             MaSP: req.query.MaSP,
             TrangThai: false,
         }
-        const rs = await ProductKitchen.notifyKitchenPageComplete(entity);
+        const rs = await ProductKitchen.notifyKitchenPageNotComplete(entity);
         res.redirect('http://127.0.0.1:5500/FrontEnd/Shop/Kitchen.html')
     } catch (error) {
         next(error);

@@ -19,11 +19,7 @@ async function loadProductLeft() {
           <div class="Quality col-4 ">
               <p>${item.SoLuong}</p>
           </div>
-          <div class="col-1">
-              <button type="button" class="btn_delete_left btn btn-outline-info" onclick="editProductLeft(${item.STT})">
-                    <i class="fa-solid fa-pencil"></i>
-              </button>
-          </div>
+          
           <div class="col-1">
               <button type="button" class="btn btn-outline-danger" onclick="CompleteProduct(${item.STT},${item.MaSP})">
                   <i class="fa-solid fa-angles-right"></i>
@@ -73,11 +69,7 @@ async function loadProductRight() {
             <div class="Quality col-4 ">
                 <p>${item.SoLuong}</p>
             </div>
-            <div class="col-1">
-                <button type="button" class="btn_delete_right btn btn-outline-info" onclick="editProductRight(${item.MaSp})">
-                    <i class="fa-solid fa-pencil"></i>
-                </button>
-             </div>
+           
              <div class="col-1">
                 <button type="button" class="btn btn-outline-danger" onclick="MoveBackProduct(${item.STT},${item.MaSP})">
                     <i class="fa-solid fa-angles-left"></i>
@@ -93,9 +85,9 @@ async function loadProductRight() {
 loadProductRight();
 
 //Move back product
-async function MoveBackProduct(itemSTT, itemSTT) {
+async function MoveBackProduct(itemSTT, itemMaSP) {
     try {
-        await fetch(`http://localhost:3000/api/shop/kitchen/notifyNotComplete/?STT=${itemSTT}&MaSP=${itemSTT}`)
+        await fetch(`http://localhost:3000/api/shop/kitchen/notifyNotComplete/?STT=${itemSTT}&MaSP=${itemMaSP}`)
         window.location.href = 'http://127.0.0.1:5500/FrontEnd/Shop/Kitchen.html';
     } catch (error) {
         console.log(error);
@@ -113,3 +105,13 @@ async function MoveBackProduct(itemSTT, itemSTT) {
 //         console.log(error);
 //     }
 // }
+// <div class="col-1">
+//               <button type="button" class="btn_delete_left btn btn-outline-info" onclick="editProductLeft(${item.STT})">
+//                     <i class="fa-solid fa-pencil"></i>
+//               </button>
+//           </div>
+//           <div class="col-1">
+//           <button type="button" class="btn_delete_right btn btn-outline-info" onclick="editProductRight(${item.MaSp})">
+//               <i class="fa-solid fa-pencil"></i>
+//           </button>
+//        </div>

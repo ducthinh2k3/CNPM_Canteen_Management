@@ -3,12 +3,12 @@ module.exports = class ProductKitchen {
     static GetListProductNotComplete() {
         return mydb.load(`select DH.STT, SP.TenSp, CTDH.SoLuong,CTDH.TrangThai,CTDH.MaSP from ChiTietDonHang AS CTDH join DonHang AS DH on CTDH.STT = DH.STT
         and CTDH.NgayMua = DH.NgayMua Join SanPham AS SP on CTDH.MaSP = SP.MaSP
-        where CTDH.NgayMua = CURRENT_DATE() and (CTDH.TrangThai Is NULL OR CTDH.TrangThai = 0) `);
+        where DATE(CTDH.NgayMua) = CURRENT_DATE() and (CTDH.TrangThai Is NULL OR CTDH.TrangThai = 0) `);
     }
     static GetListProductComplete() {
         return mydb.load(`select DH.STT, SP.TenSp, CTDH.SoLuong,CTDH.TrangThai,CTDH.MaSP from ChiTietDonHang AS CTDH join DonHang AS DH on CTDH.STT = DH.STT
         and CTDH.NgayMua = DH.NgayMua Join SanPham AS SP on CTDH.MaSP = SP.MaSP
-        where CTDH.NgayMua = CURRENT_DATE() and CTDH.TrangThai !=0 `);
+        where DATE(CTDH.NgayMua) = CURRENT_DATE() and CTDH.TrangThai !=0 `);
     }
     static notifyKitchenPageComplete(entity) {
         const condition = {
