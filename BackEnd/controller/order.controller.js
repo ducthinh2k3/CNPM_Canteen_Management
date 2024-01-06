@@ -3,13 +3,21 @@ const order = require('../models/order.model');
 const saveOrder = async (req, res, next) => {
     try {
         const entity = {
-            NgayMua: new Date(),
+            NgayMua: req.body.NgayMua,
             MaKM: req.body.MaKM,
             HinhThuc: req.body.HinhThuc,
             ThanhTien: parseInt(req.body.ThanhTien)
         }
         const rs = await order.addRow(entity);
-        res.redirect(`http://127.0.0.1:5500/FrontEnd/Admin/order.html?id=${entity.NgayMua}`)
+        res.json(rs);
+
+        const orderDetail = {
+          NgayMua: req.body.NgayMua,
+          MaSP: req.body.MaSP,
+          SoLuong: req.body.SoLuong
+        }
+        const rs1 = await order.addRow(orderDetail);
+        res.json(rs1);
     } catch (error) {
         next(error);
     }
