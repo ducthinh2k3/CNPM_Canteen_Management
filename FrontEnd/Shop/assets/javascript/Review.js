@@ -96,8 +96,16 @@ submitBtn.addEventListener('click', async function () {
             body: JSON.stringify(data)
         });
 
-        const rs = await result.json();
-        console.log(rs);
+        if (result.ok) {
+            try {
+                const rs = await result.json(); // Parse the response body as JSON
+                console.log(rs); // Handle the parsed JSON data
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+        } else {
+            console.error('Failed to fetch:', result.status);
+        }
 
         /*
         // UPDATE TIME FOR FEEDBACK
