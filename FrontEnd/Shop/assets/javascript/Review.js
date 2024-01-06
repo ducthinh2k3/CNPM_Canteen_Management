@@ -49,14 +49,7 @@ closeFeedback.addEventListener('click', setDefaultRating);
 // submit feedback
 submitBtn.addEventListener('click', async function () {
     if (username.value !== '' && feedback.value !== '') {
-        const options = {
-            timeZone: 'Asia/Ho_Chi_Minh',
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        };
-        let time = new Date().toLocaleString('es-CL', options);
-        
+        let time = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Ho_Chi_Minh' });
 
         reviewContent.insertAdjacentHTML(
             'afterbegin',
@@ -73,7 +66,7 @@ submitBtn.addEventListener('click', async function () {
         </div>
         `
         );
-        
+
         //list.appendChild(reviewContent);
 
         // CALC RATING AND SET TO DOM
@@ -84,14 +77,16 @@ submitBtn.addEventListener('click', async function () {
         // set default value
         setDefaultRating();
 
+
         // Gửi dữ liệu lên server
         const data = {
             MaSP: MaSP,
-            NgayThucHien: time,
+            NgayThucHien: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
             NguoiThucHien: username.value,
             NoiDung: feedback.value,
             Rating: userRatingStar
         }
+        console.log(data);
 
         const result = await fetch('http://localhost:3000/api/admin/product-reviews/add', {
             method: 'POST',
@@ -113,8 +108,6 @@ submitBtn.addEventListener('click', async function () {
         timeouts = []; // reset
         updateTimeAgo(); // update again time for comment
         */
-
-
     }
 });
 
@@ -163,7 +156,7 @@ function setDefaultRating() {
     feedbackBox.classList.remove('show');
     username.value = '';
     feedback.value = '';
-    userRatingStar = 5;
+    //userRatingStar = 5;
 
     Array.from({ length: numberStar }, (_, i) => {
         let number = ++i; // value: 1,2,3,4,5
@@ -197,13 +190,12 @@ function setStars(number) {
         let starNth = 0;
         starNth = ++i;
 
-        stars += `${
-            number >= starNth
-                ? "<i class='fas fa-fw fa-star'></i>"
-                : number >= starNth - 0.5
+        stars += `${number >= starNth
+            ? "<i class='fas fa-fw fa-star'></i>"
+            : number >= starNth - 0.5
                 ? "<i class='fas fa-fw fa-star-half'></i>"
                 : "<i class='far fa-fw fa-star'></i>"
-        }`;
+            }`;
     });
 
     return stars;
