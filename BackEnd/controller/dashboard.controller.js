@@ -3,7 +3,7 @@ const Review = require('../models/review.model');
 
 const getDashboardPage = async(req, res, next) => {
     try {
-        const result = await Product.getAll();
+        const result = await Product.getAllAvailable();
         res.json(result);
     }
     catch (error) {

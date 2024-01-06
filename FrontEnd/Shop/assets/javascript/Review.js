@@ -77,7 +77,6 @@ submitBtn.addEventListener('click', async function () {
         // set default value
         setDefaultRating();
 
-
         // Gửi dữ liệu lên server
         const data = {
             MaSP: MaSP,
