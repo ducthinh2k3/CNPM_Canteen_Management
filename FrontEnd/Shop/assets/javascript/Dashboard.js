@@ -87,7 +87,7 @@ const reloadCard = () => {
         if (value != null) {
             let newDiv = document.createElement("li");
             newDiv.innerHTML = `
-                <div><img src = "Images/${value.HinhAnh}"></div>
+                <div><img src = "http://localhost:3000/images/products/${value.HinhAnh}"></div>
                 <div class = "cardTitle">${value.TenSP}</div>
                 <div class = "cardPrice">${value.GiaBan.toLocaleString()}</div>
 
