@@ -67,6 +67,10 @@ module.exports = class Product {
         return mydb.load(`select * from ${tableName}`);
     }
 
+    static getAllAvailable() {
+        return mydb.load(`select * from ${tableName} where TrangThai = true`);
+    }
+
     static getByID(id){
         return mydb.load(`select * from ${tableName} where MaSP = ${id}`)
     }
