@@ -29,6 +29,7 @@ async function fetchProducts() {
 };
 
 let listCards = [];
+let cartItems = [];
 
 const initApp = () => {
     products.forEach((value, key) => {
@@ -61,10 +62,18 @@ const addToCard = key => {
         // console.log(listCards);
         listCards[key].quantity = 1;
         // console.log(listCards[key].quantity);
+
+        cartItems.push({
+            productId: listCards[key].MaSP,
+            quantity: listCards[key].quantity,
+        });
+        // Lưu cartItems vào localStorage
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }
 
     reloadCard()
 }
+
 
 const reloadCard = () => {
     listCard.innerHTML = "";
@@ -100,16 +109,34 @@ const reloadCard = () => {
     })
 }
 
-
 const changeQuantity = (key, quantity) => {
+    const indexToUpdate = cartItems.findIndex(item => item.productId === listCards[key].MaSP);
+
     if (quantity == 0) {
+        if (indexToUpdate  !== -1) {
+            cartItems.splice(indexToUpdate , 1);
+        }
+
         delete listCards[key];
-        total.innerText = 0
+        total.innerText = 0;
     }
     else {
         listCards[key].quantity = quantity;
-        listCards[key].GiaBan = quantity * products[key].GiaBan
+        listCards[key].GiaBan = quantity * products[key].GiaBan;
+
+        if (indexToUpdate  !== -1) {
+            // Nếu sản phẩm có trong cartItems, cập nhật số lượng
+            cartItems[indexToUpdate ].quantity = quantity;
+        } else {
+            // Nếu không có trong cartItems, thêm mới vào
+            cartItems.push({
+                productId: listCards[key].MaSP,
+                quantity: quantity,
+            });
+        }
     }
+    // Lưu cartItems vào localStorage
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
     reloadCard()
 }
 

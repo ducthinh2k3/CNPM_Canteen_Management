@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <title>Hình thức thanh toán</title>
   </head>
   <body>
@@ -32,12 +33,12 @@
         </tr>
         <tr>
           <td>
-            <a href="index4.html">
+            <a>
               <p class="container__choose">Tiền mặt</p>
             </a>
           </td>
           <td>
-            <a href="index4.html">
+            <a>
               <p class="container__choose">Chuyển khoản</p>
             </a>            
           </td>
@@ -45,4 +46,45 @@
       </table>
     </div>
   </body>
+
+  <script>
+    const submitBtn = document.querySelector('.container__choose');
+    submitBtn.addEventListener('click', async function() {
+      const data = {
+        NgayMua: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+        // MaKM: localStorage.getItem('CouponCode'),
+        HinhThuc: localStorage.getItem('HinhThuc'),
+        ThanhTien: localStorage.getItem('NumericSubTotal')
+      }
+      console.log(data);
+
+      const result = await fetch(`http://localhost:3000/api/admin/save-order`, {
+        method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+   		const rs = await result.json();
+    
+      const cartItem = localStorage.getItem('cartItems');
+      const cartItemDetail = cartItems.map(cartItem => {
+        return {
+          NgayMua: data.NgayMua,
+          MaSP: cartItemDetail.productId,
+          SoLuong: cartItemDetail.quantity
+        };
+      });
+
+      const result1 = await fetch(`http://localhost:3000/api/admin/save-order`, {
+        method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cartItemDetail)
+        });
+   		const rs1 = await result1.json();
+    })
+  </script>
+
 </html>
