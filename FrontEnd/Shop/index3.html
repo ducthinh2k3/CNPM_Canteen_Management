@@ -33,12 +33,12 @@
         </tr>
         <tr>
           <td>
-            <a>
+            <a href="/FrontEnd/Shop/index4.html">
               <p class="container__choose">Tiền mặt</p>
             </a>
           </td>
           <td>
-            <a>
+            <a href="/FrontEnd/Shop/index4.html">
               <p class="container__choose">Chuyển khoản</p>
             </a>            
           </td>
@@ -48,42 +48,47 @@
   </body>
 
   <script>
-    const submitBtn = document.querySelector('.container__choose');
-    submitBtn.addEventListener('click', async function() {
-      const data = {
-        NgayMua: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
-        // MaKM: localStorage.getItem('CouponCode'),
-        HinhThuc: localStorage.getItem('HinhThuc'),
-        ThanhTien: localStorage.getItem('NumericSubTotal')
-      }
-      console.log(data);
-
-      const result = await fetch(`http://localhost:3000/api/admin/save-order`, {
-        method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+    const submitBtnList = document.querySelectorAll('.container__choose');
+    submitBtnList.forEach(submitBtn => {
+      submitBtn.addEventListener('click', async function() {
+        const data = {
+          NgayMua: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+          // MaKM: localStorage.getItem('CouponCode'),
+          HinhThuc: localStorage.getItem('HinhThuc'),
+          ThanhTien: localStorage.getItem('NumericSubTotal')
+        }
+        console.log(data);
+  
+        const result = await fetch(`http://localhost:3000/api/admin/save-order`, {
+          method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+          });
+         const rs = await result.json();
+      
+        const cartItem = JSON.parse(localStorage.getItem('cartItems'));
+        const cartItemDetail = cartItem.map(item => {
+          return {
+            STT: rs.insertId,
+            NgayMua: data.NgayMua,
+            MaSP: item.productId,
+            SoLuong: item.quantity
+          };
         });
-   		const rs = await result.json();
-    
-      const cartItem = localStorage.getItem('cartItems');
-      const cartItemDetail = cartItems.map(cartItem => {
-        return {
-          NgayMua: data.NgayMua,
-          MaSP: cartItemDetail.productId,
-          SoLuong: cartItemDetail.quantity
-        };
-      });
-
-      const result1 = await fetch(`http://localhost:3000/api/admin/save-order`, {
-        method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(cartItemDetail)
-        });
-   		const rs1 = await result1.json();
+        console.log(cartItemDetail);
+  
+        cartItemDetail.forEach(async (item) => {
+          const result1 = await fetch(`http://localhost:3000/api/admin/save-order-detail`, {
+          method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(item)
+          });
+        })
+      })
     })
   </script>
 

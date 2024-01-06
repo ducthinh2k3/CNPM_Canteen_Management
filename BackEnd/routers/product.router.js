@@ -5,7 +5,8 @@ const {
     updateProduct,
     deleteProduct,
     searchProductsByNameAndPage,
-    updateProductStatus
+    updateProductStatus,
+    updateQuantityProduct
 } = require('../controller/product.controller');
 
 const express = require('express');
@@ -26,6 +27,7 @@ router.get('/product/read', getProductPage);
 router.get('/product/search', searchProductsByNameAndPage);
 router.post('/product/add', upload.single('itemImage'), addProduct);
 router.post('/product/update', upload.single('editItemImage') ,updateProduct);
+router.get('/product/update-quantity' ,updateQuantityProduct);
 router.get('/product/delete' ,deleteProduct);
 router.get('/product/update-status' ,updateProductStatus);
 

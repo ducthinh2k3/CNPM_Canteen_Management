@@ -104,7 +104,7 @@ const reloadCard = () => {
         quantity.innerText = count;
 
         // Chuyển đổi total thành số và lưu vào localStorage
-        const numericTotal = parseFloat(total.innerText.replace(/,/g, '')); // Xóa dấu phẩy và chuyển đổi thành số
+        const numericTotal = parseFloat(total.innerText.replace(/\./g, '')); // Xóa dấu phẩy và chuyển đổi thành số
         localStorage.setItem("NumericSubTotal", numericTotal);
     })
 }

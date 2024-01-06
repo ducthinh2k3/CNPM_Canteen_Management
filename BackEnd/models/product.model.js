@@ -67,9 +67,9 @@ module.exports = class Product {
         return mydb.load(`select * from ${tableName}`);
     }
 
-    // static getByID(id){
-    //     return mydb.load(`select * from ${tableName} where UserID = ${id}`)
-    // }
+    static getByID(id){
+        return mydb.load(`select * from ${tableName} where MaSP = ${id}`)
+    }
 
     static addRow(entity) {
         return mydb.add(tableName, entity);

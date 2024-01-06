@@ -26,7 +26,7 @@ CREATE TABLE `ChiTietDonHang` (
 );
 
 CREATE TABLE `DonHang` (
-  `STT` INT,
+  `STT` INT AUTO_INCREMENT,
   `NgayMua` TIMESTAMP,
   `MaKM` VARCHAR(100),
   `HinhThuc` VARCHAR(100),

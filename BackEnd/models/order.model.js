@@ -7,7 +7,7 @@ module.exports = class DonHang {
         return mydb.add(tableName, entity);
     }
 
-    static addRow(entity){
+    static addRowDetail(entity){
       return mydb.add(tableName1, entity);
   }
 
